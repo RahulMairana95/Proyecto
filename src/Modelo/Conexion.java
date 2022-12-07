@@ -21,9 +21,9 @@ public class Conexion {
             
             conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/nuevajerusalen?useTimezone=true&serverTimezone=America/La_Paz", "root", "");
             
-            System.out.println("Esta Conectado eeeee");
+            System.out.println("Esta Conectado exitosamente");
         } catch (Exception e) {
-            System.out.println("no hay conexion a con BBDD");
+            System.out.println("no hay conexion");
         }
         return conectar;
     }
