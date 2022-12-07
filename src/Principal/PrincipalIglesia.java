@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author RAHUL ROMERO MAIRANA
+ * @author RAHUL ROMERO
  */
 public class PrincipalIglesia {
     
