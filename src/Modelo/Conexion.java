@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 
 /**
  *
- * @author RAHUL
+ * @author RAHUL OMERO MAIRANAs
  */
 public class Conexion {
     //public static void main(String[] args) {
@@ -21,9 +21,9 @@ public class Conexion {
             
             conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/nuevajerusalen?useTimezone=true&serverTimezone=America/La_Paz", "root", "");
             
-            System.out.println("Esta Conectado");
+            System.out.println("Esta Conectado eeeee");
         } catch (Exception e) {
-            System.out.println("no hay conexion");
+            System.out.println("no hay conexion a con BBDD");
         }
         return conectar;
     }
