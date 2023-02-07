@@ -54,6 +54,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         this.vistaMembrecia.botoncancelar.addActionListener(this);
         this.vistaMembrecia.botonnuevo.addActionListener(this);
         this.vistaMembrecia.botonreporte.addActionListener(this);
+        this.vistaMembrecia.btnbuscar.addActionListener(this);
         
         this.vistaMembrecia.txtdocumento.addActionListener(this);
         
@@ -107,13 +108,13 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo limpiar");
             }
-        }/*else if(vistaMembrecia.txtdocumento.getText()==ae.getSource()){
+        }else if(vistaMembrecia.btnbuscar==ae.getSource()){
             try{
-                validarNumeros();
+                buscar(vistaMembrecia.txtbuscar.getText());
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "IGRESE SOLO NUMEROS");
+                JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
-        }*/
+        }
         
     }
     
@@ -394,7 +395,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.datevonversion.setEnabled(true);
     }
     
-    
+    public void buscar(String buscando){
+        tablaModel=membreciaDAO.buscarMiembros(buscando);
+        vistaMembrecia.tablademiembros.setModel(tablaModel);
+    }
     
     
     

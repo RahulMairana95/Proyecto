@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 
@@ -28,6 +29,7 @@ public class MembreciaDAO {
     ResultSet rs;
     
     VistaMembrecia vistaMembrecia;
+    List<Membrecia> listamem = new ArrayList<>();
     
     Workbook wb;
     public MembreciaDAO(){
@@ -38,7 +40,7 @@ public class MembreciaDAO {
     }
     
     public List listarMembrecia(){
-        List<Membrecia> listamem = new ArrayList<>();
+        //List<Membrecia> listamem = new ArrayList<>();
         String consultas="select * from membrecia";
         
         try {
@@ -162,6 +164,37 @@ public class MembreciaDAO {
         }
     }
     
-    
+    public DefaultTableModel buscarMiembros(String buscar){
+        String [] nombbreColum={"nombre","apellidop","apellidom","numdocumento","fechanacimiento","estadocivil","fechaconversion","fechabautizo","talentos","dones","activo"};
+        String [] registros=new String[11];
+        DefaultTableModel tablabuscar=new DefaultTableModel(null, nombbreColum);
+        
+        String buscarsql="select * from membrecia where numdocumento like'%"+buscar+"%' or nombre like'%"+buscar+"%' or apellidop like'%"+buscar+"%'";
+        
+        try {
+           con=conectarMySQL.conectar;
+           pres=con.prepareStatement(buscarsql);
+           rs=pres.executeQuery();
+           
+           while(rs.next()){
+               registros[0]=rs.getString("nombre");
+               registros[1]=rs.getString("apellidop");
+               registros[2]=rs.getString("apellidom");
+               registros[3]=rs.getString("numdocumento");
+               registros[4]=rs.getString("fechanacimiento");
+               registros[5]=rs.getString("estadocivil");
+               registros[6]=rs.getString("fechaconversion");
+               registros[7]=rs.getString("fechabautizo");
+               registros[8]=rs.getString("talentos");
+               registros[9]=rs.getString("dones");
+               registros[10]=rs.getString("activo");
+               
+               tablabuscar.addRow(registros);
+           }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return tablabuscar;
+    }
    
 }

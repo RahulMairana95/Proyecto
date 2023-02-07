@@ -60,9 +60,9 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         botonmodificar = new javax.swing.JButton();
         botoneliminar = new javax.swing.JButton();
         botonreporte = new javax.swing.JButton();
-        jTextField8 = new javax.swing.JTextField();
+        txtbuscar = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
         boxactivo = new javax.swing.JComboBox<>();
         boxtalentos = new javax.swing.JComboBox<>();
         boxdones = new javax.swing.JComboBox<>();
@@ -229,8 +229,13 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
 
         jLabel13.setText("BUSCAR:");
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscar.png"))); // NOI18N
-        jButton7.setText("BUSCAR");
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscar.png"))); // NOI18N
+        btnbuscar.setText("BUSCAR");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
 
         boxactivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
         boxactivo.addActionListener(new java.awt.event.ActionListener() {
@@ -331,9 +336,9 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton7)
+                                .addComponent(btnbuscar)
                                 .addGap(18, 18, 18)
                                 .addComponent(botonmodificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -351,9 +356,9 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)
-                            .addComponent(jButton7)))
+                            .addComponent(btnbuscar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -612,6 +617,10 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
             boxactivo.requestFocus();
         }
     }//GEN-LAST:event_botoncancelarKeyPressed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        
+    }//GEN-LAST:event_btnbuscarActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -625,10 +634,10 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> boxdones;
     public javax.swing.JComboBox<String> boxestado;
     public javax.swing.JComboBox<String> boxtalentos;
+    public javax.swing.JButton btnbuscar;
     public com.toedter.calendar.JDateChooser datebautizo;
     public com.toedter.calendar.JDateChooser datenacimiento;
     public com.toedter.calendar.JDateChooser datevonversion;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -643,8 +652,8 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField8;
     public javax.swing.JTable tablademiembros;
+    public javax.swing.JTextField txtbuscar;
     public javax.swing.JTextField txtdocumento;
     public javax.swing.JTextField txtmaterno;
     public javax.swing.JTextField txtnombre;
