@@ -66,7 +66,7 @@ public class OfrendaDAO {
                 listaofrenda.add(diez);
                 
             }
-            System.out.println("diezmandooooooooooooooooooo");
+            System.out.println("ofrendado");
         } catch (Exception e) {
         }
         return listaofrenda;

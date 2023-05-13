@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ControlDiezmo extends MouseAdapter implements ActionListener{
     VistaDiezmo vistaDiezmo=new VistaDiezmo();
+    //VistaEgreso vistaEgreso=new VistaEgreso();
     DiezmoDAO diezmoDAO;
     Diezmo diezmo=new Diezmo();
     DefaultTableModel tablaModel=new DefaultTableModel();
@@ -47,7 +48,10 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         this.vistaDiezmo.botoneliminar.addActionListener(this);
         this.vistaDiezmo.botonnuevo.addActionListener(this);
         this.vistaDiezmo.botoneditar.addActionListener(this);
-        
+        ////////////BOTONES BUSCAR Y LISTAR
+        this.vistaDiezmo.botonbuscar.addActionListener(this);
+        this.vistaDiezmo.botonlistar.addActionListener(this);
+        //////EVENTO DE MOUSE
         this.vistaDiezmo.tabladiezmo.addMouseListener(this);
     }
     
@@ -87,6 +91,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
                     limpiarfield();
                     limpiartabla(vistaDiezmo.tabladiezmo);
                     listar();
+                    inhabilitar();
 
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "NO SE CANCELO");
@@ -98,7 +103,21 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "NO FUE LIMPIADO");
                 }
-        }
+            }else if(vistaDiezmo.botonbuscar==ae.getSource()){
+                try {
+                    buscar(vistaDiezmo.txtbuscar.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "INGRESE DATOS PARA BUSCAR");
+                }
+            }else if(vistaDiezmo.botonlistar==ae.getSource()){
+                try {
+                    vistaDiezmo.txtbuscar.setText("");
+                    limpiartabla(vistaDiezmo.tabladiezmo);
+                    listar();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "INGRESE DATOS PARA BUSCAR");
+                }
+            }
        
     }
     
@@ -109,7 +128,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
             id=lista.get(fila).getIddiezmo();
-            int idlid=lista.get(fila).getIdlider();
+            //int idlid=lista.get(fila).getIdlider();
             
             String tesorero=vistaDiezmo.tabladiezmo.getValueAt(fila, 0).toString();
             String ci=vistaDiezmo.tabladiezmo.getValueAt(fila, 1).toString();
@@ -122,13 +141,14 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             String fe=vistaDiezmo.tabladiezmo.getValueAt(fila, 8).toString();
             
             try {
-                vistaDiezmo.textesoreria.setText(String.valueOf(idlid));
+                //vistaDiezmo.textesoreria.setText(String.valueOf(idlid));
+                vistaDiezmo.txttesorero.setText(tesorero);
                 vistaDiezmo.txtcarnet.setText(ci);
                 vistaDiezmo.boxmes.setSelectedItem(mes);
                 vistaDiezmo.txtentrada.setText(ent);
                 vistaDiezmo.txtsalida.setText(sal);
                 vistaDiezmo.txtanterior.setText(saldo);
-                vistaDiezmo.txtactual.setText("");
+                vistaDiezmo.txtactual.setText(sala);
                 vistaDiezmo.texdescripcion.setText(des);
                 
                 vistaDiezmo.dateregistro.setDate(sdf.parse(fe));
@@ -141,11 +161,11 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
     
     public void mostrarlider(){
         LiderDAO ldao=new LiderDAO();
-        //List<Lideriglesia> lislider=new ArrayList<>();
+        List<Lideriglesia> lislider=new ArrayList<>();
         lislider=ldao.mostrar();
-        vistaDiezmo.boxtesorero.addItem(" " + "-"+"Seleccione nombre del tesorero");
+        vistaDiezmo.boxtesorero.addItem(" "+" "+"Seleccione nombre del tesorero");
         for(int i=0;i<lislider.size();i++){
-            vistaDiezmo.boxtesorero.addItem(lislider.get(i).getIdlider()+"-"+lislider.get(i).getNombre()+" "+lislider.get(i).getApaterno());
+            vistaDiezmo.boxtesorero.addItem(lislider.get(i).getIdlider()+" "+lislider.get(i).getNombre()+" "+lislider.get(i).getApaterno());
             
         }    
             
@@ -154,11 +174,13 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         lista=diezmoDAO.listarDiezmo();
         tablaModel=(DefaultTableModel) vistaDiezmo.tabladiezmo.getModel();
         Object obj[]=new Object[9];
-        System.out.println("diezmo");
+        //System.out.println("diezmo---------------------" + lista.size());
         
         for(int i=0;i<lista.size();i++){
+            //System.err.println("lo que sea pom "+ lista.get(i).getCarnet());
             
-            obj[0]=lista.get(i).getTesorn()+ ' '+ lista.get(i).getTesorap();
+            //obj[0]=lista.get(i).getTesorn()+ ' '+ lista.get(i).getTesorap();
+            obj[0]=lista.get(i).getTesorero();
             obj[1]=lista.get(i).getCarnet();
             obj[2]=lista.get(i).getMes();
             obj[3]=lista.get(i).getEntrada();
@@ -174,7 +196,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.tabladiezmo.setModel(tablaModel);
     }
     public void insertar(){
-        if(vistaDiezmo.textesoreria.getText().trim().isEmpty()||
+        if(vistaDiezmo.txttesorero.getText().trim().isEmpty()||
                 vistaDiezmo.txtcarnet.getText().trim().isEmpty()||
                 vistaDiezmo.boxmes.getSelectedItem().toString().trim().isEmpty()||
                 vistaDiezmo.txtentrada.getText().trim().isEmpty()||
@@ -186,14 +208,20 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
-            int idlider=Integer.parseInt(vistaDiezmo.textesoreria.getText());
-            Lideriglesia lider= new Lideriglesia();
+            //int idlider=Integer.parseInt(vistaDiezmo.textesoreria.getText());
+            //Lideriglesia lider= new Lideriglesia();
             //lider=lislider.stream().filter(lider->lider.getIdlider().equals(idlider));
-            System.out.println("lider "+ idlider);
+            //System.out.println("lider "+ idlider);
             //System.out.println("lista"+ lislider
                     
-            diezmo.setIdlider(Integer.parseInt(vistaDiezmo.textesoreria.getText()));
+            //diezmo.setIdlider(Integer.parseInt(vistaDiezmo.textesoreria.getText()));
+            String tmp=(String) vistaDiezmo.boxtesorero.getSelectedItem();
+            String [] aux=tmp.split(" ");
+            String idlid=aux[0];
             
+            diezmo.setIdlider(Integer.parseInt(idlid));
+            
+            diezmo.setTesorero(vistaDiezmo.txttesorero.getText());
             diezmo.setCarnet(vistaDiezmo.txtcarnet.getText());
             
             int seleccionado=vistaDiezmo.boxmes.getSelectedIndex();
@@ -222,7 +250,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else {
-            if(vistaDiezmo.textesoreria.getText().trim().isEmpty()||
+            if(vistaDiezmo.txttesorero.getText().trim().isEmpty()||
                 vistaDiezmo.txtcarnet.getText().trim().isEmpty()||
                 vistaDiezmo.boxmes.getSelectedItem().toString().trim().isEmpty()||
                 vistaDiezmo.txtentrada.getText().trim().isEmpty()||
@@ -235,8 +263,9 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
             id=lista.get(fila).getIddiezmo();
-            int iddiez=Integer.parseInt(vistaDiezmo.textesoreria.getText());
+            //int iddiez=Integer.parseInt(vistaDiezmo.textesoreria.getText());
             
+            String tes=vistaDiezmo.txttesorero.getText();
             String ci=vistaDiezmo.txtcarnet.getText();
             String mes=(String)vistaDiezmo.boxmes.getSelectedItem();
             Double ent=Double.parseDouble(vistaDiezmo.txtentrada.getText());
@@ -254,7 +283,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             Date freg=(new Date(yearn, mesn, dian));
             
             diezmo.setIddiezmo(id);
-            diezmo.setIdlider(iddiez);
+            diezmo.setTesorero(tes);
             diezmo.setCarnet(ci);
             diezmo.setMes(mes);
             diezmo.setEntrada(ent);
@@ -262,6 +291,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             diezmo.setSaldoanterior(saldo);
             diezmo.setSaldoactual(sala);
             diezmo.setDescripcion(des);
+            diezmo.setFecharegistro(freg);
             
             diezmoDAO.modificar(diezmo);
             }
@@ -287,8 +317,14 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
             JOptionPane.showMessageDialog(null, "Error al limpiar tabla");
         }
     }
+    public void buscar(String buscando){
+        tablaModel=diezmoDAO.buscarDiezmo(buscando);
+        vistaDiezmo.tabladiezmo.setModel(tablaModel);
+    }
+    
+    
     public void limpiarfield(){
-        vistaDiezmo.textesoreria.setText("");
+        vistaDiezmo.txttesorero.setText("");
         vistaDiezmo.txtcarnet.setText("");
         vistaDiezmo.boxmes.setSelectedItem("");
         vistaDiezmo.txtentrada.setText("");
@@ -306,6 +342,8 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.botoneliminar.setEnabled(false);
         vistaDiezmo.botoneditar.setEnabled(false);
         vistaDiezmo.botonreporte.setEnabled(false);
+        vistaDiezmo.botonSuma.setEnabled(false);
+        
         
         vistaDiezmo.texdescripcion.setEnabled(false);
         vistaDiezmo.txtactual.setEnabled(false);
@@ -316,6 +354,8 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.dateregistro.setEnabled(false);
         vistaDiezmo.boxmes.setEnabled(false);
         vistaDiezmo.boxtesorero.setEnabled(false);
+        vistaDiezmo.txtbuscar.setEnabled(false);
+        vistaDiezmo.tabladiezmo.setEnabled(false);
     }
     public void habilitar(){
         vistaDiezmo.botonagregar.setEnabled(true);
@@ -323,6 +363,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.botoneliminar.setEnabled(true);
         vistaDiezmo.botoneditar.setEnabled(true);
         vistaDiezmo.botonreporte.setEnabled(true);
+        vistaDiezmo.botonSuma.setEnabled(true);
         
         vistaDiezmo.texdescripcion.setEnabled(true);
         vistaDiezmo.txtactual.setEnabled(true);
@@ -333,6 +374,8 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.dateregistro.setEnabled(true);
         vistaDiezmo.boxmes.setEnabled(true);
         vistaDiezmo.boxtesorero.setEnabled(true);
+        vistaDiezmo.txtbuscar.setEnabled(true);
+        vistaDiezmo.tabladiezmo.setEnabled(true);
     }
     
     

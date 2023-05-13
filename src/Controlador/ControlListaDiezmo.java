@@ -32,7 +32,7 @@ public class ControlListaDiezmo {
         Object obj[]=new Object[11];
         for(int i=0;i<lista.size();i++){
             
-            obj[0]=lista.get(i).getTesorn()+ ' '+ lista.get(i).getTesorap();
+            //obj[0]=lista.get(i).getTesorn()+ ' '+ lista.get(i).getTesorap();
             obj[1]=lista.get(i).getCarnet();
             obj[2]=lista.get(i).getMes();
             obj[3]=lista.get(i).getEntrada();

@@ -62,10 +62,11 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         botonreporte = new javax.swing.JButton();
         txtbuscar = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        btnbuscar = new javax.swing.JButton();
+        botonlistar = new javax.swing.JButton();
         boxactivo = new javax.swing.JComboBox<>();
         boxtalentos = new javax.swing.JComboBox<>();
         boxdones = new javax.swing.JComboBox<>();
+        btnbuscar1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -227,13 +228,16 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         botonreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconexcel.png"))); // NOI18N
         botonreporte.setText("EXPORTAR");
 
+        txtbuscar.setToolTipText("");
+        txtbuscar.setName(""); // NOI18N
+
         jLabel13.setText("BUSCAR:");
 
-        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscar.png"))); // NOI18N
-        btnbuscar.setText("BUSCAR");
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+        botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
+        botonlistar.setText("LISTAR");
+        botonlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
+                botonlistarActionPerformed(evt);
             }
         });
 
@@ -270,6 +274,14 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         boxdones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 boxdonesKeyPressed(evt);
+            }
+        });
+
+        btnbuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscar.png"))); // NOI18N
+        btnbuscar1.setText("BUSCAR");
+        btnbuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscar1ActionPerformed(evt);
             }
         });
 
@@ -336,10 +348,12 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnbuscar)
-                                .addGap(18, 18, 18)
+                                .addComponent(btnbuscar1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonlistar)
+                                .addGap(46, 46, 46)
                                 .addComponent(botonmodificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botoneliminar)
@@ -358,7 +372,8 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)
-                            .addComponent(btnbuscar)))
+                            .addComponent(btnbuscar1)
+                            .addComponent(botonlistar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -413,7 +428,7 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                                     .addComponent(boxtalentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(boxdones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10)
                             .addComponent(boxactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -422,7 +437,7 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                     .addComponent(botonnuevo)
                     .addComponent(botonagregar)
                     .addComponent(botoncancelar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -618,15 +633,20 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botoncancelarKeyPressed
 
-    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+    private void botonlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonlistarActionPerformed
         
-    }//GEN-LAST:event_btnbuscarActionPerformed
+    }//GEN-LAST:event_botonlistarActionPerformed
+
+    private void btnbuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnbuscar1ActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton botonagregar;
     public javax.swing.JButton botoncancelar;
     public javax.swing.JButton botoneliminar;
+    public javax.swing.JButton botonlistar;
     public javax.swing.JButton botonmodificar;
     public javax.swing.JButton botonnuevo;
     public javax.swing.JButton botonreporte;
@@ -634,7 +654,7 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> boxdones;
     public javax.swing.JComboBox<String> boxestado;
     public javax.swing.JComboBox<String> boxtalentos;
-    public javax.swing.JButton btnbuscar;
+    public javax.swing.JButton btnbuscar1;
     public com.toedter.calendar.JDateChooser datebautizo;
     public com.toedter.calendar.JDateChooser datenacimiento;
     public com.toedter.calendar.JDateChooser datevonversion;

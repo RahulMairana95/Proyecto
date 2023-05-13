@@ -39,9 +39,13 @@ public class LiderDAO {
             pres=con.prepareStatement(listarsql);
             rs=pres.executeQuery();
             
+            System.out.println(rs.next()+"condiciones");
             while(rs.next()){
                 Lideriglesia li=new Lideriglesia();
+                System.out.println(rs.getInt(1)+"id ");
+                
                 li.setIdlider(rs.getInt(1));
+                System.out.println(rs.getInt(2)+"idmem ");
                 li.setIdmembrecia(rs.getInt(2));
                 li.setNombre(rs.getString(3));
                 li.setApaterno(rs.getString(4));
@@ -51,29 +55,33 @@ public class LiderDAO {
                 li.setIniciogestion(rs.getDate(8));
                 li.setFingestion(rs.getDate(9));
                 
-                
+                System.out.println(li + "intentando ver");
                 
                 lid.add(li);
             }
+            
         } catch (Exception e) {
         }
+        System.out.println(lid + "sacando lider");
         return lid;
     }
     public boolean agregar(Lideriglesia lid){
         int resp=0;
-        String agregarsql="insert into lider(nombre,apaterno,amaterno,ci,cargo,iniciogestion,fingestion)"
-                + "values(?,?,?,?,?,?,?)";
+        String agregarsql="insert into lider(idmembrecia,nombre,apaterno,amaterno,ci,cargo,iniciogestion,fingestion)"
+                + "values(?,?,?,?,?,?,?,?)";
         
         try {
             pres=con.prepareStatement(agregarsql);
             
-            pres.setString(1, lid.getNombre());
-            pres.setString(2, lid.getApaterno());
-            pres.setString(3, lid.getAmaterno());
-            pres.setString(4, lid.getCi());
-            pres.setString(5, lid.getCargo());
-            pres.setDate(6, lid.getIniciogestion());
-            pres.setDate(7, lid.getFingestion());
+            System.out.println(lid.getIdmembrecia()+"id meme");
+            pres.setInt(1, lid.getIdmembrecia());
+            pres.setString(2, lid.getNombre());
+            pres.setString(3, lid.getApaterno());
+            pres.setString(4, lid.getAmaterno());
+            pres.setString(5, lid.getCi());
+            pres.setString(6, lid.getCargo());
+            pres.setDate(7, lid.getIniciogestion());
+            pres.setDate(8, lid.getFingestion());
             
             int n=pres.executeUpdate();
             if (n != 0) {

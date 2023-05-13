@@ -54,7 +54,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         this.vistaMembrecia.botoncancelar.addActionListener(this);
         this.vistaMembrecia.botonnuevo.addActionListener(this);
         this.vistaMembrecia.botonreporte.addActionListener(this);
-        this.vistaMembrecia.btnbuscar.addActionListener(this);
+        this.vistaMembrecia.btnbuscar1.addActionListener(this);
+        this.vistaMembrecia.botonlistar.addActionListener(this);
         
         this.vistaMembrecia.txtdocumento.addActionListener(this);
         
@@ -108,14 +109,26 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo limpiar");
             }
-        }else if(vistaMembrecia.btnbuscar==ae.getSource()){
+        }
+        else if(vistaMembrecia.btnbuscar1==ae.getSource()){
             try{
                 buscar(vistaMembrecia.txtbuscar.getText());
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
+        }else if(vistaMembrecia.botonlistar==ae.getSource()){
+            try{
+                vistaMembrecia.txtbuscar.setText("");
+                
+                limpiartabla(vistaMembrecia.tablademiembros);
+                listar();
+                
+                
+                
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+            }
         }
-        
     }
     
     @Override

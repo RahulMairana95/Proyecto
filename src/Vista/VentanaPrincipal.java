@@ -40,6 +40,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemlideriglesia = new javax.swing.JMenuItem();
         itemministerio = new javax.swing.JMenuItem();
         itemregistrardiezmo = new javax.swing.JMenuItem();
+        itemdiezmomensual = new javax.swing.JMenuItem();
         itemoregistrarfrenda = new javax.swing.JMenuItem();
         itemMembrecia = new javax.swing.JMenu();
         itemLista = new javax.swing.JMenuItem();
@@ -128,8 +129,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemregistrardiezmo.setText("Registrar Diezmos");
         registros.add(itemregistrardiezmo);
 
-        itemoregistrarfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew4.png"))); // NOI18N
-        itemoregistrarfrenda.setText("Registrar Ofrendas");
+        itemdiezmomensual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlibro.png"))); // NOI18N
+        itemdiezmomensual.setText("Administracion mensual de Diezmos");
+        registros.add(itemdiezmomensual);
+
+        itemoregistrarfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlibro.png"))); // NOI18N
+        itemoregistrarfrenda.setText("Administración mensual de Ofrendas");
         itemoregistrarfrenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemoregistrarfrendaActionPerformed(evt);
@@ -288,6 +293,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenu itemMembrecia;
     public javax.swing.JMenuItem itemOfrenda;
     public javax.swing.JMenuItem itemRegistro;
+    public javax.swing.JMenuItem itemdiezmomensual;
     public javax.swing.JMenuItem itemlideriglesia;
     public javax.swing.JMenuItem itemmiembros;
     private javax.swing.JMenuItem itemministerio;

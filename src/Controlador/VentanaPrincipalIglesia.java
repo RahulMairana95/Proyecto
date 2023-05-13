@@ -49,6 +49,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
         ventanaPrincipal.itemIglesia.addActionListener(this);
         ventanaPrincipal.itemDiezmo.addActionListener(this);
         ventanaPrincipal.itemOfrenda.addActionListener(this);
+        ventanaPrincipal.itemdiezmomensual.addActionListener(this);
         //ventanaPrincipal.itemSalir.addActionListener(this);
         
         ventanaPrincipal.idusuarioaminnis.setText(admin.getIdadmin()+ "");
@@ -81,6 +82,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
             listarLideresGlesia();
         }else if(ventanaPrincipal.itemDiezmo==ae.getSource()){
             listarDiezmo();
+        }else if(ventanaPrincipal.itemdiezmomensual==ae.getSource()){
+            diezmoMensual();
         }else if(ventanaPrincipal.itemOfrenda==ae.getSource()){
             listarOfrenda();
         }
@@ -95,12 +98,13 @@ public class VentanaPrincipalIglesia implements ActionListener{
         centarFrameInterno(vistaMembrecia);
     }
     public void agregarDiezmo(){
-        VistaDiezmo vistaDiezmo=new VistaDiezmo();
-        DiezmoDAO diezmoDAO=new DiezmoDAO(vistaDiezmo);
-        ControlDiezmo controlDiezmo=new ControlDiezmo(vistaDiezmo, diezmoDAO);
-        vistaDiezmo.setTitle("REGISTRO DE DIEZMOS");
+       
+        VistaMiembrosActivos vistaDiezmoM=new VistaMiembrosActivos();
+        ActivosDAO ac=new ActivosDAO(vistaDiezmoM);
+        ControlActivos ca=new ControlActivos(vistaDiezmoM, ac);
+        vistaDiezmoM.setTitle("REGISTRO DE DIEZMO DE MIEMBROS ACTIVOS");
         
-        centarFrameInterno(vistaDiezmo);
+        centarFrameInterno(vistaDiezmoM);
     }
     public void listarDiezmo(){
         VistaListaDiezmo vistalistaDiezmo=new VistaListaDiezmo();
@@ -160,6 +164,15 @@ public class VentanaPrincipalIglesia implements ActionListener{
         
         centarFrameInterno(vistaLiderIglesia);
        
+    }
+    
+    public void diezmoMensual(){
+        VistaDiezmo vistaDiezmo=new VistaDiezmo();
+        DiezmoDAO diezmoDAO=new DiezmoDAO(vistaDiezmo);
+        ControlDiezmo controlDiezmo=new ControlDiezmo(vistaDiezmo, diezmoDAO);
+        vistaDiezmo.setTitle("REGISTRO DE DIEZMOS");
+        
+        centarFrameInterno(vistaDiezmo);
     }
     
     

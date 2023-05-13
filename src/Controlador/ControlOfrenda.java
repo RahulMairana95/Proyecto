@@ -60,7 +60,7 @@ public class ControlOfrenda extends MouseAdapter implements ActionListener{
                 limpiarfield();
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "no se pudo agregar nueva reserva");
+                JOptionPane.showMessageDialog(null, "no se pudo agregar nuevo registro");
             }
             }else if(vistaOfrenda.botoneditar==ae.getSource()){
             try {
@@ -130,7 +130,7 @@ public class ControlOfrenda extends MouseAdapter implements ActionListener{
                 vistaOfrenda.texdescripcion.setText(des);
                 
                 vistaOfrenda.dateregistro.setDate(sdf.parse(fe));
-                
+                System.out.println(fe+" fechita");
             } catch (Exception errrr) {
             }
         }
@@ -152,7 +152,7 @@ public class ControlOfrenda extends MouseAdapter implements ActionListener{
         lista=ofrendaDAO.listarOfrenda();
         tablaModel=(DefaultTableModel) vistaOfrenda.tablaofrenda.getModel();
         Object obj[]=new Object[9];
-        System.out.println("diezmo");
+        System.out.println("ofrenda");
         
         for(int i=0;i<lista.size();i++){
             

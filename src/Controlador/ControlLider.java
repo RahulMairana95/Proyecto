@@ -199,6 +199,12 @@ public class ControlLider extends MouseAdapter implements ActionListener{
           JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
         }else{
             
+            String tmp=(String) vistaLider.boxnombre.getSelectedItem();
+            String [] aux=tmp.split("-");
+            String idmen=aux[0];
+            
+            lideriglesia.setIdmembrecia(Integer.parseInt(idmen));
+            System.err.println(idmen+"miembro num");
             lideriglesia.setNombre(vistaLider.txtnombre.getText());
             
             

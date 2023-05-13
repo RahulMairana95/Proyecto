@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,6 +39,8 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         
         //EVENTO DE BOTON REPORTAR
         this.vistaListaMembrecia.btnexportar.addActionListener(this);
+        this.vistaListaMembrecia.botonbuscar.addActionListener(this);
+        this.vistaListaMembrecia.botonlistar.addActionListener(this);
     }
     
     @Override
@@ -47,6 +50,20 @@ public class ControlLista extends MouseAdapter implements ActionListener{
                 exportars();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
+            }
+        }else if(vistaListaMembrecia.botonbuscar==ae.getSource()){
+            try{
+                buscar(vistaListaMembrecia.txtbusqueda.getText());
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+            }
+        }else if(vistaListaMembrecia.botonlistar==ae.getSource()){
+            try{
+                limpiartabla(vistaListaMembrecia.tablalistar);
+                listar();
+                vistaListaMembrecia.txtbusqueda.setText("");
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
         }
     }
@@ -82,5 +99,18 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void buscar(String buscr){
+        tablaModel=mdao.buscarMiembros(buscr);
+        vistaListaMembrecia.tablalistar.setModel(tablaModel);
+    }
+    public void limpiartabla(JTable tabla){
+        try {
+            int filas=tabla.getRowCount();
+            for(int i=0;filas>i;i++){
+                tablaModel.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar tabla");
+        }
+    }
 }

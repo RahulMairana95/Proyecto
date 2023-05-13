@@ -29,7 +29,7 @@ public class MembreciaDAO {
     ResultSet rs;
     
     VistaMembrecia vistaMembrecia;
-    List<Membrecia> listamem = new ArrayList<>();
+    
     
     Workbook wb;
     public MembreciaDAO(){
@@ -40,7 +40,7 @@ public class MembreciaDAO {
     }
     
     public List listarMembrecia(){
-        //List<Membrecia> listamem = new ArrayList<>();
+        List<Membrecia> listamem = new ArrayList<>();
         String consultas="select * from membrecia";
         
         try {
@@ -196,5 +196,6 @@ public class MembreciaDAO {
         }
         return tablabuscar;
     }
+    
    
 }
