@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +40,8 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
     List<Membrecia> lislider=new ArrayList<>();
     
+    ExcelExpo exp;
+    
     public ControlLider(VistaLider vl, LiderDAO ld){
         this.vistaLider=vl;
         this.ldao=ld;
@@ -51,6 +56,11 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         this.vistaLider.botoncancelar.addActionListener(this);
         this.vistaLider.botoneliminar.addActionListener(this);
         this.vistaLider.botonnuevo.addActionListener(this);
+        
+        this.vistaLider.botonreporte.addActionListener(this);
+        //BOTONES BUSCAR Y LISTAR
+        this.vistaLider.botonbuscar.addActionListener(this);
+        this.vistaLider.botonlistar.addActionListener(this);
         
         this.vistaLider.tablalider.addMouseListener(this);
     }
@@ -100,6 +110,26 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo limpiar");
             }
+        }else if(vistaLider.botonbuscar==ae.getSource()){
+            try {
+                buscar(vistaLider.txtbuscar.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR LIDER");
+            }
+        }else if(vistaLider.botonlistar==ae.getSource()){
+            try{
+                vistaLider.txtbuscar.setText("");
+                limpiartabla(vistaLider.tablalider);
+                mostrarlista();
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "ERROR AL LISTAR");
+            }
+        }else if(vistaLider.botonreporte==ae.getSource()){
+            try{
+                exportars();
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
+            }
         }
     }
     
@@ -113,17 +143,15 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             id=lista.get(fila).getIdlider();
             
             String nom=vistaLider.tablalider.getValueAt(fila, 0).toString();
-            String pat=vistaLider.tablalider.getValueAt(fila, 1).toString();
-            String mat=vistaLider.tablalider.getValueAt(fila, 2).toString();
-            String ci=vistaLider.tablalider.getValueAt(fila, 3).toString();
-            String cargo=vistaLider.tablalider.getValueAt(fila, 4).toString();
-            String ini=vistaLider.tablalider.getValueAt(fila, 5).toString();
-            String fin=vistaLider.tablalider.getValueAt(fila, 6).toString();
+            String ape=vistaLider.tablalider.getValueAt(fila, 1).toString();
+            String ci=vistaLider.tablalider.getValueAt(fila, 2).toString();
+            String cargo=vistaLider.tablalider.getValueAt(fila, 3).toString();
+            String ini=vistaLider.tablalider.getValueAt(fila, 4).toString();
+            String fin=vistaLider.tablalider.getValueAt(fila, 5).toString();
             
             try {
                 vistaLider.txtnombre.setText(nom);
-                vistaLider.txtpaterno.setText(pat);
-                vistaLider.txtmaterno.setText(mat);
+                vistaLider.txtapellidos.setText(ape);
                 vistaLider.txtdocumento.setText(ci);
                 
                 vistaLider.boxcargo.setSelectedItem(cargo);
@@ -138,9 +166,9 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         MembreciaDAO lldao=new MembreciaDAO();
         //List<Lideriglesia> lislider=new ArrayList<>();
         lislider=lldao.listarMembrecia();
-        vistaLider.boxnombre.addItem(" " + "-"+"Seleccione nombre del Lider");
+        vistaLider.boxnombre.addItem(" "+" "+"Seleccione un nombre");
         for(int i=0;i<lislider.size();i++){
-            vistaLider.boxnombre.addItem(lislider.get(i).getIdmembrecia()+"-"+lislider.get(i).getNombre()+" "+lislider.get(i).getApellidop()+" "+lislider.get(i).getApellidom());
+            vistaLider.boxnombre.addItem(lislider.get(i).getIdmembrecia()+" "+lislider.get(i).getNombre()+" "+lislider.get(i).getApellidop()+" "+lislider.get(i).getApellidom());
             
         }    
           
@@ -170,17 +198,16 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     public void mostrarlista(){
         lista=ldao.mostrar();
         tablamodel=(DefaultTableModel) vistaLider.tablalider.getModel();
-        Object obj[]=new Object[7];
-        System.out.println("lista Lider");
+        Object obj[]=new Object[6];
+        //System.out.println("lista Lider");
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApaterno();
-            obj[2]=lista.get(i).getAmaterno();
-            obj[3]=lista.get(i).getCi();
-            obj[4]=lista.get(i).getCargo();
-            obj[5]=sdf.format(lista.get(i).getIniciogestion());
-            obj[6]=sdf.format(lista.get(i).getFingestion());
+            obj[1]=lista.get(i).getApellidos();
+            obj[2]=lista.get(i).getCi();
+            obj[3]=lista.get(i).getCargo();
+            obj[4]=sdf.format(lista.get(i).getIniciogestion());
+            obj[5]=sdf.format(lista.get(i).getFingestion());
             
             tablamodel.addRow(obj);
         }
@@ -189,8 +216,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
 
     public void agregarNuevo(){
         if(vistaLider.txtnombre.getText().trim().isEmpty()||
-                vistaLider.txtpaterno.getText().trim().isEmpty()||
-                vistaLider.txtmaterno.getText().trim().isEmpty()||
+                vistaLider.txtapellidos.getText().trim().isEmpty()||
                 vistaLider.txtdocumento.getText().trim().isEmpty()||
                 vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty()||
                 vistaLider.fechainicio.getCalendar().toString().trim().isEmpty()||
@@ -200,16 +226,14 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         }else{
             
             String tmp=(String) vistaLider.boxnombre.getSelectedItem();
-            String [] aux=tmp.split("-");
+            String [] aux=tmp.split(" ");
             String idmen=aux[0];
             
             lideriglesia.setIdmembrecia(Integer.parseInt(idmen));
-            System.err.println(idmen+"miembro num");
+            //System.err.println(idmen+"miembro num");
+            ///////DATOS LLAMADOS DE LA MEMBRECIA
             lideriglesia.setNombre(vistaLider.txtnombre.getText());
-            
-            
-            lideriglesia.setApaterno(vistaLider.txtpaterno.getText());
-            lideriglesia.setAmaterno(vistaLider.txtmaterno.getText());
+            lideriglesia.setApellidos(vistaLider.txtapellidos.getText());
             lideriglesia.setCi(vistaLider.txtdocumento.getText());
             
             lideriglesia.setCargo((String)vistaLider.boxcargo.getSelectedItem());
@@ -238,8 +262,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
             if(vistaLider.txtnombre.getText().trim().isEmpty()||
-                vistaLider.txtpaterno.getText().trim().isEmpty()||
-                vistaLider.txtmaterno.getText().trim().isEmpty()||
+                vistaLider.txtapellidos.getText().trim().isEmpty()||
                 vistaLider.txtdocumento.getText().trim().isEmpty()||
                 vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty()||
                 vistaLider.fechainicio.getCalendar().toString().trim().isEmpty()||
@@ -249,8 +272,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         }else{
             id=lista.get(fila).getIdlider();
             String nombre=vistaLider.txtnombre.getText();
-            String paterno=vistaLider.txtpaterno.getText();
-            String materno=vistaLider.txtmaterno.getText();
+            String paterno=vistaLider.txtapellidos.getText();
             String num=vistaLider.txtdocumento.getText();
             
             String cargo=(String)vistaLider.boxcargo.getSelectedItem();
@@ -271,8 +293,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             
             lideriglesia.setIdlider(id);
             lideriglesia.setNombre(nombre);
-            lideriglesia.setApaterno(paterno);
-            lideriglesia.setAmaterno(materno);
+            lideriglesia.setApellidos(paterno);
             lideriglesia.setCi(num);
             lideriglesia.setCargo(cargo);
             lideriglesia.setIniciogestion(fini);
@@ -291,6 +312,14 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             System.out.println("eliminando");
         }
     }
+    public void buscar(String buscando){
+        if(vistaLider.txtbuscar.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
+        }else{
+            tablamodel=ldao.buscarlider(buscando);
+            vistaLider.tablalider.setModel(tablamodel);
+        }
+    }
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();
@@ -303,8 +332,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     }
     public void limpiarfield(){
         vistaLider.txtnombre.setText("");
-        vistaLider.txtpaterno.setText("");
-        vistaLider.txtmaterno.setText("");
+        vistaLider.txtapellidos.setText("");
         vistaLider.txtdocumento.setText("");
         vistaLider.boxcargo.setSelectedItem("");
         
@@ -312,17 +340,25 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.fechainicio.setDate(fechaactual);
         vistaLider.fechafin.setDate(fechaactual);
     }
+    public void exportars(){
+        try {
+            exp= new ExcelExpo();
+            exp.Exportar(vistaLider.tablalider);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void inhabilitar(){
         vistaLider.botonagregar.setEnabled(false);
         vistaLider.botoncancelar.setEnabled(false);
         vistaLider.botoneliminar.setEnabled(false);
         vistaLider.botoneditar.setEnabled(false);
         vistaLider.botonreporte.setEnabled(false);
+        vistaLider.tablalider.setEnabled(false);
         
         vistaLider.boxnombre.setEnabled(false);
         vistaLider.txtnombre.setEnabled(false);
-        vistaLider.txtpaterno.setEnabled(false);
-        vistaLider.txtmaterno.setEnabled(false);
+        vistaLider.txtapellidos.setEnabled(false);
         vistaLider.txtdocumento.setEnabled(false);
         vistaLider.boxcargo.setEnabled(false);
         vistaLider.fechafin.setEnabled(false);
@@ -334,11 +370,11 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botoneliminar.setEnabled(true);
         vistaLider.botoneditar.setEnabled(true);
         vistaLider.botonreporte.setEnabled(true);
+        vistaLider.tablalider.setEnabled(true);
         
         vistaLider.boxnombre.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
-        vistaLider.txtpaterno.setEnabled(true);
-        vistaLider.txtmaterno.setEnabled(true);
+        vistaLider.txtapellidos.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);
         vistaLider.fechafin.setEnabled(true);

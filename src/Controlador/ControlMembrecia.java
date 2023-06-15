@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +39,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
     
     ConverMayus con;
+    
+    ExcelExpo exp;
     
     public ControlMembrecia(VistaMembrecia vistaMembrecia, MembreciaDAO membreciaDAO){
         System.out.println("listando");
@@ -72,7 +77,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 listar();
                 limpiarventanas();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo agregar");
+                JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR");
             }
         }else if(vistaMembrecia.botonmodificar==ae.getSource()){
             try {
@@ -81,7 +86,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 listar();
                 limpiarventanas();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo modificar");
+                JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
             }
         }else if(vistaMembrecia.botoneliminar==ae.getSource()){
             try {
@@ -90,7 +95,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 listar();
                 limpiarventanas();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+                JOptionPane.showMessageDialog(null, "ERROR AL ELIMINAR");
             }
         }else if(vistaMembrecia.botoncancelar==ae.getSource()){
             try {
@@ -99,7 +104,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 listar();
                 inhabilitar();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo cancelar");
+                JOptionPane.showMessageDialog(null, "ERROR AL CANCELAR");
             }
         }else if(vistaMembrecia.botonnuevo==ae.getSource()){
             try {
@@ -107,26 +112,30 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 habilitar();
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo limpiar");
+                JOptionPane.showMessageDialog(null, "ERROR AL HABILITAR");
             }
         }
         else if(vistaMembrecia.btnbuscar1==ae.getSource()){
             try{
                 buscar(vistaMembrecia.txtbuscar.getText());
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR");
             }
         }else if(vistaMembrecia.botonlistar==ae.getSource()){
             try{
                 vistaMembrecia.txtbuscar.setText("");
                 
                 limpiartabla(vistaMembrecia.tablademiembros);
-                listar();
-                
-                
-                
+                listar();  
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR LISTA");
+            }
+        }
+        else if(vistaMembrecia.botonreporte==ae.getSource()){
+            try{
+                excel();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
             }
         }
     }
@@ -349,6 +358,14 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             System.out.println("eliminando");
         }
     }
+    public void excel(){
+        try {
+            exp= new ExcelExpo();
+            exp.Exportar(vistaMembrecia.tablademiembros);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void limpiarventanas(){
         
         vistaMembrecia.txtnombre.setText("");
@@ -395,6 +412,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botonmodificar.setEnabled(true);
         vistaMembrecia.botonreporte.setEnabled(true);
         
+        
         vistaMembrecia.txtnombre.setEnabled(true);
         vistaMembrecia.txtpaterno.setEnabled(true);
         vistaMembrecia.txtmaterno.setEnabled(true);
@@ -409,8 +427,12 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     }
     
     public void buscar(String buscando){
-        tablaModel=membreciaDAO.buscarMiembros(buscando);
-        vistaMembrecia.tablademiembros.setModel(tablaModel);
+        if(vistaMembrecia.txtbuscar.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
+        }else{
+            tablaModel=membreciaDAO.buscarMiembros(buscando);
+            vistaMembrecia.tablademiembros.setModel(tablaModel);
+        }
     }
     
     

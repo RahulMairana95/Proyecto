@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +39,8 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
     SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
     List<Lideriglesia> lislider=new ArrayList<>();
     
+    ExcelExpo exp;
+    
     public ControlDiezmo(VistaDiezmo vistaDiezmo, DiezmoDAO diezmoDAO){
         this.vistaDiezmo=vistaDiezmo;
         this.diezmoDAO=diezmoDAO;
@@ -48,6 +53,8 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         this.vistaDiezmo.botoneliminar.addActionListener(this);
         this.vistaDiezmo.botonnuevo.addActionListener(this);
         this.vistaDiezmo.botoneditar.addActionListener(this);
+        
+        this.vistaDiezmo.botonreporte.addActionListener(this);
         ////////////BOTONES BUSCAR Y LISTAR
         this.vistaDiezmo.botonbuscar.addActionListener(this);
         this.vistaDiezmo.botonlistar.addActionListener(this);
@@ -117,6 +124,12 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "INGRESE DATOS PARA BUSCAR");
                 }
+            }else if(vistaDiezmo.botonreporte==ae.getSource()){
+                try {
+                    excel();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
+                }
             }
        
     }
@@ -165,7 +178,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         lislider=ldao.mostrar();
         vistaDiezmo.boxtesorero.addItem(" "+" "+"Seleccione nombre del tesorero");
         for(int i=0;i<lislider.size();i++){
-            vistaDiezmo.boxtesorero.addItem(lislider.get(i).getIdlider()+" "+lislider.get(i).getNombre()+" "+lislider.get(i).getApaterno());
+            vistaDiezmo.boxtesorero.addItem(lislider.get(i).getIdlider()+" "+lislider.get(i).getNombre()+" "+lislider.get(i).getApellidos());
             
         }    
             
@@ -318,10 +331,21 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         }
     }
     public void buscar(String buscando){
-        tablaModel=diezmoDAO.buscarDiezmo(buscando);
-        vistaDiezmo.tabladiezmo.setModel(tablaModel);
+        if(vistaDiezmo.txtbuscar.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
+        }else{
+            tablaModel=diezmoDAO.buscarDiezmo(buscando);
+            vistaDiezmo.tabladiezmo.setModel(tablaModel);
+        }
     }
-    
+    public void excel(){
+        try {
+            exp= new ExcelExpo();
+            exp.Exportar(vistaDiezmo.tabladiezmo);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void limpiarfield(){
         vistaDiezmo.txttesorero.setText("");
@@ -355,7 +379,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.boxmes.setEnabled(false);
         vistaDiezmo.boxtesorero.setEnabled(false);
         vistaDiezmo.txtbuscar.setEnabled(false);
-        vistaDiezmo.tabladiezmo.setEnabled(false);
+        //vistaDiezmo.tabladiezmo.setEnabled(false);
     }
     public void habilitar(){
         vistaDiezmo.botonagregar.setEnabled(true);
@@ -375,7 +399,7 @@ public class ControlDiezmo extends MouseAdapter implements ActionListener{
         vistaDiezmo.boxmes.setEnabled(true);
         vistaDiezmo.boxtesorero.setEnabled(true);
         vistaDiezmo.txtbuscar.setEnabled(true);
-        vistaDiezmo.tabladiezmo.setEnabled(true);
+        //vistaDiezmo.tabladiezmo.setEnabled(true);
     }
     
     

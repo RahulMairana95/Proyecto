@@ -47,6 +47,7 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
         setTitle("REGISTRO DE MEMBRECÍA");
 
         tablalistar.setModel(new javax.swing.table.DefaultTableModel(
@@ -54,7 +55,7 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido P.", "Apellido M.", "C.I.", "Fecha Nacimiento", "Estado Civil", "Fecha Coversion", "Fecha Bautizo", "Talentos", "Dones", "Activo"
+                "NOMBRE", "APELLIDO P.", "APELLIDO M.", "C.I.", "FECHA NACIMIENTO", "ESTADO CIVIL", "FECHA CONVERSION", "FECHA BAUTIZO", "TALENTOS", "DONES", "ACTIVO"
             }
         ) {
             Class[] types = new Class [] {
@@ -89,7 +90,7 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
-        jLabel1.setText("Iglesia Nueva Jerusalen Motecato");
+        jLabel1.setText("LISTA DE LOS MIEMBROS DE LA IGLESIA \"NUEVA JERUSALEN\"");
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
         botonlistar.setText("LISTAR");
@@ -115,17 +116,15 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
                         .addComponent(txtbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonbuscar)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botonlistar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnexportar)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonlistar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnexportar)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(361, 361, 361))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

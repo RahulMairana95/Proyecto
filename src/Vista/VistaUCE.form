@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="229" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="scrUce" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="72" max="32767" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
+              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="144" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="126" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="scrUce" min="-2" pref="374" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="scrUce">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="COMO COMIENZA LA U.C.E.&#xa;El origen de la Uni&#xf3;n Cristiana Evang&#xe9;lica emerge paulatinamente a trav&#xe9;s de una serie de &#xa;eventos secuenciales muy importante cada uno de ellos en su tiempo. Se podr&#xed;a mencionar &#xa;algunos acontecimientos que sobresalen, los cuales son muy importantes dentro del proceso &#xa;evolutivo en la formaci&#xf3;n de nuestra organizaci&#xf3;n.&#xa;Uno de ellos es la llegada del misionero Jorge Allan a Bolivia, en septiembre de 1902. &#xa;Tambi&#xe9;n se puede se&#xf1;alar la fundaci&#xf3;n de la &#x201c;Bolivian Indian Mission&#x201d;, en San Pedro de buena vista&#xa;en 1907.&#xa;La uni&#xf3;n cristiana evang&#xe9;lica (u.c.e.), se fund&#xf3; el 30 de abril de 1950, en los hechos se remontan a la&#xa; primera d&#xe9;cada de este siglo.&#xa;La UCE nace con 4 iglesias que surgieron por el trabajo de la Bolivian Indian Mission (BIM),&#xa; (m&#xe1;s tarde misi&#xf3;n andina evang&#xe9;lica (MAE), afiliada a SIM internacional), desde sus inicios las&#xa; iglesias fueron pastoreadas por obreros nacionales y algunas otras por misioneros. &#xa;Las primeras iglesias que estuvieron presentes en su fundaci&#xf3;n son: La Iglesia de la calle &#x201c;bol&#xed;var&#x201d;, &#xa;Aiquile, Capinota, Esteban Arce, Acirumarca, Pichacani, Cliza y otros que poco a poco fueron &#xa;establecidas en el pa&#xed;s. El mayor crecimiento de iglesias de dio en el &#xe1;rea rural. Hasta el momento &#xa;la denominaci&#xf3;n cuenta con m&#xe1;s de 1000 iglesias y congregaciones en todo el pa&#xed;s organizadas &#xa;en 31 sub directivas.&#xa;&#xa;SUBDIRECTIVAS&#xa;&#xa;Las Subdirectivas son instancias a las que est&#xe1;n delegadas la representaci&#xf3;n &#xa;de la UCE en una jurisdicci&#xf3;n territorial determinada, constituida por iglesias, congregaciones, ministerios, &#xa;comit&#xe9;s y miembros, guiado por un Directorio cuyo presidente es el representante legal de la subdirectiva. &#xa;Su organizaci&#xf3;n y funcionamiento est&#xe1; prevista en el reglamento. &#xa;Veamos las Subdirectivas en cada departamento:&#xa;&#xa;COCHABAMBA&#xa;&#x9;&lt;&gt; Subdirectiva 5 de Aiquile&#xa;&#x9;&lt;&gt; Subdirectiva 6 en Cercado&#xa;&#x9;&lt;&gt; Subdirectiva 13 en Tr&#xf3;pico&#xa;&#x9;&lt;&gt; Subdirectiva 17 en Cocapata&#xa;&#x9;&lt;&gt; Subdirectiva 25 en Valle Alto&#xa;CHUQUISACA&#xa;&#x9;&lt;&gt; Subdirectiva 9 en Sucre&#xa;&#x9;&lt;&gt; Subdirectiva 15 en Pulpina&#xa;TARIJA&#xa;&#x9;&lt;&gt; Subdirectiva 24 en Gran Chaco&#xa;&#x9;&lt;&gt; Subdirectiva 31 en Tarija&#xa;LA PAZ&#xa;&#x9;&lt;&gt; Subdirectiva 10 en El Alto&#xa;&#x9;&lt;&gt; Subdirectiva 27 en Illimani&#xa;ORURO&#xa;&#x9;&lt;&gt; Subdirectiva 1 en Challapata&#xa;&#x9;&lt;&gt; Subdirectiva 3 en Andamarca&#xa;&#x9;&lt;&gt; Subdirectiva 7 en la ciudad de Oruro&#xa;&#x9;&lt;&gt; Subdirectiva  14 en Colque&#xa;POTOSI&#xa;&#x9;&lt;&gt; Subdirectiva 2 en Pocoata&#xa;&#x9;&lt;&gt; Subdirectiva 12 en la ciudad de Potos&#xed;&#xa;&#x9;&lt;&gt; Subdirectiva 18 en San Pedro de Buena Vista&#xa;&#x9;&lt;&gt; Subdirectiva 23 en Llallagua&#xa;&#x9;&lt;&gt; Subdirectiva 26 en Llawisla&#xa;SANTA CRUZ&#xa;&#x9;&lt;&gt; Subdirectiva 16 de Montero&#xa;&#x9;&lt;&gt; Subdirectiva 19 en Valle Grande&#xa;&#x9;&lt;&gt; Subdirectiva 20 en la ciudad de Santa Cruz&#xa;&#x9;&lt;&gt; Subdirectiva 22 en San Julian&#xa;&#x9;&lt;&gt; Subdirectiva 28 en Torno&#xa;&#x9;&lt;&gt; Subdirectiva 29 en Camiri&#xa;BENI&#xa;&#x9;&lt;&gt; Subdirectiva 8 en Magdalena&#xa;&#x9;&lt;&gt; Subdirectiva 11 en Trinidad&#xa;&#x9;&lt;&gt; Subdirectiva 21 en Guayaramer&#xed;n&#xa;&#x9;&lt;&gt; Subdirectiva 30 en Riberalta&#xa;PANDO&#xa;&#x9;&lt;&gt; Gracias a Dios hay Iglesias y Congregaciones en crecimiento. "/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/uce128.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/ucelid.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="RESUMEN DE LA HISTORIA DE UNI&#xd3;N CRISTIANA EVANG&#xc9;LICA "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="DIRECTIVA NACIONAL"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/dinaet.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/cfn.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/dint.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/cjn.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/dinaem.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="10" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" COMIT&#xc9; FEMENIL NACIONAL"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="10" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="COMIT&#xc9; JUVENIL NACIONAL"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel12">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="DINAEM"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel13">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="DINADEC"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

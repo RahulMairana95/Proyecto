@@ -19,7 +19,8 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
-            conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/nuevajerusalen?useTimezone=true&serverTimezone=America/La_Paz", "root", "");
+            conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/nuevajerusalen?"
+                    + "useTimezone=true&serverTimezone=America/La_Paz", "root", "");
             
             System.out.println("Esta Conectado exitosamente");
         } catch (Exception e) {

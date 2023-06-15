@@ -87,7 +87,7 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
                 limpiarfield();
                 //JOptionPane.showMessageDialog(null, "SE AGREGARON CORRECTAMENTE");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo agregar");
+                JOptionPane.showMessageDialog(null, "ERROR EN AGREGAR");
             }
         }else if(vistaMiembrosActivos.btneditar==ae.getSource()){
             try {
@@ -96,7 +96,7 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
                 mostrarlista();
                 limpiarfield();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo modificar");
+                JOptionPane.showMessageDialog(null, "ERROR AL MOTIFICAR");
             }
         }else if(vistaMiembrosActivos.btndelete==ae.getSource()){
             try {
@@ -105,13 +105,13 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
                 mostrarlista();
                 limpiarfield();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+                JOptionPane.showMessageDialog(null, "NO SE ELIMINÓ");
             }
         }else if(vistaMiembrosActivos.btnexportar==ae.getSource()){
             try {
                 exportars();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+                JOptionPane.showMessageDialog(null, "NO SE PUEDE EXPORTAR");
             }
         }else if(vistaMiembrosActivos.btnbuscar==ae.getSource()){
             try {
@@ -126,14 +126,14 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
                 limpiarfield();
                 inhabilitar();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR PERSONA");
+                JOptionPane.showMessageDialog(null, "ERROR AL CANCELAR");
             }
         }else if(vistaMiembrosActivos.btnnuevo==ae.getSource()){
             try {
                 limpiarfield();
                 habilitar();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR PERSONA");
+                JOptionPane.showMessageDialog(null, "ERROR AL HABILITAR");
             }
         }else if(vistaMiembrosActivos.btnlistar==ae.getSource()){
             try {
@@ -141,7 +141,7 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
                 limpiartabla(vistaMiembrosActivos.tablaactivos);
                 mostrarlista();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR PERSONA");
+                JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR LISTA");
             }
         
         }
@@ -222,8 +222,10 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
             //System.err.println(idmen+"miembro num");
             miembrosActivos.setNdiezmo(Integer.parseInt(vistaMiembrosActivos.textnumdiezmo.getText()));
             miembrosActivos.setNumrecibo(vistaMiembrosActivos.txtnumrecibo.getText());
+            
             miembrosActivos.setNombre(vistaMiembrosActivos.txtnombre.getText());
             miembrosActivos.setApellidos(vistaMiembrosActivos.txtapellidos.getText());
+            
             miembrosActivos.setCantidad(Double.parseDouble(vistaMiembrosActivos.txtcantidad.getText()));
             
             Calendar calenn;
@@ -295,8 +297,12 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
         }
     }
     public void buscar(String buscando){
-        tableModel=adao.buscarDiezmadores(buscando);
-        vistaMiembrosActivos.tablaactivos.setModel(tableModel);
+        if(vistaMiembrosActivos.txtbuscar.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
+        }else{
+            tableModel=adao.buscarDiezmadores(buscando);
+            vistaMiembrosActivos.tablaactivos.setModel(tableModel);
+        }
     }
     
     
@@ -328,14 +334,12 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
         vistaMiembrosActivos.btncancelar.setEnabled(false);
         vistaMiembrosActivos.btndelete.setEnabled(false);
         vistaMiembrosActivos.btnexportar.setEnabled(false);
-        vistaMiembrosActivos.btnbuscar.setEnabled(false);
-        vistaMiembrosActivos.btnlistar.setEnabled(false);
+        
         
         vistaMiembrosActivos.boxmiembroactivos.setEnabled(false);
-        vistaMiembrosActivos.tablaactivos.setEnabled(false);
+        //vistaMiembrosActivos.tablaactivos.setEnabled(false);
         vistaMiembrosActivos.txtnombre.setEnabled(false);
         vistaMiembrosActivos.txtapellidos.setEnabled(false);
-        vistaMiembrosActivos.txtbuscar.setEnabled(false);
         vistaMiembrosActivos.txtcantidad.setEnabled(false);
         vistaMiembrosActivos.txtnumrecibo.setEnabled(false);
         vistaMiembrosActivos.datedeposito.setEnabled(false);
@@ -348,14 +352,12 @@ public class ControlActivos extends MouseAdapter implements ActionListener{
         vistaMiembrosActivos.btncancelar.setEnabled(true);
         vistaMiembrosActivos.btndelete.setEnabled(true);
         vistaMiembrosActivos.btnexportar.setEnabled(true);
-        vistaMiembrosActivos.btnbuscar.setEnabled(true);
-        vistaMiembrosActivos.btnlistar.setEnabled(true);
+        
         
         vistaMiembrosActivos.boxmiembroactivos.setEnabled(true);
-        vistaMiembrosActivos.tablaactivos.setEnabled(true);
+        //vistaMiembrosActivos.tablaactivos.setEnabled(true);
         vistaMiembrosActivos.txtnombre.setEnabled(true);
         vistaMiembrosActivos.txtapellidos.setEnabled(true);
-        vistaMiembrosActivos.txtbuscar.setEnabled(true);
         vistaMiembrosActivos.txtcantidad.setEnabled(true);
         vistaMiembrosActivos.txtnumrecibo.setEnabled(true);
         vistaMiembrosActivos.datedeposito.setEnabled(true);

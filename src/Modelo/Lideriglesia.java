@@ -15,8 +15,7 @@ public class Lideriglesia {
     private int idlider;
     private int idmembrecia;
     private String nombre;
-    private String apaterno;
-    private String amaterno;
+    private String apellidos;
     private String ci;
     private String cargo;
     private Date iniciogestion;
@@ -24,12 +23,11 @@ public class Lideriglesia {
     
     public Lideriglesia(){}
 
-    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apaterno, String amaterno, String ci, String cargo, Date iniciogestion, Date fingestion) {
+    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidos, String ci, String cargo, Date iniciogestion, Date fingestion) {
         this.idlider = idlider;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
-        this.apaterno = apaterno;
-        this.amaterno = amaterno;
+        this.apellidos = apellidos;
         this.ci = ci;
         this.cargo = cargo;
         this.iniciogestion = iniciogestion;
@@ -60,20 +58,12 @@ public class Lideriglesia {
         this.nombre = nombre;
     }
 
-    public String getApaterno() {
-        return apaterno;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApaterno(String apaterno) {
-        this.apaterno = apaterno;
-    }
-
-    public String getAmaterno() {
-        return amaterno;
-    }
-
-    public void setAmaterno(String amaterno) {
-        this.amaterno = amaterno;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getCi() {
@@ -108,6 +98,4 @@ public class Lideriglesia {
         this.fingestion = fingestion;
     }
 
-   
-    
 }

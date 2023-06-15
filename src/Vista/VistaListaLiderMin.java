@@ -12,12 +12,12 @@ import java.io.IOException;
  *
  * @author RAHUL
  */
-public class VistaLiderIglesia extends javax.swing.JInternalFrame {
-    ExcelExpo exp;
+public class VistaListaLiderMin extends javax.swing.JInternalFrame {
+    //ExcelExpo exp;
     /**
      * Creates new form VistaLider
      */
-    public VistaLiderIglesia() {
+    public VistaListaLiderMin() {
         initComponents();
     }
 
@@ -32,21 +32,23 @@ public class VistaLiderIglesia extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaiglesia = new javax.swing.JTable();
-        botonbuscar = new javax.swing.JButton();
+        tablamin = new javax.swing.JTable();
+        botonlistar = new javax.swing.JButton();
         botonreporte = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtbuscar = new javax.swing.JTextField();
+        botonbuscar = new javax.swing.JButton();
+        boxministerio = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
 
-        tablaiglesia.setModel(new javax.swing.table.DefaultTableModel(
+        tablamin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido P", "Apellido M", "C.I.", "Cargo", "Gestion Inicio", "Fin Gestion"
+                "NOMBRE", "APELLIDOS", "C.I.", "MINISTERIO", "CARGO", "INICIO GESTION", "FIN GESTION"
             }
         ) {
             Class[] types = new Class [] {
@@ -57,11 +59,11 @@ public class VistaLiderIglesia extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
-        tablaiglesia.setEnabled(false);
-        jScrollPane1.setViewportView(tablaiglesia);
+        tablamin.setEnabled(false);
+        jScrollPane1.setViewportView(tablamin);
 
-        botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
-        botonbuscar.setText("BUSCAR");
+        botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
+        botonlistar.setText("LISTAR");
 
         botonreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconexcel2.png"))); // NOI18N
         botonreporte.setText("EXPORTAR LISTA");
@@ -73,36 +75,45 @@ public class VistaLiderIglesia extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Buscar:");
 
+        botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
+        botonbuscar.setText("BUSCAR");
+
+        boxministerio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------------------------------------------------", "MINISTERIO FEMENIL", "MINISTERIO JUVENIL", "MINISTERIO PREJUVENIL", "MINISTERIO DE ALABANZA", "ESCUELA DOMINICAL", "EVANGELISMO Y MISIONES", "OANSA", "CDI", "OTRO" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 145, Short.MAX_VALUE)
                         .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonbuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonlistar)
+                        .addGap(112, 112, 112)
                         .addComponent(botonreporte)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
+                    .addComponent(botonlistar)
+                    .addComponent(botonreporte)
                     .addComponent(botonbuscar)
-                    .addComponent(botonreporte))
+                    .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -120,23 +131,18 @@ public class VistaLiderIglesia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonreporteActionPerformed
-        try {
-            exp= new ExcelExpo();
-            exp.Exportar(tablaiglesia);// llamando metodo exportar
-            
-        } catch (IOException ex) {
-            
-        }
+        
     }//GEN-LAST:event_botonreporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton botonbuscar;
+    public javax.swing.JButton botonlistar;
     public javax.swing.JButton botonreporte;
+    public javax.swing.JComboBox<String> boxministerio;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tablaiglesia;
-    public javax.swing.JTextField txtbuscar;
+    public javax.swing.JTable tablamin;
     // End of variables declaration//GEN-END:variables
 }

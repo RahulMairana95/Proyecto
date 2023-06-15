@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Ofrenda {
     private int idofrenda;
     private int idlider;
+    private String tesorero;
     private String carnet;
     private String mes;
     private Double entrada;
@@ -22,14 +23,13 @@ public class Ofrenda {
     private Double saldoactual;
     private String descripcion;
     private Date fecharegistro;
-    private String tesorn;
-    private String tesorap;
     
     public Ofrenda(){}
 
-    public Ofrenda(int idofrenda, int idlider, String carnet, String mes, Double entrada, Double salida, Double saldoanterior, Double saldoactual, String descripcion, Date fecharegistro, String tesorn, String tesorap) {
+    public Ofrenda(int idofrenda, int idlider, String tesorero, String carnet, String mes, Double entrada, Double salida, Double saldoanterior, Double saldoactual, String descripcion, Date fecharegistro) {
         this.idofrenda = idofrenda;
         this.idlider = idlider;
+        this.tesorero = tesorero;
         this.carnet = carnet;
         this.mes = mes;
         this.entrada = entrada;
@@ -38,8 +38,6 @@ public class Ofrenda {
         this.saldoactual = saldoactual;
         this.descripcion = descripcion;
         this.fecharegistro = fecharegistro;
-        this.tesorn = tesorn;
-        this.tesorap = tesorap;
     }
 
     public int getIdofrenda() {
@@ -56,6 +54,14 @@ public class Ofrenda {
 
     public void setIdlider(int idlider) {
         this.idlider = idlider;
+    }
+
+    public String getTesorero() {
+        return tesorero;
+    }
+
+    public void setTesorero(String tesorero) {
+        this.tesorero = tesorero;
     }
 
     public String getCarnet() {
@@ -122,22 +128,4 @@ public class Ofrenda {
         this.fecharegistro = fecharegistro;
     }
 
-    public String getTesorn() {
-        return tesorn;
-    }
-
-    public void setTesorn(String tesorn) {
-        this.tesorn = tesorn;
-    }
-
-    public String getTesorap() {
-        return tesorap;
-    }
-
-    public void setTesorap(String tesorap) {
-        this.tesorap = tesorap;
-    }
-
-    
-    
 }

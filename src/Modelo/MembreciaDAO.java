@@ -165,11 +165,11 @@ public class MembreciaDAO {
     }
     
     public DefaultTableModel buscarMiembros(String buscar){
-        String [] nombbreColum={"nombre","apellidop","apellidom","numdocumento","fechanacimiento","estadocivil","fechaconversion","fechabautizo","talentos","dones","activo"};
+        String [] nombbreColum={"NOMBRE","APELLIDO P.","APELLIDO M.","C.I.","FECHA NACIMIENTO","ESTADO CIVIL","FECHA CONVERSION","FECHA BAUTIZO","TALENTOS","DONES","ACTIVO"};
         String [] registros=new String[11];
         DefaultTableModel tablabuscar=new DefaultTableModel(null, nombbreColum);
         
-        String buscarsql="select * from membrecia where numdocumento like'%"+buscar+"%' or nombre like'%"+buscar+"%' or apellidop like'%"+buscar+"%'";
+        String buscarsql="select * from membrecia where numdocumento like'%"+buscar+"%' or nombre like'%"+buscar+"%' or apellidop like'%"+buscar+"%' or apellidom like'%"+buscar+"%' or estadocivil like'%"+buscar+"%'";
         
         try {
            con=conectarMySQL.conectar;

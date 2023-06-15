@@ -32,6 +32,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         idusuarioaminnis = new javax.swing.JTextField();
         lblusuario = new javax.swing.JTextField();
+        botonUce = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -44,16 +52,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemoregistrarfrenda = new javax.swing.JMenuItem();
         itemMembrecia = new javax.swing.JMenu();
         itemLista = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        itemActivos = new javax.swing.JMenuItem();
+        liderazgo = new javax.swing.JMenu();
         itemIglesia = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        iteMinis = new javax.swing.JMenuItem();
+        finanzas = new javax.swing.JMenu();
         itemDiezmo = new javax.swing.JMenuItem();
         itemOfrenda = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        usuarios = new javax.swing.JMenu();
         itemRegistro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,17 +68,56 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         lblusuario.setEditable(false);
 
+        botonUce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/UCE1.png"))); // NOI18N
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MAR.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MEN32P.png"))); // NOI18N
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SHIER.png"))); // NOI18N
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mis.png"))); // NOI18N
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DOMIN.png"))); // NOI18N
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CDI.png"))); // NOI18N
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/OANSA.png"))); // NOI18N
+
         panelPrincipal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelPrincipal.setLayer(idusuarioaminnis, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelPrincipal.setLayer(lblusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(botonUce, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPrincipal.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1028, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonUce)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6)
+                    .addComponent(jButton8)
+                    .addComponent(jButton7))
+                .addGap(99, 99, 99)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
@@ -88,32 +133,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idusuarioaminnis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botonUce)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton7)
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
 
         jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
 
+        jMenu1.setForeground(new java.awt.Color(0, 51, 51));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu-button_icon-icons.com_72989 (2).png"))); // NOI18N
-        jMenu1.setText("Menu");
-        jMenu1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jMenu1.setText("MENÚ");
+        jMenu1.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/log32.png"))); // NOI18N
         jMenuItem7.setText("Acerca de la Iglesia");
         jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
+        registros.setForeground(new java.awt.Color(0, 51, 51));
         registros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lightbrown_books_folders_12307 (1).png"))); // NOI18N
-        registros.setText("Registros");
-        registros.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        registros.setText("REGISTROS");
+        registros.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
+        itemmiembros.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemmiembros.setForeground(new java.awt.Color(0, 0, 51));
         itemmiembros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon registro.png"))); // NOI18N
-        itemmiembros.setText("Registrar Miembros");
+        itemmiembros.setText("REGISTRAR MIEMBROS");
         registros.add(itemmiembros);
 
+        itemlideriglesia.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemlideriglesia.setForeground(new java.awt.Color(0, 0, 51));
         itemlideriglesia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew1.png"))); // NOI18N
-        itemlideriglesia.setText("Registrar Líder de la iglesia");
+        itemlideriglesia.setText("REGISTRAR LÍDER DE LA IGLESIA");
         itemlideriglesia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemlideriglesiaActionPerformed(evt);
@@ -121,20 +193,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         registros.add(itemlideriglesia);
 
+        itemministerio.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemministerio.setForeground(new java.awt.Color(0, 0, 51));
         itemministerio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew2.png"))); // NOI18N
-        itemministerio.setText("Registrar Lider de ministerios");
+        itemministerio.setText("REGISTRAR LÍDER DEL MINISTERIO");
         registros.add(itemministerio);
 
+        itemregistrardiezmo.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemregistrardiezmo.setForeground(new java.awt.Color(0, 0, 51));
         itemregistrardiezmo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew3.png"))); // NOI18N
-        itemregistrardiezmo.setText("Registrar Diezmos");
+        itemregistrardiezmo.setText("REGISTRAR DIEZMO DE MIEMBROS ACTIVOS");
         registros.add(itemregistrardiezmo);
 
+        itemdiezmomensual.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemdiezmomensual.setForeground(new java.awt.Color(0, 0, 51));
         itemdiezmomensual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlibro.png"))); // NOI18N
-        itemdiezmomensual.setText("Administracion mensual de Diezmos");
+        itemdiezmomensual.setText("ADMINISTRACIÓN MENSUAL DE DIEZMOS");
         registros.add(itemdiezmomensual);
 
-        itemoregistrarfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlibro.png"))); // NOI18N
-        itemoregistrarfrenda.setText("Administración mensual de Ofrendas");
+        itemoregistrarfrenda.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemoregistrarfrenda.setForeground(new java.awt.Color(0, 0, 51));
+        itemoregistrarfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4288584andbusinessfinancepersonalportfolioprofileresume-115772_115741 (1).png"))); // NOI18N
+        itemoregistrarfrenda.setText("ADMINISTRACIÓN MENSUAL DE OFRENDAS");
         itemoregistrarfrenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemoregistrarfrendaActionPerformed(evt);
@@ -144,75 +224,85 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(registros);
 
+        itemMembrecia.setForeground(new java.awt.Color(0, 51, 51));
         itemMembrecia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/libraryfolder_books_binders_2688 (1).png"))); // NOI18N
-        itemMembrecia.setText("Membrecia");
-        itemMembrecia.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        itemMembrecia.setText("MEMBRECÍA");
+        itemMembrecia.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
+        itemLista.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemLista.setForeground(new java.awt.Color(0, 0, 51));
         itemLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistama.png"))); // NOI18N
-        itemLista.setText("Lista de Miembros");
+        itemLista.setText("LISTA DE MIEMBROS BAUTIZADOS");
         itemMembrecia.add(itemLista);
+
+        itemActivos.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemActivos.setForeground(new java.awt.Color(0, 0, 51));
+        itemActivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistyellow.png"))); // NOI18N
+        itemActivos.setText("LISTA DE MIEMBROS ACTIVOS");
+        itemMembrecia.add(itemActivos);
 
         jMenuBar1.add(itemMembrecia);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconliders.png"))); // NOI18N
-        jMenu4.setText("Liderazgo");
-        jMenu4.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        liderazgo.setForeground(new java.awt.Color(0, 51, 51));
+        liderazgo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconliders.png"))); // NOI18N
+        liderazgo.setText("LIDERAZGO");
+        liderazgo.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
-        itemIglesia.setText("Líderes de la Iglesia");
+        itemIglesia.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemIglesia.setForeground(new java.awt.Color(0, 0, 51));
+        itemIglesia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconLiderMarron.png"))); // NOI18N
+        itemIglesia.setText("LISTA DE LÍDERES DE LA IGLESIA");
         itemIglesia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemIglesiaActionPerformed(evt);
             }
         });
-        jMenu4.add(itemIglesia);
+        liderazgo.add(itemIglesia);
 
-        jMenuItem3.setText("Líderes de Ministerio Femenil");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        iteMinis.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        iteMinis.setForeground(new java.awt.Color(0, 0, 51));
+        iteMinis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconLiderBlue.png"))); // NOI18N
+        iteMinis.setText("LISTA DE LÍDERES DE MINISTERIOS");
+        iteMinis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                iteMinisActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem3);
+        liderazgo.add(iteMinis);
 
-        jMenuItem4.setText("Líderes de Ministerio Juvenil");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem4);
+        jMenuBar1.add(liderazgo);
 
-        jMenuItem5.setText("Líderes de Ministerio Pre Juvenil");
-        jMenu4.add(jMenuItem5);
+        finanzas.setForeground(new java.awt.Color(0, 51, 51));
+        finanzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4288584andbusinessfinancepersonalportfolioprofileresume-115772_115741 (1).png"))); // NOI18N
+        finanzas.setText("FINANZAS");
+        finanzas.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
-        jMenuItem6.setText("Líderes de Ministerio de Alabanza");
-        jMenu4.add(jMenuItem6);
+        itemDiezmo.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemDiezmo.setForeground(new java.awt.Color(0, 0, 51));
+        itemDiezmo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistblue.png"))); // NOI18N
+        itemDiezmo.setText("LISTA DE ADMINISTRACIÓN MENSUAL DE DIEZMOS");
+        finanzas.add(itemDiezmo);
 
-        jMenuBar1.add(jMenu4);
+        itemOfrenda.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemOfrenda.setForeground(new java.awt.Color(0, 0, 51));
+        itemOfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistmarron.png"))); // NOI18N
+        itemOfrenda.setText("LISTA DE ADMINISTRACIÓN MENSUAL DE OFRENDAS");
+        finanzas.add(itemOfrenda);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4288584andbusinessfinancepersonalportfolioprofileresume-115772_115741 (1).png"))); // NOI18N
-        jMenu3.setText("Finanzas");
-        jMenu3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jMenuBar1.add(finanzas);
 
-        itemDiezmo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconcalve.png"))); // NOI18N
-        itemDiezmo.setText("Diezmo");
-        jMenu3.add(itemDiezmo);
+        usuarios.setForeground(new java.awt.Color(0, 51, 51));
+        usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/users_clients_group_16774.png"))); // NOI18N
+        usuarios.setText("USUARIO");
+        usuarios.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
-        itemOfrenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconcalplo.png"))); // NOI18N
-        itemOfrenda.setText("Ofrenda");
-        jMenu3.add(itemOfrenda);
+        itemRegistro.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemRegistro.setForeground(new java.awt.Color(0, 0, 51));
+        itemRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ivonLocked.png"))); // NOI18N
+        itemRegistro.setText("REGISTRO DE USUARIOS");
+        usuarios.add(itemRegistro);
 
-        jMenuBar1.add(jMenu3);
-
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/users_clients_group_16774.png"))); // NOI18N
-        jMenu5.setText("Usuarios");
-        jMenu5.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-
-        itemRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnewuser.png"))); // NOI18N
-        itemRegistro.setText("Registro de Usuarios");
-        jMenu5.add(itemRegistro);
-
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(usuarios);
 
         setJMenuBar(jMenuBar1);
 
@@ -230,14 +320,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void itemlideriglesiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemlideriglesiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemlideriglesiaActionPerformed
@@ -249,6 +331,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void itemIglesiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIglesiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemIglesiaActionPerformed
+
+    private void iteMinisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iteMinisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iteMinisActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +376,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton botonUce;
+    private javax.swing.JMenu finanzas;
     public javax.swing.JTextField idusuarioaminnis;
+    public javax.swing.JMenuItem iteMinis;
+    public javax.swing.JMenuItem itemActivos;
     public javax.swing.JMenuItem itemDiezmo;
     public javax.swing.JMenuItem itemIglesia;
     public javax.swing.JMenuItem itemLista;
@@ -296,23 +390,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemdiezmomensual;
     public javax.swing.JMenuItem itemlideriglesia;
     public javax.swing.JMenuItem itemmiembros;
-    private javax.swing.JMenuItem itemministerio;
+    public javax.swing.JMenuItem itemministerio;
     public javax.swing.JMenuItem itemoregistrarfrenda;
     public javax.swing.JMenuItem itemregistrardiezmo;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollBar jScrollBar1;
     public javax.swing.JTextField lblusuario;
+    private javax.swing.JMenu liderazgo;
     public javax.swing.JDesktopPane panelPrincipal;
     private javax.swing.JMenu registros;
+    private javax.swing.JMenu usuarios;
     // End of variables declaration//GEN-END:variables
 }

@@ -100,8 +100,12 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         }
     }
     public void buscar(String buscr){
+        if(vistaListaMembrecia.txtbusqueda.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
+        }else{
         tablaModel=mdao.buscarMiembros(buscr);
         vistaListaMembrecia.tablalistar.setModel(tablaModel);
+        }
     }
     public void limpiartabla(JTable tabla){
         try {
