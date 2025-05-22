@@ -59,7 +59,7 @@ public class VistaListaDiezmo extends javax.swing.JInternalFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -70,7 +70,6 @@ public class VistaListaDiezmo extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabladiezmo.setEnabled(false);
         jScrollPane2.setViewportView(tabladiezmo);
 
         botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N

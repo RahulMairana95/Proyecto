@@ -5,6 +5,12 @@
  */
 package Vista;
 
+import Modelo.*;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -14,7 +20,10 @@ import javax.swing.JOptionPane;
  * @author RAHUL
  */
 public class VistaRegistro extends javax.swing.JInternalFrame {
-
+    Connection con;
+    Conexion consql=new Conexion();
+    PreparedStatement pres;
+    ResultSet rs;
     /**
      * Creates new form RegistroVista
      */
@@ -39,19 +48,17 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
-        txtapellidopa = new javax.swing.JTextField();
         txtnumdocumento = new javax.swing.JTextField();
-        txtapellidoma = new javax.swing.JTextField();
+        txtapellidos = new javax.swing.JTextField();
         txttelefono = new javax.swing.JTextField();
         txtcontraseña = new javax.swing.JTextField();
         txtnombreusuario = new javax.swing.JTextField();
         txtemail = new javax.swing.JTextField();
-        boxusuario = new javax.swing.JComboBox<>();
+        boxroles = new javax.swing.JComboBox<>();
         btnnuevo = new javax.swing.JButton();
         btnagregar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
@@ -60,7 +67,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
-        boxcargo = new javax.swing.JComboBox<>();
+        boxusuarios = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -69,11 +76,11 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 51));
         jLabel1.setText("DATOS DEL ADMINISTRADOR");
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Usuarios:");
 
-        jLabel3.setText("Apellido Paterno:");
+        jLabel3.setText("Nombre:");
 
-        jLabel4.setText("Apellido Materno:");
+        jLabel4.setText("Apellidos:");
 
         jLabel6.setText("N° de Documento:");
 
@@ -81,45 +88,52 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Email:");
 
-        jLabel10.setText("Cargo:");
-
         jLabel11.setText("Usuario:");
 
         jLabel12.setText("Nombre Usuario:");
 
         jLabel13.setText("Contraseña:");
 
+        txtnombre.setEditable(false);
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtnombreKeyTyped(evt);
             }
         });
 
-        txtapellidopa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapellidopaKeyTyped(evt);
-            }
-        });
-
+        txtnumdocumento.setEditable(false);
         txtnumdocumento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtnumdocumentoKeyTyped(evt);
             }
         });
 
-        txtapellidoma.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtapellidos.setEditable(false);
+        txtapellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapellidomaKeyTyped(evt);
+                txtapellidosKeyTyped(evt);
             }
         });
 
         txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttelefonoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txttelefonoKeyTyped(evt);
             }
         });
 
+        txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcontraseñaKeyPressed(evt);
+            }
+        });
+
         txtnombreusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnombreusuarioKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtnombreusuarioKeyTyped(evt);
             }
@@ -130,17 +144,37 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                 txtemailFocusLost(evt);
             }
         });
+        txtemail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtemailKeyPressed(evt);
+            }
+        });
 
-        boxusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretario", "Pastor" }));
+        boxroles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretario", "Tesorero", "Pastor" }));
+        boxroles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                boxrolesKeyPressed(evt);
+            }
+        });
 
         btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon nuevo.png"))); // NOI18N
         btnnuevo.setText("NUEVO");
+        btnnuevo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnnuevoKeyPressed(evt);
+            }
+        });
 
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew4.png"))); // NOI18N
         btnagregar.setText("AGREGAR");
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
+            }
+        });
+        btnagregar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnagregarKeyPressed(evt);
             }
         });
 
@@ -151,20 +185,25 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                 btncancelarActionPerformed(evt);
             }
         });
+        btncancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btncancelarKeyPressed(evt);
+            }
+        });
 
         tablausuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido Paterno", "Apellido Materno", "N° Documento", "Telefono", "Email", "Cargo", "Usuario", "Cuenta", "Contraseña"
+                "Nombre", "Apellidos", "N° Documento", "Telefono", "Email", "Usuario", "Cuenta", "Contraseña"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -177,15 +216,40 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablausuario);
 
+        jLabel14.setFont(new java.awt.Font("Garamond", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 51));
         jLabel14.setText("LISTA DE ADMINISTRADORES");
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconeliminar.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
+        btneliminar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btneliminarKeyPressed(evt);
+            }
+        });
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconeditar.png"))); // NOI18N
         btnmodificar.setText("EDITAR");
+        btnmodificar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnmodificarKeyPressed(evt);
+            }
+        });
 
-        boxcargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretario", "Pastor" }));
+        boxusuarios.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                boxusuariosPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        boxusuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxusuariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -199,28 +263,30 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txttelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtnombreusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtcontraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtnumdocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtapellidoma, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtapellidopa, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtnombre)
-                            .addComponent(boxusuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxcargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txttelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txtnombreusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txtcontraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txtnumdocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txtapellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(boxroles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -249,51 +315,45 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel14))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtapellidopa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtapellidoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtnumdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxcargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(boxroles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnnuevo)
@@ -301,7 +361,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                     .addComponent(btncancelar)
                     .addComponent(btnmodificar)
                     .addComponent(btneliminar))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -346,7 +406,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtnombreKeyTyped
 
-    private void txtapellidopaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidopaKeyTyped
+    private void txtapellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosKeyTyped
         // TODO add your handling code here:
         char validar=evt.getKeyChar();
         
@@ -356,19 +416,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras");
         }
-    }//GEN-LAST:event_txtapellidopaKeyTyped
-
-    private void txtapellidomaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidomaKeyTyped
-        // TODO add your handling code here:
-        char validar=evt.getKeyChar();
-        
-        if(Character.isDigit(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras");
-        }
-    }//GEN-LAST:event_txtapellidomaKeyTyped
+    }//GEN-LAST:event_txtapellidosKeyTyped
 
     private void txtnumdocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumdocumentoKeyTyped
         // TODO add your handling code here:
@@ -417,17 +465,138 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnagregarActionPerformed
 
+    private void boxusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxusuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxusuariosActionPerformed
+
+    private void boxusuariosPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_boxusuariosPopupMenuWillBecomeVisible
+        String tmp=(String) boxusuarios.getSelectedItem();
+        String [] aux=tmp.split("-");
+        String idmen=aux[0];
+        
+        String sqll="select * from lider where idlider=?";
+        
+        try {
+            con=consql.getConnection();
+            pres=con.prepareStatement(sqll);
+            pres.setString(1, idmen);
+            rs=pres.executeQuery();
+            if (rs.next()) {
+                txtnombre.setText(rs.getString("nombre"));
+                txtapellidos.setText(rs.getString("apellidos"));
+                txtnumdocumento.setText(rs.getString("ci"));
+
+                System.out.println("LÍDER: " + rs.getString("nombre"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar datos: " + e.getMessage());
+        }finally {
+        // Cerrar conexiones para evitar fugas de memoria
+        try {
+            if (rs != null) rs.close();
+            if (pres != null) pres.close();
+            if (con != null) con.close();
+        } catch (SQLException ex) {
+            System.err.println("Error al cerrar conexiones: " + ex.getMessage());
+        }
+    }
+        
+    }//GEN-LAST:event_boxusuariosPopupMenuWillBecomeVisible
+
+    private void txttelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            txtemail.requestFocus();
+        }
+    }//GEN-LAST:event_txttelefonoKeyPressed
+
+    private void txtemailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtemailKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            boxroles.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           txttelefono.requestFocus();
+        }
+    }//GEN-LAST:event_txtemailKeyPressed
+
+    private void boxrolesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_boxrolesKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            txtnombreusuario.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           txtemail.requestFocus();
+        }
+    }//GEN-LAST:event_boxrolesKeyPressed
+
+    private void txtnombreusuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreusuarioKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            txtcontraseña.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           boxroles.requestFocus();
+        }
+    }//GEN-LAST:event_txtnombreusuarioKeyPressed
+
+    private void txtcontraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontraseñaKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            btnnuevo.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           txtnombreusuario.requestFocus();
+        }
+    }//GEN-LAST:event_txtcontraseñaKeyPressed
+
+    private void btnnuevoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnnuevoKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
+            btnagregar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           txtcontraseña.requestFocus();
+        }
+    }//GEN-LAST:event_btnnuevoKeyPressed
+
+    private void btnagregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnagregarKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
+            btncancelar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_LEFT){
+           btnnuevo.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+            txtcontraseña.requestFocus();
+        }
+    }//GEN-LAST:event_btnagregarKeyPressed
+
+    private void btncancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btncancelarKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
+            btneliminar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_LEFT){
+           btnagregar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+            txtcontraseña.requestFocus();
+        }
+    }//GEN-LAST:event_btncancelarKeyPressed
+
+    private void btneliminarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btneliminarKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
+            btnmodificar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_LEFT){
+           btnagregar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+            txtcontraseña.requestFocus();
+        }
+    }//GEN-LAST:event_btneliminarKeyPressed
+
+    private void btnmodificarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnmodificarKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_RIGHT){
+            btneliminar.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+           txtcontraseña.requestFocus();
+        }
+    }//GEN-LAST:event_btnmodificarKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> boxcargo;
-    public javax.swing.JComboBox<String> boxusuario;
+    public javax.swing.JComboBox<String> boxroles;
+    public javax.swing.JComboBox<String> boxusuarios;
     public javax.swing.JButton btnagregar;
     public javax.swing.JButton btncancelar;
     public javax.swing.JButton btneliminar;
     public javax.swing.JButton btnmodificar;
     public javax.swing.JButton btnnuevo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -441,8 +610,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tablausuario;
-    public javax.swing.JTextField txtapellidoma;
-    public javax.swing.JTextField txtapellidopa;
+    public javax.swing.JTextField txtapellidos;
     public javax.swing.JTextField txtcontraseña;
     public javax.swing.JTextField txtemail;
     public javax.swing.JTextField txtnombre;

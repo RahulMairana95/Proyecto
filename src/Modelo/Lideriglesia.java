@@ -15,20 +15,28 @@ public class Lideriglesia {
     private int idlider;
     private int idmembrecia;
     private String nombre;
-    private String apellidos;
-    private String ci;
+    private String apellidop;
+    private String apellidom;
+    private String numdocumento;
     private String cargo;
     private Date iniciogestion;
     private Date fingestion;
     
     public Lideriglesia(){}
+    
+    @Override
+    public String toString() {
+        return nombre + " " + apellidop + " " + apellidom;
+    }
 
-    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidos, String ci, String cargo, Date iniciogestion, Date fingestion) {
+
+    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, String cargo, Date iniciogestion, Date fingestion) {
         this.idlider = idlider;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.ci = ci;
+        this.apellidop = apellidop;
+        this.apellidom = apellidom;
+        this.numdocumento = numdocumento;
         this.cargo = cargo;
         this.iniciogestion = iniciogestion;
         this.fingestion = fingestion;
@@ -58,20 +66,28 @@ public class Lideriglesia {
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getApellidop() {
+        return apellidop;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellidop(String apellidop) {
+        this.apellidop = apellidop;
     }
 
-    public String getCi() {
-        return ci;
+    public String getApellidom() {
+        return apellidom;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setApellidom(String apellidom) {
+        this.apellidom = apellidom;
+    }
+
+    public String getNumdocumento() {
+        return numdocumento;
+    }
+
+    public void setNumdocumento(String numdocumento) {
+        this.numdocumento = numdocumento;
     }
 
     public String getCargo() {
@@ -97,5 +113,7 @@ public class Lideriglesia {
     public void setFingestion(Date fingestion) {
         this.fingestion = fingestion;
     }
+
+    
 
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="scrUce" min="-2" pref="586" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Component id="jLabel3" min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="scrUce" pref="511" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="scrUce">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value=" Tambien la Ni&#xf1;ez y Juventud le Importan a Dios.&#xa;&#xa; &#xbf;Qu&#xe9; es OANSA?&#xa; Es un Ministerio dirigido a la ni&#xf1;ez y la juventud nivelado gradualmente seg&#xfa;n las edades y caracterizado &#xa; por su ense&#xf1;anza eminentemente B&#xed;blica. OANSA provee Clubes que son operados por las iglesias &#xa; locales que han firmado el Acuerdo Ministerial de OANSA.&#xa;&#xa;&#x9;&#x9;   La Palabra OANSA&#xa;&#x9;        Obreros Aprobados No Se Averg&#xfc;enzan&#xa;&#xa;            &#x201c;Procura con diligencia presentarte a Dios aprobado como obrero &#xa;                que no tiene de que avergonzarse que usa bien la palabra de &#xa;                                                verdad&#x201d; 2&#xaa; a Timoteo 2:15&#xa;&#xa;      &#x9;&#x9;   Objetivos&#xa;            &lt;&gt; La Salvaci&#xf3;n  de  los ni&#xf1;os  y los j&#xf3;venes por medio del Evangelio de Cristo,&#xa;                  llev&#xe1;ndolos de la comunidad a los Clubes OANSA y al mismo tiempo alcanzar &#xa;                  tambi&#xe9;n a sus padres, llevando as&#xed; la familia a la iglesia.&#xa;            &lt;&gt; Retar a trav&#xe9;s del entrenamiento a ni&#xf1;os, ni&#xf1;as, j&#xf3;venes y l&#xed;deres para servir al Se&#xf1;or.&#xa; &#xa; En otras palabras: Evangelismo y Discipulado&#xa;&#xa; Base Fundamental:&#xa;            &lt;&gt; El mensaje del evangelio de la gracia (2&#xaa; a los Corintios 5:19 y Efesios 2:8-9).&#xa;            &lt;&gt; La seguridad eterna de nuestra salvaci&#xf3;n en Jesucristo (Juan 10:27-29 y Filipenses 1:6).&#xa;&#xa; Los Clubes de OANSA&#xa;  1. Club de CHISPAS:&#xa;       Para los que estudian 1&#xb0;, 2&#xb0; y 3&#xb0; grado&#xa;       Sus manuales son:&#xa;          - Saltador. Tema general: Jesucristo en el pasado.&#xa;          - Caminante. Tema general: Jesucristo en el presente.&#xa;          - Escalador. Tema general: Jesucristo en el futuro.&#xa;&#xa;  2. Club deLLAMAS:&#xa;       Para los que estudian 4&#xb0; y 5&#xb0; grado.&#xa;       Sus manuales son:&#xa;          - Paloma. Tema general: La salvaci&#xf3;n por Gracia.&#xa;          - &#xc1;guila. Tema general: La vida Cristiana.&#xa;&#xa;  3. Club de ANTORCHAS:&#xa;       Para los que estudian 6&#xb0; y 7&#xb0; grado.&#xa;       Sus manuales son:&#xa;          - Venado. Tema general: La salvaci&#xf3;n por Gracia.&#xa;          - Le&#xf3;n. Tema general: La vida Cristiana.&#xa; &#xa; ACTIVIDADES SEMANALES&#xa; El club OANSA  se re&#xfa;ne una vez a la semana por dos horas, durante las cuales realiza las siguientes &#xa;actividades, iniciando siempre con una &#x201c;Ceremonia de Apertura&#x201d; que tiene una duraci&#xf3;n aproximada &#xa;de 10 min.&#xa;&#xa;          o  TIEMPO DE JUEGOS.&#xa;               (40 Minutos)&#xa;&#xa;          o  TIEMPO DEL MANUAL.&#xa;               (40 Minutos)&#xa;&#xa;          o  TIEMPO DE REUNI&#xd3;N CONJUNTA.&#xa;               (40 Minutos)&#xa;&#xa; El orden de estas actividades lo determinar&#xe1;n las necesidades y caracter&#xed;sticas de la iglesia. &#xa; Si es necesario reducir la duraci&#xf3;n de la reuni&#xf3;n, mantenga siempre la misma proporci&#xf3;n, respetando &#xa; que no debe programarse menos de 90 min.&#xa;&#xa; EL UNIFORME DE OANSA&#xa; OANSA provee a cada club de un uniforme, para Chispas el uniforme es de color amarillo, para Llamas&#xa; es de color verde y para Antorchas es azul; los lideres tambi&#xe9;n usan un uniforme de color blanco. &#xa; Usar el uniforme provee un sentido de pertenencia y unidad, y ayuda a mantener la disciplina.&#xa;&#xa; &#xa; SISTEMA DE PREMIOS&#xa; El CLUB OANSA usa uniformes, Manuales y premios dise&#xf1;ados para motivar a ni&#xf1;os y lideres &#xa; premi&#xe1;ndolos por su estudio de la Palabra de Dios. Hay dos tipos de premios:&#xa;&#xa;          1.        Los premios de equipo, que son puntos dados cada semana al ganar en los juegos &#xa;                     y aprobar secciones en sus manuales, esos puntos se acumulan por equipo y se da &#xa;                     un premio al equipo ganador, usualmente un peque&#xf1;o refrigerio (caramelos, chupetas, etc).&#xa;&#xa;          2.       Los premios del Manual, que son otorgados individualmente a los ni&#xf1;os que cumplan &#xa;                    ciertos logros y requisitos en sus respectivos Manuales, Asistencia a la Iglesia y Asistencia &#xa;                    al Club.&#xa;&#xa; ACTIVIDADES ESPECIALES&#xa;&#xa; OANSA organiza retiros o campamentos para ni&#xf1;os, ni&#xf1;as,  tambi&#xe9;n Competencias B&#xed;blicas y Juegos &#xa; OANSA. Organiza Conferencias regionales y nacionales para l&#xed;deres, esto mantiene a sus l&#xed;deres en &#xa; contacto con otros que est&#xe1;n haciendo el mismo trabajo en otros lugares, benefici&#xe1;ndolos de dos &#xa; maneras: los entrena para hacer un trabajo de excelencia para el Se&#xf1;or Jesucristo y los mantiene &#xa; con una motivaci&#xf3;n extra para continuar esta ardua labor.&#xa;&#xa; BENEFICIOS DE LA IGLESIA LOCAL&#xa; Alcanza a los perdidos para Cristo. Le muestra a la comunidad que la iglesia se interesa por toda la &#xa; familia.&#xa; Suministra  ense&#xf1;anza b&#xed;blica y motiva al estudio b&#xed;blico.&#xa; Ense&#xf1;a a los j&#xf3;venes el camino a una vida cristiana balanceada. Relaciona la deportividad con el &#xa; testificar efectivamente.&#xa; Fortalece a la iglesia y sus ministerios. Involucra a los miembros en el alcance, liderazgo y ense&#xf1;anza.&#xa; Entrena a los l&#xed;deres para el prop&#xf3;sito de la iglesia. Entrena a los j&#xf3;venes para el futuro liderazgo.&#xa; Provee un ambiente cristiano de diversi&#xf3;n, compa&#xf1;erismo y aprendizaje.&#xa; Es una herramienta de evangelismo y crecimiento.&#xa; Establece a la iglesia como equipo con quien las familias pueden adorar a Dios, aprender y disfrutar &#xa; de compa&#xf1;erismo.&#xa; Desarrolla la lealtad al Se&#xf1;or Jesucristo y a la Iglesia, pues ayuda a los creyentes a identificarse con &#xa; una Iglesia local.&#xa; &#xa; En Clubes OANSA creemos que la misi&#xf3;n m&#xe1;s fruct&#xed;fera de la Iglesia es alcanzar a los ni&#xf1;os, ni&#xf1;as &#xa; y j&#xf3;venes para Jesucristo. Puesto que los ni&#xf1;os y ni&#xf1;as son mucho m&#xe1;s abiertos para aceptar &#xa; a Cristo por su temprana edad, es vital que nosotros sistem&#xe1;ticamente les ense&#xf1;amos la Palabra &#xa; de Dios.&#xa;&#xa; Los ni&#xf1;os no son generadores de ingresos econ&#xf3;micos, ellos son una inversi&#xf3;n. Este mundo est&#xe1; &#xa; haciendo grandes inversiones en ellos, hoy hay m&#xe1;s dibujos animados con mensajes subliminales, &#xa; hay m&#xe1;s juegos de video violentos (cada vez m&#xe1;s sofisticados y reales) y m&#xe1;s herramientas de &#xa; perdici&#xf3;n para los ni&#xf1;os que hace 20 a&#xf1;os, y la Iglesia debe tomar la iniciativa de ense&#xf1;ar con m&#xe1;s &#xa; responsabilidad la Palabra de Dios, a todos los ni&#xf1;os a los que sea posible y mantenerlos en un &#xa; discipulado constante para que sean los(as) lideres, pastores(as), maestros(as), evangelistas y &#xa; misioneros(as) del futuro.&#xa;&#xa; REQUIZITOS DEL LIDERAZGO&#xa; &#xa;          o    Un l&#xed;der Oansa debe ser una persona salva.  Este es el requisito m&#xe1;s importante para &#xa;          convertirse en l&#xed;der en Oansa. Otras caracter&#xed;sticas deseables de un l&#xed;der Oansa est&#xe1;n &#xa;          mencionan abajo.  Aunque pocas personas poseen todas estas caracter&#xed;sticas, ore y pida al &#xa;          Esp&#xed;ritu Santo que continu&#xe9; produciendo estas caracter&#xed;sticas adicionales en su vida. &#xa;          Recuerde 2a Timoteo 2:15. Su meta es ser un Obrero Aprobado (que) No Se Averg&#xfc;enza&#x2026; &#xa;          algunas de estas caracter&#xed;sticas son:&#xa;&#xa;          o    Testimonio cristiano consistente y una vida piadosa.&#xa;          Se ejemplo de los creyentes en palabra, conducta, amor, esp&#xed;ritu, fe y pureza (Timoteo 4:12 b).&#xa;&#xa;          o    Fuerte pasi&#xf3;n por el evangelismo &#x2013; que muchos ni&#xf1;os y familias del vecindario crean en &#xa;          Cristo como Salvador y se fortalezcan en la fe cristiana.&#xa;          Y al ver las multitudes, tuvo compasi&#xf3;n de ellas, porque estaban desamparadas y dispersas &#xa;          como ovejas que no tienen pastor. Mateo 9:36.&#xa;&#xa;          o    Habilidad o buena voluntad para relacionarse con los ni&#xf1;os.&#xa;          Y tom&#xf3; a un ni&#xf1;o y lo puso en medio de ellos; y tom&#xe1;ndolo en sus brazos les dijo: &#x201c;El que reciba &#xa;          en mi nombre a un ni&#xf1;o como este, me recibe a mi; y el que a m&#xed; me recibe, no me recibe a m&#xed; &#xa;          sino al que me envi&#xf3;&#x201d;, Mateo 9:36-37.&#xa;&#xa;          o    Actitud de paciencia y mansedumbre, sin perder la firmeza en las convicciones.&#xa;          Porque el siervo del Se&#xf1;or no debe ser contencioso, sino amable para con todos, apto para &#xa;          ense&#xf1;ar, sufrido, que con mansedumbre corrija a los que se oponen, por si quiz&#xe1;s Dios les &#xa;          conceda que se arrepientan para conocer la verdad. 2a Timoteo 2:24-25.&#xa;&#xa;          o   Amor genuino por los ni&#xf1;os.&#xa;          Pero Jes&#xfa;s dijo: &#x201c;Dejad a los ni&#xf1;os venir a m&#xed;, y no se lo impid&#xe1;is; porque de los tales es el reino &#xa;          de los cielos&#x201d;. Mateo 19:14.&#xa;&#xa;          o   Buena voluntad para cooperar con otros l&#xed;deres y someterse a las autoridades superiores.&#xa;          Obedeced a vuestros pastores, y sujetos a ellos; porque ellos velan por nuestras almas, como &#xa;          quienes han de dar cuenta; para que lo hagan con alegr&#xed;a, y no quej&#xe1;ndose, porque esto no es&#xa;          provechoso. Hebreos 13:17&#xa;&#xa;          o    Amor por la Palabra de Dios. Y me regocijar&#xe9; en tus mandamientos, Los cuales he amado. &#xa;          Salmo 119:47.&#xa;&#xa; LAS RESPONSABILIDADES DE LOS L&#xcd;DERES SON:&#xa; Los l&#xed;deres trabajan directamente con los oansistas, bajo la conducci&#xf3;n del director de club. &#xa; Los l&#xed;deres deben estar involucrados en cada parte de la totalidad de la reuni&#xf3;n del Club. &#xa; Su presencia anima a la buena disciplina y da un buen ejemplo. Cada l&#xed;der debe procurar la &#xa; efectividad de su club.&#xa;&#xa; LOS L&#xcd;DERES&#x2026;&#xa;&#xa;          o    Animan a la participaci&#xf3;n de los oansistas en el programa Oansa, en la aprobaci&#xf3;n de &#xa;          secciones, uso del uniforme con los premios debidamente exhibidos  y el buen comportamiento &#xa;          y la &#xe9;tica deportiva.&#xa;&#xa;          o    Supervisan el bienestar espiritual y progreso de cada oansista asignado a ellos. &#xa;          Los l&#xed;deres oran por cada ni&#xf1;o y aplican la Palabra de Dios a sus necesidades.&#xa;&#xa;          o    Procuran el mejoramiento de las capacidades personales de liderazgo a trav&#xe9;s del &#xa;          entrenamiento, memorizaci&#xf3;n de las Escrituras y estudio personal.&#xa;&#xa;          o    Act&#xfa;an de acuerdo con las normas establecidas para los uniformes, logros, disciplina y &#xa;          puntualidad.&#xa;&#xa;          o    Ayudan a manejar los Registros de Progreso Personal de cada miembro del Club a trav&#xe9;s &#xa;          del manual.&#xa;&#xa;          o    Participan en las reuniones de oraci&#xf3;n para l&#xed;deres y alcanzan a los oansistas del Club y &#xa;          sus padres a trav&#xe9;s del contacto en los hogares."/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Garamond" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="OBREROS APROBADOS NO SE AVERGUENZAN &quot;OANSA&quot; "/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

@@ -203,7 +203,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registrar lideres"/>
+            <Property name="text" type="java.lang.String" value="REGISTRO DE L&#xcd;DERES"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -380,7 +380,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Lista de L&#xed;deres de ministerios"/>
+            <Property name="text" type="java.lang.String" value="LISTA DE LIDERAZGO DE LOS MINISTERIOS"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">

@@ -36,7 +36,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     int id;
     List<Membrecia> lista;
     
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     
     ConverMayus con;
     
@@ -159,6 +159,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String tal=vistaMembrecia.tablademiembros.getValueAt(fila, 8).toString();
             String don=vistaMembrecia.tablademiembros.getValueAt(fila, 9).toString();
             String act=vistaMembrecia.tablademiembros.getValueAt(fila, 10).toString();
+            String dir=vistaMembrecia.tablademiembros.getValueAt(fila, 11).toString();
+            String nref=vistaMembrecia.tablademiembros.getValueAt(fila, 12).toString();
+            String ref=vistaMembrecia.tablademiembros.getValueAt(fila, 13).toString();
             
             
             try {
@@ -179,6 +182,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.boxtalentos.setSelectedItem(tal);
                 vistaMembrecia.boxdones.setSelectedItem(don);
                 vistaMembrecia.boxactivo.setSelectedItem(act);
+                vistaMembrecia.txtdireccion.setText(dir);
+                vistaMembrecia.txtnomfererencia.setText(nref);
+                vistaMembrecia.txtnumreferencia.setText(ref);
             } catch (ParseException err) {
                 //System.out.println("errooooo"+ err);
             }
@@ -192,7 +198,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     public void listar(){
         lista=membreciaDAO.listarMembrecia();
         tablaModel=(DefaultTableModel) vistaMembrecia.tablademiembros.getModel();
-        Object obj[]=new Object[11];
+        Object obj[]=new Object[14];
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
@@ -206,6 +212,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             obj[8]=lista.get(i).getTalentos();
             obj[9]=lista.get(i).getDones();
             obj[10]=lista.get(i).getActivo();
+            obj[11]=lista.get(i).getDireccion();
+            obj[12]=lista.get(i).getNomreferencia();
+            obj[13]=lista.get(i).getNumreferencia();
             
             tablaModel.addRow(obj);
         }
@@ -222,7 +231,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.datebautizo.getCalendar().toString().trim().isEmpty()||
                 vistaMembrecia.boxtalentos.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.boxdones.getSelectedItem().toString().trim().isEmpty()||
-                vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()){
+                vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()||
+                vistaMembrecia.txtdireccion.getText().trim().isEmpty()||
+                vistaMembrecia.txtnomfererencia.getText().trim().isEmpty()||
+                vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
@@ -259,6 +271,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setTalentos((String)vistaMembrecia.boxtalentos.getSelectedItem());
             membrecia.setDones((String)vistaMembrecia.boxdones.getSelectedItem());
             membrecia.setActivo((String) vistaMembrecia.boxactivo.getSelectedItem());
+            membrecia.setDireccion(vistaMembrecia.txtdireccion.getText());
+            membrecia.setNomreferencia(vistaMembrecia.txtnomfererencia.getText());
+            membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
             
             membreciaDAO.agregar(membrecia);
         }
@@ -279,7 +294,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.datebautizo.getCalendar().toString().trim().isEmpty()||
                 vistaMembrecia.boxtalentos.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.boxdones.getSelectedItem().toString().trim().isEmpty()||
-                vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()){
+                vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()||
+                vistaMembrecia.txtdireccion.getText().trim().isEmpty()||
+                vistaMembrecia.txtnomfererencia.getText().trim().isEmpty()||
+                vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
@@ -315,6 +333,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String tale=(String) vistaMembrecia.boxtalentos.getSelectedItem();
             String dones=(String) vistaMembrecia.boxdones.getSelectedItem();
             String acti=(String) vistaMembrecia.boxactivo.getSelectedItem();
+            String dire=vistaMembrecia.txtdireccion.getText();
+            String nomref=vistaMembrecia.txtnomfererencia.getText();
+            String numref=vistaMembrecia.txtnumreferencia.getText();
             
                 System.out.println("id " +id );
             
@@ -332,6 +353,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setTalentos(tale);
             membrecia.setDones(dones);
             membrecia.setActivo(acti);
+            membrecia.setDireccion(dire);
+            membrecia.setNomreferencia(nomref);
+            membrecia.setNumreferencia(Integer.parseInt(numref));
             
                 System.out.println("probando modificar");
             
@@ -354,7 +378,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA PARA ELIMINAR");
         }else{
-            membreciaDAO.eliminarmiembros(id);
+            membreciaDAO.eliminar(id);
             System.out.println("eliminando");
         }
     }
@@ -385,6 +409,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.boxtalentos.setSelectedItem("");
         vistaMembrecia.boxdones.setSelectedItem("");
         vistaMembrecia.boxactivo.setSelectedItem("");
+        vistaMembrecia.txtdireccion.setText("");
+        vistaMembrecia.txtnomfererencia.setText("");
+        vistaMembrecia.txtnumreferencia.setText("");
     }
     public void inhabilitar(){
         vistaMembrecia.botonagregar.setEnabled(false);
@@ -392,11 +419,18 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botoneliminar.setEnabled(false);
         vistaMembrecia.botonmodificar.setEnabled(false);
         vistaMembrecia.botonreporte.setEnabled(false);
+        vistaMembrecia.btnbuscar1.setEnabled(false);
+        vistaMembrecia.botonlistar.setEnabled(false);
         
         vistaMembrecia.txtnombre.setEnabled(false);
         vistaMembrecia.txtpaterno.setEnabled(false);
         vistaMembrecia.txtmaterno.setEnabled(false);
         vistaMembrecia.txtdocumento.setEnabled(false);
+        vistaMembrecia.txtdireccion.setEnabled(false);
+        vistaMembrecia.txtnomfererencia.setEnabled(false);
+        vistaMembrecia.txtnumreferencia.setEnabled(false);
+        vistaMembrecia.txtbuscar.setEnabled(false);
+        
         vistaMembrecia.boxtalentos.setEnabled(false);
         vistaMembrecia.boxdones.setEnabled(false);
         vistaMembrecia.boxactivo.setEnabled(false);
@@ -411,12 +445,19 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botoneliminar.setEnabled(true);
         vistaMembrecia.botonmodificar.setEnabled(true);
         vistaMembrecia.botonreporte.setEnabled(true);
+        vistaMembrecia.btnbuscar1.setEnabled(true);
+        vistaMembrecia.botonlistar.setEnabled(true);
         
         
         vistaMembrecia.txtnombre.setEnabled(true);
         vistaMembrecia.txtpaterno.setEnabled(true);
         vistaMembrecia.txtmaterno.setEnabled(true);
         vistaMembrecia.txtdocumento.setEnabled(true);
+        vistaMembrecia.txtdireccion.setEnabled(true);
+        vistaMembrecia.txtnomfererencia.setEnabled(true);
+        vistaMembrecia.txtnumreferencia.setEnabled(true);
+        vistaMembrecia.txtbuscar.setEnabled(true);
+        
         vistaMembrecia.boxtalentos.setEnabled(true);
         vistaMembrecia.boxdones.setEnabled(true);
         vistaMembrecia.boxactivo.setEnabled(true);

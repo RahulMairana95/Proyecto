@@ -44,7 +44,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="145" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="123" max="32767" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtbuscar" min="-2" pref="294" max="-2" attributes="0"/>
@@ -89,17 +89,23 @@
             <Component class="javax.swing.JTable" name="tablaiglesia">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="7" rowCount="0">
                     <Column editable="true" title="NOMBRE" type="java.lang.String"/>
-                    <Column editable="true" title="APELLIDOS" type="java.lang.String"/>
+                    <Column editable="true" title="APELLIDO PATERNO" type="java.lang.String"/>
+                    <Column editable="true" title="APELLIDO MATERNO" type="java.lang.String"/>
                     <Column editable="true" title="C.I." type="java.lang.String"/>
                     <Column editable="true" title="CARGO" type="java.lang.String"/>
-                    <Column editable="true" title="INICIO GESTION" type="java.lang.String"/>
-                    <Column editable="true" title="FIN GESTION" type="java.lang.String"/>
+                    <Column editable="true" title="INICIO GESTI&#xd3;N" type="java.lang.String"/>
+                    <Column editable="true" title="FIN GESTI&#xd3;N" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -148,7 +154,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/iconlistaboton.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="LISTAR"/>
+            <Property name="text" type="java.lang.String" value="RECARGAR"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

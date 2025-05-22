@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,10 +38,11 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     List<Lideriglesia> lista;
     Membrecia mem=new Membrecia();
     
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     List<Membrecia> lislider=new ArrayList<>();
     
     ExcelExpo exp;
+    ExportarEnExcel excel;
     
     public ControlLider(VistaLider vl, LiderDAO ld){
         this.vistaLider=vl;
@@ -68,7 +70,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         if(vistaLider.botonagregar==ae.getSource()){
             try {
-                agregarNuevo();
+                agregarNuevos();
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
                 limpiarfield();
@@ -82,11 +84,11 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 mostrarlista();
                 limpiarfield();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo modificar");
+                JOptionPane.showMessageDialog(null, "NO SE MODIFICÓ");
             }
         }else if(vistaLider.botoneliminar==ae.getSource()){
             try {
-                eliminar();
+                eliminarlider();
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
                 limpiarfield();
@@ -108,11 +110,13 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 limpiarfield();
                 habilitar();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo limpiar");
+                JOptionPane.showMessageDialog(null, "NO SE PUDO LIMPIAR");
             }
         }else if(vistaLider.botonbuscar==ae.getSource()){
             try {
-                buscar(vistaLider.txtbuscar.getText());
+                String texto = vistaLider.txtbuscar.getText().trim();
+                List<Lideriglesia> lista = ldao.buscarLider(texto);
+                mostrarTablaLideres(lista); 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR LIDER");
             }
@@ -122,7 +126,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
             }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR AL LISTAR");
+                JOptionPane.showMessageDialog(null, "ERROR AL RECARGAR");
             }
         }else if(vistaLider.botonreporte==ae.getSource()){
             try{
@@ -143,15 +147,17 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             id=lista.get(fila).getIdlider();
             
             String nom=vistaLider.tablalider.getValueAt(fila, 0).toString();
-            String ape=vistaLider.tablalider.getValueAt(fila, 1).toString();
-            String ci=vistaLider.tablalider.getValueAt(fila, 2).toString();
-            String cargo=vistaLider.tablalider.getValueAt(fila, 3).toString();
-            String ini=vistaLider.tablalider.getValueAt(fila, 4).toString();
-            String fin=vistaLider.tablalider.getValueAt(fila, 5).toString();
+            String apep=vistaLider.tablalider.getValueAt(fila, 1).toString();
+            String apem=vistaLider.tablalider.getValueAt(fila, 2).toString();
+            String ci=vistaLider.tablalider.getValueAt(fila, 3).toString();
+            String cargo=vistaLider.tablalider.getValueAt(fila, 4).toString();
+            String ini=vistaLider.tablalider.getValueAt(fila, 5).toString();
+            String fin=vistaLider.tablalider.getValueAt(fila, 6).toString();
             
             try {
                 vistaLider.txtnombre.setText(nom);
-                vistaLider.txtapellidos.setText(ape);
+                vistaLider.txtpaterno.setText(apep);
+                vistaLider.txtmaterno.setText(apem);
                 vistaLider.txtdocumento.setText(ci);
                 
                 vistaLider.boxcargo.setSelectedItem(cargo);
@@ -172,154 +178,228 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             
         }    
           
-    }/*
-    public void listarnombres(){
-       String dato= (String)vistaLider.boxnombre.getSelectedItem();
-       String [] aux=dato.split("-");
-       String idmem=aux[0];
-       
-       MembreciaDAO llldao=new MembreciaDAO();
-       lislider=llldao.listarMembrecia();
-       
-       
-        if(){
-            
-            vistaLider.txtnombre.setText(mem.getNombre());
-            vistaLider.txtpaterno.setText(mem.getApellidop());
-            vistaLider.txtmaterno.setText(mem.getApellidom());
-            vistaLider.txtdocumento.setText(mem.getNumdocumento());
-            
-            System.out.println("datossssssss" +dato);
-        } 
-        
-    }*/
+    }
     
     
     public void mostrarlista(){
-        lista=ldao.mostrar();
+        lista=ldao.mostrarlider();
+        System.out.println(lista.size() + "nooooooooooooooo");
+        
         tablamodel=(DefaultTableModel) vistaLider.tablalider.getModel();
-        Object obj[]=new Object[6];
+        tablamodel.setRowCount(0);
+        
+        Object obj[]=new Object[7];
         //System.out.println("lista Lider");
-        for(int i=0;i<lista.size();i++){
-            
-            obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApellidos();
-            obj[2]=lista.get(i).getCi();
-            obj[3]=lista.get(i).getCargo();
-            obj[4]=sdf.format(lista.get(i).getIniciogestion());
-            obj[5]=sdf.format(lista.get(i).getFingestion());
-            
-            tablamodel.addRow(obj);
+        // Verificar si la lista contiene datos
+        if (lista != null && !lista.isEmpty()) {
+            for (int i = 0; i < lista.size(); i++) {
+                obj[0] = lista.get(i).getNombre();
+                obj[1] = lista.get(i).getApellidop();
+                obj[2] = lista.get(i).getApellidom();
+                obj[3] = lista.get(i).getNumdocumento();
+                obj[4] = lista.get(i).getCargo();
+                obj[5] = sdf.format(lista.get(i).getIniciogestion());
+                obj[6] = sdf.format(lista.get(i).getFingestion());
+
+                // Agregar la fila a la tabla
+                tablamodel.addRow(obj);
+            }
+        } else {
+            System.out.println("No hay datos para mostrar.");
         }
+
+        // Asignar el modelo actualizado a la tabla (aunque ya se asignó, esto asegura que se actualice la vista)
         vistaLider.tablalider.setModel(tablamodel);
     }
+    
+    
+    //////////AGREGAR NUEVO REGISTRO
+    public void agregarNuevos() {
+        if (vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty() ||
+            vistaLider.fechainicio.getDate() == null ||  // Verificar si la fecha está seleccionada
+            vistaLider.fechafin.getDate() == null) {    // Verificar si la fecha está seleccionada
 
-    public void agregarNuevo(){
-        if(vistaLider.txtnombre.getText().trim().isEmpty()||
-                vistaLider.txtapellidos.getText().trim().isEmpty()||
-                vistaLider.txtdocumento.getText().trim().isEmpty()||
-                vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty()||
-                vistaLider.fechainicio.getCalendar().toString().trim().isEmpty()||
-                vistaLider.fechafin.getCalendar().toString().trim().isEmpty()){
-            
-          JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
-        }else{
-            
-            String tmp=(String) vistaLider.boxnombre.getSelectedItem();
-            String [] aux=tmp.split(" ");
-            String idmen=aux[0];
-            
+            JOptionPane.showMessageDialog(null, "DEBE LLENAR TODOS LOS CAMPOS");
+        } else {
+            String tmp = (String) vistaLider.boxnombre.getSelectedItem();
+            String[] aux = tmp.split(" ");
+            String idmen = aux[0];
+
             lideriglesia.setIdmembrecia(Integer.parseInt(idmen));
-            //System.err.println(idmen+"miembro num");
-            ///////DATOS LLAMADOS DE LA MEMBRECIA
-            lideriglesia.setNombre(vistaLider.txtnombre.getText());
-            lideriglesia.setApellidos(vistaLider.txtapellidos.getText());
-            lideriglesia.setCi(vistaLider.txtdocumento.getText());
-            
-            lideriglesia.setCargo((String)vistaLider.boxcargo.getSelectedItem());
-            
-            Calendar calenn, calenc;
-            int diai,mesi,yeari,diaf,mesf,yearf;
-            calenn=vistaLider.fechainicio.getCalendar();
-            diai=calenn.get(Calendar.DAY_OF_MONTH);
-            mesi=calenn.get(Calendar.MONTH);
-            yeari=calenn.get(Calendar.YEAR)-1900;
-            lideriglesia.setIniciogestion(new Date(yeari, mesi, diai));
-            
-            calenc=vistaLider.fechafin.getCalendar();
-            diaf=calenc.get(Calendar.DAY_OF_MONTH);
-            mesf=calenc.get(Calendar.MONTH);
-            yearf=calenc.get(Calendar.YEAR)-1900;
-            lideriglesia.setFingestion(new Date(yearf, mesf, diaf));
-            
-            ldao.agregar(lideriglesia);
-            
+
+            // Datos de la Membresía (puedes descomentar si es necesario)
+            // lideriglesia.setNombre(vistaLider.txtnombre.getText());
+            // lideriglesia.setApellidos(vistaLider.txtapellidos.getText());
+            // lideriglesia.setCi(vistaLider.txtdocumento.getText());
+
+            lideriglesia.setCargo((String) vistaLider.boxcargo.getSelectedItem());
+
+            // Obtener la fecha de inicio
+            Calendar calenn = vistaLider.fechainicio.getCalendar();
+            int diai = calenn.get(Calendar.DAY_OF_MONTH);
+            int mesi = calenn.get(Calendar.MONTH); // Enero es 0, Diciembre es 11
+            int yeari = calenn.get(Calendar.YEAR);
+
+            lideriglesia.setIniciogestion(new java.sql.Date(calenn.getTimeInMillis()));  // Utilizando getTimeInMillis()
+
+            // Obtener la fecha de fin
+            Calendar calenc = vistaLider.fechafin.getCalendar();
+            int diaf = calenc.get(Calendar.DAY_OF_MONTH);
+            int mesf = calenc.get(Calendar.MONTH); // Enero es 0, Diciembre es 11
+            int yearf = calenc.get(Calendar.YEAR);
+
+            lideriglesia.setFingestion(new java.sql.Date(calenc.getTimeInMillis())); // Utilizando getTimeInMillis()
+
+            // Agregar al DAO
+            ldao.agregarl(lideriglesia);
         }
     }
-    public void modificar(){
-        int fila=vistaLider.tablalider.getSelectedRow();
-        if(fila==-1){
+    
+    public void modificar() {
+        int fila = vistaLider.tablalider.getSelectedRow();
+
+        if (fila == -1) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
-        }else{
-            if(vistaLider.txtnombre.getText().trim().isEmpty()||
-                vistaLider.txtapellidos.getText().trim().isEmpty()||
-                vistaLider.txtdocumento.getText().trim().isEmpty()||
-                vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty()||
-                vistaLider.fechainicio.getCalendar().toString().trim().isEmpty()||
-                vistaLider.fechafin.getCalendar().toString().trim().isEmpty()){
+            return;
+        }
+
+        if (vistaLider.boxcargo.getSelectedItem() == null || 
+            vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty() ||
+            vistaLider.fechainicio.getCalendar() == null ||
+            vistaLider.fechafin.getCalendar() == null) {
+
+            JOptionPane.showMessageDialog(null, "DEBE LLENAR TODOS LOS CAMPOS");
+            return;
+        }
+
+        try {
+            // Obtener ID del líder seleccionado
+            int ide = lista.get(fila).getIdlider();
+            System.out.println("ID seleccionado: " + ide); // Para depuración
             
-          JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
-        }else{
-            id=lista.get(fila).getIdlider();
-            String nombre=vistaLider.txtnombre.getText();
-            String paterno=vistaLider.txtapellidos.getText();
-            String num=vistaLider.txtdocumento.getText();
             
-            String cargo=(String)vistaLider.boxcargo.getSelectedItem();
-            
-            Calendar calenn, calenc;
-            int diai,mesi,yeari,diaf,mesf,yearf;
-            calenn=vistaLider.fechainicio.getCalendar();
-            diai=calenn.get(Calendar.DAY_OF_MONTH);
-            mesi=calenn.get(Calendar.MONTH);
-            yeari=calenn.get(Calendar.YEAR)-1900;
-            Date fini=(new Date(yeari, mesi, diai));
-            
-            calenc=vistaLider.fechafin.getCalendar();
-            diaf=calenc.get(Calendar.DAY_OF_MONTH);
-            mesf=calenc.get(Calendar.MONTH);
-            yearf=calenc.get(Calendar.YEAR)-1900;
-            Date fin=(new Date(yearf, mesf, diaf));
-            
-            lideriglesia.setIdlider(id);
-            lideriglesia.setNombre(nombre);
-            lideriglesia.setApellidos(paterno);
-            lideriglesia.setCi(num);
-            lideriglesia.setCargo(cargo);
-            lideriglesia.setIniciogestion(fini);
-            lideriglesia.setFingestion(fin);
-            
-            ldao.modificar(lideriglesia);
+
+
+            String cargo = vistaLider.boxcargo.getSelectedItem().toString().trim();
+
+            // Convertir fechas correctamente
+            java.sql.Date fini = obtenerFechaSQL(vistaLider.fechainicio);
+            java.sql.Date fin = obtenerFechaSQL(vistaLider.fechafin);
+
+            if (fini == null || fin == null) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar ambas fechas.");
+                return;
             }
+
+            // Verificar si la fecha de inicio es posterior a la fecha de fin
+            if (fini.after(fin)) {
+                JOptionPane.showMessageDialog(null, "La fecha de inicio no puede ser posterior a la fecha de fin.");
+                return;
+            }
+
+                // Asignar valores al objeto
+                Lideriglesia lider = new Lideriglesia();
+                lider.setIdlider(ide);
+                lider.setCargo(cargo);
+                lider.setIniciogestion(fini);
+                lider.setFingestion(fin);
+
+                // Llamar a la función modificar y verificar si funcionó
+                boolean actualizado = ldao.modificar(lider);
+
+            if (actualizado) {
+                JOptionPane.showMessageDialog(null, "✅ ¡Modificación exitosa!");
+            } else {
+                JOptionPane.showMessageDialog(null, "❌ Error: No se pudo modificar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "❌ Error al procesar los datos. Verifique la información.");
+            e.printStackTrace(); // Para depuración
         }
     }
+
+    private java.sql.Date obtenerFechaSQL(com.toedter.calendar.JDateChooser dateChooser) {
+        if (dateChooser.getDate() != null) {
+            return new java.sql.Date(dateChooser.getDate().getTime()); // Convierte java.util.Date a java.sql.Date
+        } else {
+            return null; // Si no hay fecha seleccionada, retorna null
+        }
+    }
+
     public void eliminar(){
         int fila=vistaLider.tablalider.getSelectedRow();
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA PARA ELIMINAR");
         }else{
-            ldao.eliminarlider(id);
+            ldao.eliminar(id);
             System.out.println("eliminando");
+            JOptionPane.showMessageDialog(null, "ELIMINADO EXITOSAMENTE");
         }
     }
-    public void buscar(String buscando){
-        if(vistaLider.txtbuscar.getText().length()==0){
-            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
-        }else{
-            tablamodel=ldao.buscarlider(buscando);
-            vistaLider.tablalider.setModel(tablamodel);
+    public void eliminarlider() {
+        // Obtener la fila seleccionada en la tabla
+        int fila = vistaLider.tablalider.getSelectedRow();
+
+        // Verificar si se seleccionó una fila
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "⚠️ SELECCIONE UNA FILA PARA ELIMINAR");
+            return; // Salir si no se ha seleccionado ninguna fila
+        }
+
+        // Obtener el ID del líder seleccionado (asumiendo que la lista ya está cargada correctamente)
+        int ide = lista.get(fila).getIdlider();
+        System.out.println("🆔 ID del líder a eliminar: " + ide);
+
+        // Mostrar un mensaje de confirmación al usuario
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null, 
+            "¿ESTÁ SEGURO DE ELIMINAR?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE  // El tipo de mensaje (opcional, para dar más contexto)
+        );
+
+        // Si el usuario confirma, proceder con la eliminación
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al DAO para eliminar el líder
+            boolean eliminado = ldao.eliminar(ide);
+
+            // Si la eliminación fue exitosa
+            if (eliminado) {
+                JOptionPane.showMessageDialog(null, "✅ ¡EL LÍDER SELECCIONADO HA SIDO ELIMINADO!");
+
+                // Actualizar la lista de líderes después de la eliminación
+                lista = ldao.mostrarlider(); // Actualizar la lista de líderes
+                mostrarlista();         // Recargar la tabla con los datos actualizados
+            } else {
+                // Si hubo un error al eliminar
+                JOptionPane.showMessageDialog(null, "❌ Error: No se pudo eliminar el líder.");
+            }
+        } else {
+            // Si el usuario elige no eliminar
+            JOptionPane.showMessageDialog(null, "❌ El líder no ha sido eliminado.");
         }
     }
+
+    public void mostrarTablaLideres(List<Lideriglesia> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaLider.tablalider.getModel();
+        modelo.setRowCount(0); // limpiar tabla
+
+        for (Lideriglesia li : lista) {
+            modelo.addRow(new Object[]{
+                li.getNombre(),
+                li.getApellidop(),
+                li.getApellidom(),
+                li.getNumdocumento(),
+                li.getCargo(),
+                li.getIniciogestion(),
+                li.getFingestion()
+            });
+        }
+}
+
+
+
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();
@@ -332,7 +412,8 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     }
     public void limpiarfield(){
         vistaLider.txtnombre.setText("");
-        vistaLider.txtapellidos.setText("");
+        vistaLider.txtpaterno.setText("");
+        vistaLider.txtmaterno.setText("");
         vistaLider.txtdocumento.setText("");
         vistaLider.boxcargo.setSelectedItem("");
         
@@ -342,8 +423,10 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     }
     public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaLider.tablalider);
+            //exp= new ExcelExpo();
+            //exp.Exportar(vistaLider.tablalider);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaLider.tablalider);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -358,7 +441,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         
         vistaLider.boxnombre.setEnabled(false);
         vistaLider.txtnombre.setEnabled(false);
-        vistaLider.txtapellidos.setEnabled(false);
+        vistaLider.txtpaterno.setEnabled(false);
         vistaLider.txtdocumento.setEnabled(false);
         vistaLider.boxcargo.setEnabled(false);
         vistaLider.fechafin.setEnabled(false);
@@ -374,10 +457,37 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         
         vistaLider.boxnombre.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
-        vistaLider.txtapellidos.setEnabled(true);
+        vistaLider.txtpaterno.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);
         vistaLider.fechafin.setEnabled(true);
         vistaLider.fechainicio.setEnabled(true);
     }
+
+    public void actualizarTablaConResultados(List<Lideriglesia> resultados) {
+    // Obtener el modelo de la tabla
+    DefaultTableModel modelo = (DefaultTableModel) vistaLider.tablalider.getModel();
+
+    // Limpiar la tabla antes de agregar los nuevos resultados
+    modelo.setRowCount(0);
+
+    // Recorrer la lista de resultados y agregar cada líder a la tabla
+    for (Lideriglesia lider : resultados) {
+        // Crear un arreglo con los datos del líder para agregar a la tabla
+        Object[] fila = {
+            //lider.getIdlider(),            // ID del líder
+            lider.getNombre(),             // Nombre del líder
+            lider.getApellidop(),          // Apellido paterno
+            lider.getApellidom(),          // Apellido materno
+            lider.getNumdocumento(),       // Número de documento
+            lider.getCargo(),              // Cargo
+            lider.getIniciogestion(),      // Fecha de inicio de gestión
+            lider.getFingestion()          // Fecha de fin de gestión
+        };
+
+        // Agregar la fila a la tabla
+        modelo.addRow(fila);
+    }
+    }
+
 }

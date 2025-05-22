@@ -54,16 +54,22 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tablamin.setEnabled(false);
         jScrollPane1.setViewportView(tablamin);
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
-        botonlistar.setText("LISTAR");
+        botonlistar.setText("RECARGAR");
 
         botonreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconexcel2.png"))); // NOI18N
         botonreporte.setText("EXPORTAR LISTA");
@@ -78,7 +84,7 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
         botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
         botonbuscar.setText("BUSCAR");
 
-        boxministerio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------------------------------------------------", "MINISTERIO FEMENIL", "MINISTERIO JUVENIL", "MINISTERIO PREJUVENIL", "MINISTERIO DE ALABANZA", "ESCUELA DOMINICAL", "EVANGELISMO Y MISIONES", "OANSA", "CDI", "OTRO" }));
+        boxministerio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MINISTERIO FEMENIL", "MINISTERIO JUVENIL", "MINISTERIO PREJUVENIL", "MINISTERIO DE ALABANZA", "ESCUELA DOMINICAL", "EVANGELISMO Y MISIONES", "OANSA", "CDI", "OTRO" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,7 +95,7 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 145, Short.MAX_VALUE)
+                        .addGap(0, 123, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)

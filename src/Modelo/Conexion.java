@@ -7,25 +7,48 @@ package Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
  * @author RAHUL OMERO MAIRANAs
  */
 public class Conexion {
-    //public static void main(String[] args) {
-    Connection conectar;
-    public Connection conectando(){
+    private static final String URL = "jdbc:mysql://localhost:3306/membrecia?useTimezone=true&serverTimezone=America/La_Paz";
+    private static final String USER = "root";  
+    private static final String PASSWORD = "";
+    
+    public static Connection conectar = null; // Variable de conexión global
+
+    // Método para obtener la conexión
+    public static Connection getConnection() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/nuevajerusalen?"
-                    + "useTimezone=true&serverTimezone=America/La_Paz", "root", "");
-            
-            System.out.println("Esta Conectado exitosamente");
-        } catch (Exception e) {
-            System.out.println("no hay conexion");
+            // Si la conexión está cerrada o no existe, crear una nueva
+            if (conectar == null || conectar.isClosed()) {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conectar = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("✅ Conectado exitosamente a la base de datos.");
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("❌ Error: No se encontró el driver de MySQL.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("❌ Error al conectar a la base de datos.");
+            e.printStackTrace();
         }
         return conectar;
+    }
+
+    // Método para cerrar la conexión
+    public static void closeConnection() {
+        try {
+            if (conectar != null && !conectar.isClosed()) {
+                conectar.close();
+                System.out.println("🔌 Conexión cerrada correctamente.");
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error al cerrar la conexión.");
+            e.printStackTrace();
+        }
     }
 }

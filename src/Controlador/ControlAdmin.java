@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,63 +27,75 @@ import javax.swing.table.DefaultTableModel;
  * @author RAHUL
  */
 public class ControlAdmin extends MouseAdapter implements ActionListener{
-    VistaRegistro vistaRegistro;
-    AdminDAO adminDAO;
-    Administrador adminis;
+    VistaRegistro vistaAdministrador=new VistaRegistro();
+    AdministradorDAO adminDAO;
+    Administrador adminis=new Administrador();
     DefaultTableModel tablamodel=new DefaultTableModel();
     
     List<Administrador> lista;
     int id;
     
-    public ControlAdmin(VistaRegistro vr, AdminDAO adao){
+    List<Lideriglesia> lisusua=new ArrayList<>();
+    
+    public ControlAdmin(VistaRegistro vr, AdministradorDAO adao){
         System.out.println("listando admin");
-        this.vistaRegistro=vr;
+        this.vistaAdministrador=vr;
         this.adminDAO=adao;
         mostrar();
         inhabilitar();
+        mostrarUsuarios();
         
         //  --------------EVENTOS
         
-        this.vistaRegistro.btnagregar.addActionListener(this);
-        this.vistaRegistro.btneliminar.addActionListener(this);
-        this.vistaRegistro.btncancelar.addActionListener(this);
-        this.vistaRegistro.btnnuevo.addActionListener(this);
+        this.vistaAdministrador.btnagregar.addActionListener(this);
+        this.vistaAdministrador.btnmodificar.addActionListener(this);
+        this.vistaAdministrador.btneliminar.addActionListener(this);
+        this.vistaAdministrador.btncancelar.addActionListener(this);
+        this.vistaAdministrador.btnnuevo.addActionListener(this);
 
         
-        this.vistaRegistro.tablausuario.addMouseListener(this);
+        this.vistaAdministrador.tablausuario.addMouseListener(this);
     }
     
-    /////////METODOS
+    /////////LLAMANDO METODOS
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(vistaRegistro.btnagregar==ae.getSource()){
+        if(vistaAdministrador.btnagregar==ae.getSource()){
             try {
                 insertar();
-                limpiartabla(vistaRegistro.tablausuario);
+                limpiartabla(vistaAdministrador.tablausuario);
                 mostrar();
                 limpiarfield();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo agregar");
             }
-        }else if(vistaRegistro.btneliminar==ae.getSource()){
+        }else if(vistaAdministrador.btneliminar==ae.getSource()){
             try {
                 eliminar();
-                limpiartabla(vistaRegistro.tablausuario);
+                limpiartabla(vistaAdministrador.tablausuario);
                 mostrar();
                 limpiarfield();   
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar");
             }
-        }else if(vistaRegistro.btncancelar==ae.getSource()){
+        }else if(vistaAdministrador.btncancelar==ae.getSource()){
             try {
                 limpiarfield();
-                limpiartabla(vistaRegistro.tablausuario);
+                limpiartabla(vistaAdministrador.tablausuario);
                 mostrar();
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo cancelar");
             }
-        }else if(vistaRegistro.btnnuevo==ae.getSource()){
+        }else if(vistaAdministrador.btnmodificar==ae.getSource()){
+            try {
+                editar();
+                limpiartabla(vistaAdministrador.tablausuario);
+                mostrar();
+                limpiarfield();
+            } catch (Exception e) {
+            }
+        }else if(vistaAdministrador.btnnuevo==ae.getSource()){
             try {
                 limpiarfield();
                 habilitar();
@@ -92,93 +105,101 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
     }
      @Override
     public void mouseClicked(MouseEvent e){
-        int fila=vistaRegistro.tablausuario.getSelectedRow();
-        if(fila==-1){
+        int fila=vistaAdministrador.tablausuario.getSelectedRow();
+        if(fila== -1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
+            
         }else{
             id=lista.get(fila).getIdadmin();
             
-            String nom=vistaRegistro.tablausuario.getValueAt(fila, 0).toString();
-            String pat=vistaRegistro.tablausuario.getValueAt(fila, 1).toString();
-            String mat=vistaRegistro.tablausuario.getValueAt(fila, 2).toString();
-            String num=vistaRegistro.tablausuario.getValueAt(fila, 3).toString();
-            String tel=vistaRegistro.tablausuario.getValueAt(fila, 4).toString();
-            String emal=vistaRegistro.tablausuario.getValueAt(fila, 5).toString();
-            String car=vistaRegistro.tablausuario.getValueAt(fila, 6).toString();
-            String usu=vistaRegistro.tablausuario.getValueAt(fila, 7).toString();
-            String nomu=vistaRegistro.tablausuario.getValueAt(fila, 8).toString();
-            String cont=vistaRegistro.tablausuario.getValueAt(fila, 9).toString();
+            String nombre=vistaAdministrador.tablausuario.getValueAt(fila, 0).toString();
+            String apellidos=vistaAdministrador.tablausuario.getValueAt(fila, 1).toString();
+            String numci=vistaAdministrador.tablausuario.getValueAt(fila, 2).toString();
+            String telefono=vistaAdministrador.tablausuario.getValueAt(fila, 3).toString();
+            String correo=vistaAdministrador.tablausuario.getValueAt(fila, 4).toString();
+            String roles=vistaAdministrador.tablausuario.getValueAt(fila, 5).toString();
+            String nomusuario=vistaAdministrador.tablausuario.getValueAt(fila, 6).toString();
+            String claveusuario=vistaAdministrador.tablausuario.getValueAt(fila, 7).toString();
             
-            
-            vistaRegistro.txtnombre.setText(nom); //System.out.println("errooooo"+ err);
-            vistaRegistro.txtapellidopa.setText(pat);
-            vistaRegistro.txtapellidoma.setText(mat);
-            vistaRegistro.txtnumdocumento.setText(num);
-            //System.out.println("parseado aqui");
-            vistaRegistro.txttelefono.setText(tel);
-            vistaRegistro.txtemail.setText(emal);
-            //System.out.println("parseado");
-            vistaRegistro.boxcargo.setSelectedItem(car);
-            vistaRegistro.boxusuario.setSelectedItem(usu);
-            vistaRegistro.txtnombreusuario.setText(cont);
-            vistaRegistro.txtcontraseña.setText(cont);
+            try {
+                vistaAdministrador.txtnombre.setText(nombre);
+                vistaAdministrador.txtapellidos.setText(apellidos);
+                vistaAdministrador.txtnumdocumento.setText(numci);
+                vistaAdministrador.txttelefono.setText(telefono);
+                vistaAdministrador.txtemail.setText(correo);
+                
+                vistaAdministrador.boxroles.setSelectedItem(roles);
+                
+                vistaAdministrador.txtnombreusuario.setText(nomusuario);
+                vistaAdministrador.txtcontraseña.setText(claveusuario);
+            } catch (Exception error) {
+            }
         }
+        
     }
     public void mostrar(){
         lista=adminDAO.listaradmin();
-        tablamodel=(DefaultTableModel) vistaRegistro.tablausuario.getModel();
-        Object obj[]=new Object[10];
+        tablamodel=(DefaultTableModel) vistaAdministrador.tablausuario.getModel();
+        Object obj[]=new Object[8];
         
         for(int i=0;i<lista.size();i++){
             obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApaterno();
-            obj[2]=lista.get(i).getAmaterno();
-            obj[3]=lista.get(i).getNumdocumento();
-            obj[4]=lista.get(i).getTelefono();
-            obj[5]=lista.get(i).getEmail();
-            obj[6]=lista.get(i).getCargo();
-            obj[7]=lista.get(i).getUsuario();
-            obj[8]=lista.get(i).getNombreusuario();
-            obj[9]=lista.get(i).getContraseña();
+            obj[1]=lista.get(i).getApellidos();
+            obj[2]=lista.get(i).getNumdocumento();
+            obj[3]=lista.get(i).getTelefono();
+            obj[4]=lista.get(i).getEmail();
+            obj[5]=lista.get(i).getUsuario();
+            obj[6]=lista.get(i).getNombreusuario();
+            obj[7]=lista.get(i).getContraseña();
             
             tablamodel.addRow(obj);
         }
-        vistaRegistro.tablausuario.setModel(tablamodel);
+        vistaAdministrador.tablausuario.setModel(tablamodel);
     }
 
     
     public void insertar(){
-        if(vistaRegistro.txtnombre.getText().trim().isEmpty()||
-                vistaRegistro.txtapellidopa.getText().trim().isEmpty()||
-                vistaRegistro.txtapellidoma.getText().trim().isEmpty()||
-                vistaRegistro.txtnumdocumento.getText().trim().isEmpty()||
-                vistaRegistro.txttelefono.getText().trim().isEmpty()||
-                vistaRegistro.txtemail.getText().trim().isEmpty()||
-                vistaRegistro.boxcargo.getSelectedItem().toString().trim().isEmpty()||
-                vistaRegistro.boxusuario.getSelectedItem().toString().trim().isEmpty()||
-                vistaRegistro.txtnombreusuario.getText().trim().isEmpty()||
-                vistaRegistro.txtcontraseña.getText().trim().isEmpty()){
+        if(vistaAdministrador.txtnombre.getText().trim().isEmpty()||
+                vistaAdministrador.txtapellidos.getText().trim().isEmpty()||
+                vistaAdministrador.txtnumdocumento.getText().trim().isEmpty()||
+                vistaAdministrador.txttelefono.getText().trim().isEmpty()||
+                vistaAdministrador.txtemail.getText().trim().isEmpty()||
+                vistaAdministrador.boxroles.getSelectedItem().toString().trim().isEmpty()||
+                vistaAdministrador.txtnombreusuario.getText().trim().isEmpty()||
+                vistaAdministrador.txtcontraseña.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
-            if(validarEmail(vistaRegistro.txtemail.getText())){
-            adminis.setNombre(vistaRegistro.txtnombre.getText());
-            adminis.setApaterno(vistaRegistro.txtapellidopa.getText());
-            adminis.setAmaterno(vistaRegistro.txtapellidoma.getText());
-            adminis.setNumdocumento(vistaRegistro.txtnumdocumento.getText());
-            adminis.setTelefono(Integer.parseInt(vistaRegistro.txttelefono.getText()));
-            adminis.setEmail(vistaRegistro.txtemail.getText());
+            String tmp=(String) vistaAdministrador.boxusuarios.getSelectedItem();
+            String [] aux=tmp.split(" ");
+            String idlid=aux[0];
+                
+            if(validarEmail(vistaAdministrador.txtemail.getText())){
+            //System.out.println("idlid"+ Integer.parseInt(idlid));
+            adminis.setIdlider(Integer.parseInt(idlid));
+            //System.out.println("1------------");
+            adminis.setNombre(vistaAdministrador.txtnombre.getText());
+            //System.out.println("2 -------------");
+            adminis.setApellidos(vistaAdministrador.txtapellidos.getText());
+            //System.out.println("2 -------------");
+            //adminis.setAmaterno(vistaAdministrador.txtapellidos.getText());
+            adminis.setNumdocumento(vistaAdministrador.txtnumdocumento.getText());
+            //System.out.println("entrando a la condicions");
+            adminis.setTelefono(Integer.parseInt(vistaAdministrador.txttelefono.getText()));
+            adminis.setEmail(vistaAdministrador.txtemail.getText());
             
-            adminis.setCargo((String) vistaRegistro.boxcargo.getSelectedItem());
-//            int select=vistaRegistro.boxcargo.getSelectedIndex();
-//            adminis.setCargo(vistaRegistro.boxcargo.getItemAt(select));
-//            
-//            select=vistaRegistro.boxusuario.getSelectedIndex();
-//            adminis.setUsuario(vistaRegistro.boxusuario.getItemAt(select));
-            adminis.setUsuario((String) vistaRegistro.boxusuario.getSelectedItem());
+            adminis.setUsuario((String) vistaAdministrador.boxroles.getSelectedItem());
+            int select=vistaAdministrador.boxroles.getSelectedIndex();
+            adminis.setUsuario(vistaAdministrador.boxroles.getItemAt(select));
+
+            //adminis.setUsuario((String) vistaAdministrador.boxusuario.getSelectedItem());  
+            //int select=vistaAdministrador.boxusuario.getSelectedIndex();
+            //adminis.setUsuario(vistaAdministrador.boxusuario.getItemAt(select));
             
-            adminis.setNombreusuario(vistaRegistro.txtnombreusuario.getText());
-            adminis.setContraseña(vistaRegistro.txtcontraseña.getText());
+            
+            
+            adminis.setNombreusuario(vistaAdministrador.txtnombreusuario.getText());
+            adminis.setContraseña(vistaAdministrador.txtcontraseña.getText());
             
             adminDAO.agregar(adminis);
             
@@ -189,9 +210,50 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
             }
         }
     }
+    public void editar(){
+        int fila=vistaAdministrador.tablausuario.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
+        }else{
+            if(vistaAdministrador.txtnombre.getText().trim().isEmpty()||
+               vistaAdministrador.txtapellidos.getText().trim().isEmpty()||
+               vistaAdministrador.txtnumdocumento.getText().trim().isEmpty()||
+               vistaAdministrador.txttelefono.getText().trim().isEmpty()||
+               vistaAdministrador.txtemail.getText().trim().isEmpty()||
+               vistaAdministrador.boxroles.getSelectedItem().toString().trim().isEmpty()||
+               vistaAdministrador.txtnombreusuario.getText().trim().isEmpty()||
+               vistaAdministrador.txtcontraseña.getText().trim().isEmpty()){
+                
+               JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
+            }else{
+                id=lista.get(fila).getIdadmin();
+                
+                String nombre=vistaAdministrador.txtnombre.getText();
+                String apellidos=vistaAdministrador.txtapellidos.getText();
+                String carnet=vistaAdministrador.txtnumdocumento.getText();
+                String teel=vistaAdministrador.txttelefono.getText();
+                String correo=vistaAdministrador.txtemail.getText();
+                String roles=(String)vistaAdministrador.boxroles.getSelectedItem();
+                String nomusu=vistaAdministrador.txtnombreusuario.getText();
+                String contra=vistaAdministrador.txtcontraseña.getText();
+                
+                adminis.setIdadmin(id);
+                adminis.setNombre(nombre);
+                adminis.setApellidos(apellidos);
+                adminis.setNumdocumento(carnet);
+                adminis.setTelefono(Integer.parseInt(teel));
+                adminis.setEmail(correo);
+                adminis.setUsuario(roles);
+                adminis.setNombreusuario(nomusu);
+                adminis.setContraseña(contra);
+                
+                adminDAO.editar(adminis);
+            }
+        }
+    }
         
     public void eliminar(){
-        int fila=vistaRegistro.tablausuario.getSelectedRow();
+        int fila=vistaAdministrador.tablausuario.getSelectedRow();
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA PARA ELIMINAR");
         }else{
@@ -210,20 +272,30 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
         }
     }
     public void limpiarfield(){
-            vistaRegistro.txtnombre.setText(""); //System.out.println("errooooo"+ err);
-            vistaRegistro.txtapellidopa.setText("");
-            vistaRegistro.txtapellidoma.setText("");
-            vistaRegistro.txtnumdocumento.setText("");
+            vistaAdministrador.txtnombre.setText(""); //System.out.println("errooooo"+ err);
+            //vistaRegistro.txtnombre.setText("");
+            vistaAdministrador.txtapellidos.setText("");
+            vistaAdministrador.txtnumdocumento.setText("");
             //System.out.println("parseado aqui");
-            vistaRegistro.txttelefono.setText("");
-            vistaRegistro.txtemail.setText("");
+            vistaAdministrador.txttelefono.setText("");
+            vistaAdministrador.txtemail.setText("");
             //System.out.println("parseado");
-            vistaRegistro.boxcargo.setSelectedItem("");
-            vistaRegistro.boxusuario.setSelectedItem("");
-            vistaRegistro.txtnombreusuario.setText("");
-            vistaRegistro.txtcontraseña.setText("");
+            //vistaRegistro.boxcargo.setSelectedItem("");
+            vistaAdministrador.boxroles.setSelectedItem("");
+            vistaAdministrador.txtnombreusuario.setText("");
+            vistaAdministrador.txtcontraseña.setText("");
         
     }
+    public void mostrarUsuarios(){
+        LiderDAO ldao= new LiderDAO();
+        //List<Lideriglesia> listausuario=new ArrayList<>();
+        lisusua=ldao.mostrarlider();
+        vistaAdministrador.boxusuarios.addItem(" "+" "+"Selecione un nombre");
+        for(int i=0;i<lisusua.size();i++){
+            vistaAdministrador.boxusuarios.addItem(lisusua.get(i).getIdlider()+" "+lisusua.get(i).getNombre()+" "+lisusua.get(i).getApellidop());
+        }
+    }
+    
     public boolean validarEmail(String email){
     // Patrón para validar el email
         Pattern pattern = Pattern
@@ -242,37 +314,38 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
         }
     }
     public void inhabilitar(){
-        vistaRegistro.btnagregar.setEnabled(false);
-        vistaRegistro.btncancelar.setEnabled(false);
-        vistaRegistro.btneliminar.setEnabled(false);
-        vistaRegistro.btnmodificar.setEnabled(false);
+        vistaAdministrador.btnagregar.setEnabled(false);
+        vistaAdministrador.btncancelar.setEnabled(false);
+        vistaAdministrador.btneliminar.setEnabled(false);
+        vistaAdministrador.btnmodificar.setEnabled(false);
         
-        vistaRegistro.txtnombre.setEnabled(false);
-        vistaRegistro.txtapellidopa.setEnabled(false);
-        vistaRegistro.txtapellidoma.setEnabled(false);
-        vistaRegistro.txtnumdocumento.setEnabled(false);
-        vistaRegistro.txtnombreusuario.setEnabled(false);
-        vistaRegistro.txtcontraseña.setEnabled(false);
-        vistaRegistro.txtemail.setEnabled(false);
-        vistaRegistro.txttelefono.setEnabled(false);
-        vistaRegistro.boxcargo.setEnabled(false);
-        vistaRegistro.boxusuario.setEnabled(false);
+        vistaAdministrador.txtnombre.setEnabled(false);
+        //vistaRegistro.txtnombre.setEnabled(false);
+        vistaAdministrador.txtapellidos.setEnabled(false);
+        vistaAdministrador.txtnumdocumento.setEnabled(false);
+        vistaAdministrador.txtnombreusuario.setEnabled(false);
+        vistaAdministrador.txtcontraseña.setEnabled(false);
+        vistaAdministrador.txtemail.setEnabled(false);
+        vistaAdministrador.txttelefono.setEnabled(false);
+        //vistaRegistro.boxcargo.setEnabled(false);
+        vistaAdministrador.boxroles.setEnabled(false);
+        //vistaAdministrador.tablausuario.setEnabled(false);
     }
     public void habilitar(){
-        vistaRegistro.btnagregar.setEnabled(true);
-        vistaRegistro.btncancelar.setEnabled(true);
-        vistaRegistro.btneliminar.setEnabled(true);
-        vistaRegistro.btnmodificar.setEnabled(true);
+        vistaAdministrador.btnagregar.setEnabled(true);
+        vistaAdministrador.btncancelar.setEnabled(true);
+        vistaAdministrador.btneliminar.setEnabled(true);
+        vistaAdministrador.btnmodificar.setEnabled(true);
         
-        vistaRegistro.txtnombre.setEnabled(true);
-        vistaRegistro.txtapellidopa.setEnabled(true);
-        vistaRegistro.txtapellidoma.setEnabled(true);
-        vistaRegistro.txtnumdocumento.setEnabled(true);
-        vistaRegistro.txtnombreusuario.setEnabled(true);
-        vistaRegistro.txtcontraseña.setEnabled(true);
-        vistaRegistro.txtemail.setEnabled(true);
-        vistaRegistro.txttelefono.setEnabled(true);
-        vistaRegistro.boxcargo.setEnabled(true);
-        vistaRegistro.boxusuario.setEnabled(true);
+        vistaAdministrador.txtnombre.setEnabled(true);
+        //vistaRegistro.txtnombre.setEnabled(true);
+        vistaAdministrador.txtapellidos.setEnabled(true);
+        vistaAdministrador.txtnumdocumento.setEnabled(true);
+        vistaAdministrador.txtnombreusuario.setEnabled(true);
+        vistaAdministrador.txtcontraseña.setEnabled(true);
+        vistaAdministrador.txtemail.setEnabled(true);
+        vistaAdministrador.txttelefono.setEnabled(true);
+        //vistaRegistro.boxcargo.setEnabled(true);
+        vistaAdministrador.boxroles.setEnabled(true);
     }
 }

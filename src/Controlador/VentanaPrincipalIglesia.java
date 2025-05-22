@@ -41,20 +41,29 @@ public class VentanaPrincipalIglesia implements ActionListener{
         //EVENTOS
         ventanaPrincipal.itemmiembros.addActionListener(this);
         //ventanaPrincipal.itemMembrecia.addActionListener(this);
-        ventanaPrincipal.itemoregistrarfrenda.addActionListener(this);
-        ventanaPrincipal.itemregistrardiezmo.addActionListener(this);
+        ventanaPrincipal.itemegresos.addActionListener(this);
         ventanaPrincipal.itemlideriglesia.addActionListener(this);
         ventanaPrincipal.itemRegistro.addActionListener(this);
         ventanaPrincipal.itemLista.addActionListener(this);
         ventanaPrincipal.itemIglesia.addActionListener(this);
-        ventanaPrincipal.itemDiezmo.addActionListener(this);
-        ventanaPrincipal.itemOfrenda.addActionListener(this);
-        ventanaPrincipal.itemdiezmomensual.addActionListener(this);
-        ventanaPrincipal.itemActivos.addActionListener(this);
+        ventanaPrincipal.itemreporteingresos.addActionListener(this);
+        ventanaPrincipal.itemreporteegresos.addActionListener(this);
+        ventanaPrincipal.itemingresos.addActionListener(this);
         ventanaPrincipal.itemministerio.addActionListener(this);
         ventanaPrincipal.iteMinis.addActionListener(this);
+        ventanaPrincipal.itemInfo.addActionListener(this);
         //ventanaPrincipal.itemSalir.addActionListener(this);
+        //BOTONES DE INFORMACION DE LA VENTANA PRINCIPAL
         ventanaPrincipal.botonUce.addActionListener(this);
+        ventanaPrincipal.botonJuve.addActionListener(this);
+        ventanaPrincipal.botonOansa.addActionListener(this);
+        ventanaPrincipal.botonmisiones.addActionListener(this);
+        ventanaPrincipal.botonfemenil.addActionListener(this);
+        ventanaPrincipal.botonshiret.addActionListener(this);
+        ventanaPrincipal.botoncdi.addActionListener(this);
+        ventanaPrincipal.botondominical.addActionListener(this);
+        
+        ventanaPrincipal.itemInfo.addActionListener(this);
         
         ventanaPrincipal.idusuarioaminnis.setText(admin.getIdadmin()+ "");
         ventanaPrincipal.idusuarioaminnis.setVisible(false);
@@ -66,16 +75,24 @@ public class VentanaPrincipalIglesia implements ActionListener{
         else
           ventanaPrincipal.itemRegistro.setEnabled(false);
         
+        if(admin.getUsuario().equalsIgnoreCase("Tesorero")){
+            ventanaPrincipal.itemreporteingresos.setEnabled(true);
+            ventanaPrincipal.itemreporteegresos.setEnabled(true);
+            ventanaPrincipal.itemingresos.setEnabled(true);
+            ventanaPrincipal.itemegresos.setEnabled(true);
+            ventanaPrincipal.itemLista.setEnabled(true);
+            ventanaPrincipal.itemlideriglesia.setEnabled(false);
+            ventanaPrincipal.itemministerio.setEnabled(false);
+            ventanaPrincipal.itemIglesia.setEnabled(true);
+            ventanaPrincipal.iteMinis.setEnabled(true);
+            ventanaPrincipal.itemmiembros.setEnabled(false);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ventanaPrincipal.itemLista==ae.getSource()){
             listarMiembros();
-        }else if(ventanaPrincipal.itemregistrardiezmo==ae.getSource()){
-            agregarDiezmo();
-        }else if(ventanaPrincipal.itemoregistrarfrenda==ae.getSource()){
-            agregarOfrenda();
         }else if(ventanaPrincipal.itemlideriglesia==ae.getSource()){
             agregarLider();
         }else if(ventanaPrincipal.itemRegistro==ae.getSource()){
@@ -84,21 +101,38 @@ public class VentanaPrincipalIglesia implements ActionListener{
             agregarMembrecia();
         }else if(ventanaPrincipal.itemIglesia==ae.getSource()){
             listarLideresGlesia();
-        }else if(ventanaPrincipal.itemDiezmo==ae.getSource()){
-            listarDiezmo();
-        }else if(ventanaPrincipal.itemdiezmomensual==ae.getSource()){
-            diezmoMensual();
-        }else if(ventanaPrincipal.itemOfrenda==ae.getSource()){
-            listarOfrenda();
-        }else if(ventanaPrincipal.itemActivos==ae.getSource()){
-            listaActivos();
         }else if(ventanaPrincipal.itemministerio==ae.getSource()){
             ministerios();
         }else if(ventanaPrincipal.iteMinis==ae.getSource()){
-            listamin();
+            listamin();///////BOTONES DE INFORMACION
         }else if(ventanaPrincipal.botonUce==ae.getSource()){
             uce();
+        }else if(ventanaPrincipal.botonJuve==ae.getSource()){
+            minJuve();
+        }else if(ventanaPrincipal.botonOansa==ae.getSource()){
+            OANSA();
+        }else if(ventanaPrincipal.botonfemenil==ae.getSource()){
+            femenil();
+        }else if(ventanaPrincipal.botonshiret==ae.getSource()){
+            prejuve();
+        }else if(ventanaPrincipal.botonmisiones==ae.getSource()){
+            misiones();
+        }else if(ventanaPrincipal.botondominical==ae.getSource()){
+            dominical();
+        }else if(ventanaPrincipal.botoncdi==ae.getSource()){
+            CDI();
+        }else if(ventanaPrincipal.itemInfo==ae.getSource()){
+            infoIglesia();
+        }else if(ventanaPrincipal.itemingresos==ae.getSource()){
+            agregarIngreso();
+        }else if(ventanaPrincipal.itemegresos==ae.getSource()){
+            agregarEgreso();
+        }else if(ventanaPrincipal.itemreporteingresos==ae.getSource()){
+            listaIngresos();
+        }else if(ventanaPrincipal.itemreporteegresos==ae.getSource()){
+            listaEgresos();
         }
+        
     }
     
     public void agregarMembrecia(){
@@ -108,39 +142,6 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaMembrecia.setTitle("REGISTRO DE MIEMBROS");
         
         centarFrameInterno(vistaMembrecia);
-    }
-    public void agregarDiezmo(){
-       
-        VistaMiembrosActivos vistaDiezmoM=new VistaMiembrosActivos();
-        ActivosDAO ac=new ActivosDAO(vistaDiezmoM);
-        ControlActivos ca=new ControlActivos(vistaDiezmoM, ac);
-        vistaDiezmoM.setTitle("REGISTRO DE DIEZMO DE MIEMBROS ACTIVOS");
-        
-        centarFrameInterno(vistaDiezmoM);
-    }
-    public void listarDiezmo(){
-        VistaListaDiezmo vistalistaDiezmo=new VistaListaDiezmo();
-        DiezmoDAO diezmoDAO=new DiezmoDAO();
-        ControlListaDiezmo controlDiezmo=new ControlListaDiezmo(vistalistaDiezmo, diezmoDAO);
-        vistalistaDiezmo.setTitle("LISTA DE CONTROL DE DIEZMOS");
-        
-        centarFrameInterno(vistalistaDiezmo);
-    }
-    public void agregarOfrenda(){
-        VistaOfrenda vistaOfrenda=new VistaOfrenda();
-        OfrendaDAO ofrendaDAO=new OfrendaDAO(vistaOfrenda);
-        ControlOfrenda controlOfrenda=new ControlOfrenda(vistaOfrenda, ofrendaDAO);
-        vistaOfrenda.setTitle("REGISTRO DE OFRENDAS");
-        
-        centarFrameInterno(vistaOfrenda);
-    }
-    public void listarOfrenda(){
-        VistaListaOfrenda vistalistaOfrenda=new VistaListaOfrenda();
-        OfrendaDAO ofrendaDAO=new OfrendaDAO();
-        ControlListaOfrenda controlOfrenda=new ControlListaOfrenda(vistalistaOfrenda, ofrendaDAO);
-        vistalistaOfrenda.setTitle("LISTA DE CONTROL DE OFRENDAS");
-        
-        centarFrameInterno(vistalistaOfrenda);
     }
     public void agregarLider(){
         VistaLider vistaLider=new VistaLider();
@@ -153,11 +154,46 @@ public class VentanaPrincipalIglesia implements ActionListener{
     }
     public void agregarAdmin(){
         VistaRegistro vistaRegistro=new VistaRegistro();
-        AdminDAO adminDAO=new AdminDAO(vistaRegistro);
+        AdministradorDAO adminDAO=new AdministradorDAO(vistaRegistro);
         ControlAdmin controlAdmin=new ControlAdmin(vistaRegistro, adminDAO);
         vistaRegistro.setTitle("REGISTRO DE USUARIOS");
         
         centarFrameInterno(vistaRegistro);
+    }
+    
+    public void agregarIngreso(){
+        VistaIngreso vistaIngreso= new VistaIngreso();
+        IngresoDAO ingresoDAO= new IngresoDAO(vistaIngreso);
+        ControlIngreso ingreso= new ControlIngreso(vistaIngreso, ingresoDAO);
+        vistaIngreso.setTitle("REGISTRO DE INGRESOS");
+        
+        centarFrameInterno(vistaIngreso);
+    }
+    public void agregarEgreso(){
+        VistaEgreso vistaegreso= new VistaEgreso();
+        EgresoDAO egresoDAO= new EgresoDAO(vistaegreso);
+        ControlEgreso egreso= new ControlEgreso(vistaegreso, egresoDAO);
+        vistaegreso.setTitle("REGISTRO DE EGRESOS");
+        
+        centarFrameInterno(vistaegreso);
+    }
+    public void listaIngresos(){
+        VistaListaIngresos vistaListaIngresos = new VistaListaIngresos();
+        IngresoDAO ingresoDAO= new IngresoDAO();
+        ControlListaIngresos ingreso= new ControlListaIngresos(vistaListaIngresos, ingresoDAO);
+        vistaListaIngresos.setTitle("REPORTE DE INGRESOS");
+        
+        centarFrameInterno(vistaListaIngresos);
+       
+    }
+    public void listaEgresos(){
+        VistaListaEgresos vistaListaEgresos = new VistaListaEgresos();
+        EgresoDAO egresoDAO= new EgresoDAO();
+        ControlListaEgreso egreso = new ControlListaEgreso(vistaListaEgresos, egresoDAO);
+        vistaListaEgresos.setTitle("REPORTE DE EGRESOS");
+        
+        centarFrameInterno(vistaListaEgresos);
+       
     }
     public void listarMiembros(){
         VistaListaMembrecia vistaListaMembrecia=new VistaListaMembrecia();
@@ -177,24 +213,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         centarFrameInterno(vistaLiderIglesia);
        
     }
-    public void listaActivos(){
-        VistaListaActivos vistaListaActivos=new VistaListaActivos();
-        ActivosDAO adao=new ActivosDAO();
-        ControlListaActivos controlListaActivos=new ControlListaActivos(vistaListaActivos, adao);
-        vistaListaActivos.setTitle("LISTA DE MIEMBROS ACTIVOS");
-        
-        centarFrameInterno(vistaListaActivos);
-       
-    }
     
-    public void diezmoMensual(){
-        VistaDiezmo vistaDiezmo=new VistaDiezmo();
-        DiezmoDAO diezmoDAO=new DiezmoDAO(vistaDiezmo);
-        ControlDiezmo controlDiezmo=new ControlDiezmo(vistaDiezmo, diezmoDAO);
-        vistaDiezmo.setTitle("REGISTRO MENSUAL DIEZMOS");
-        
-        centarFrameInterno(vistaDiezmo);
-    }
+    
     public void ministerios(){
         VistaLiderMin vlm=new VistaLiderMin();
         MinDAO aO=new MinDAO(vlm);
@@ -217,10 +237,55 @@ public class VentanaPrincipalIglesia implements ActionListener{
         VistaUCE vistaUCE=new VistaUCE();
         //MinDAO lider=new MinDAO();
         //ControListaMin control=new ControListaMin(vistaLiderm, lider);
-        vistaUCE.setTitle("INFORMACION DE LA UNION CRISTIANA EVANGÉLICA");
+        vistaUCE.setTitle("UNIÓN CRISTIANA EVANGÉLICA");
         
         centarFrameInterno(vistaUCE);
     }
+   public void minJuve(){
+       VistaMinJuve vistaJuve=new VistaMinJuve();
+       vistaJuve.setTitle("MINISTERIO JUVENIL");
+       centarFrameInterno(vistaJuve);
+   }
+   public void OANSA(){
+       VistaOANSA vistaOANSA=new VistaOANSA();
+       vistaOANSA.setTitle("OANSA");
+       centarFrameInterno(vistaOANSA);
+   }
+   public void femenil(){
+       VistaMinFem fem= new VistaMinFem();
+       fem.setTitle("MINISTERIO FEMENIL");
+       centarFrameInterno(fem);
+   }
+   public void prejuve(){
+       VistaMinPre minPre=new VistaMinPre();
+       minPre.setTitle("MINISTERIO PREJUVENIL");
+       centarFrameInterno(minPre);
+   }
+   public void juvenil(){
+       VistaMinJuve juve=new VistaMinJuve();
+       juve.setTitle("OANSA");
+       centarFrameInterno(juve);
+   }
+   public void misiones(){
+       VistaMisiones misiones= new VistaMisiones();
+       misiones.setTitle("EVANGELISMO Y MISIONES");
+       centarFrameInterno(misiones);
+   }
+   public void dominical(){
+       VistaDominical dominical=new VistaDominical();
+       dominical.setTitle("ESCUELA DOMINICAL");
+       centarFrameInterno(dominical);
+   }
+   public void CDI(){
+       VistaCDI cDI=new VistaCDI();
+       cDI.setTitle("CDI");
+       centarFrameInterno(cDI);
+   }
+   public void infoIglesia(){
+       VistaNJM jM=new VistaNJM();
+       jM.setTitle("SERVICIOS DE REUNIONES");
+       centarFrameInterno(jM);
+   }
     public void centarFrameInterno(JInternalFrame frameInterno){
         panel.add(frameInterno);
         Dimension dimpanel=panel.getSize();

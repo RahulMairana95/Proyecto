@@ -93,7 +93,7 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
         jLabel1.setText("LISTA DE LOS MIEMBROS DE LA IGLESIA \"NUEVA JERUSALEN\"");
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
-        botonlistar.setText("LISTAR");
+        botonlistar.setText("RECARGAR");
         botonlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonlistarActionPerformed(evt);

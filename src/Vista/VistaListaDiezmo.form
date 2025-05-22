@@ -103,7 +103,7 @@
                     <Column editable="false" title="SALDO ATERIOR" type="java.lang.Double"/>
                     <Column editable="false" title="SALDO ACTUAL" type="java.lang.Double"/>
                     <Column editable="false" title="DESCRIPCION" type="java.lang.String"/>
-                    <Column editable="false" title="FECHA DE REGISTRO" type="java.lang.String"/>
+                    <Column editable="true" title="FECHA DE REGISTRO" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -155,7 +155,6 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>

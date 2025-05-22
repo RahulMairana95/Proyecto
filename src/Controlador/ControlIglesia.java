@@ -55,7 +55,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderIglesia.botonbuscar1==ae.getSource()){
             try{
-                buscar(vistaLiderIglesia.txtbuscar.getText());
+                //buscar(vistaLiderIglesia.txtbuscar.getText());
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
@@ -70,18 +70,19 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         }
     }
     public void mostrarlista(){
-        lista=ldao.mostrar();
+        lista=ldao.mostrarlider();
         tablamodel=(DefaultTableModel) vistaLiderIglesia.tablaiglesia.getModel();
-        Object obj[]=new Object[6];
+        Object obj[]=new Object[7];
         System.out.println("lista Lider");
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApellidos();
-            obj[2]=lista.get(i).getCi();
-            obj[3]=lista.get(i).getCargo();
-            obj[4]=sdf.format(lista.get(i).getIniciogestion());
-            obj[5]=sdf.format(lista.get(i).getFingestion());
+            obj[1]=lista.get(i).getApellidop();
+            obj[2]=lista.get(i).getApellidom();
+            obj[3]=lista.get(i).getNumdocumento();
+            obj[4]=lista.get(i).getCargo();
+            obj[5]=sdf.format(lista.get(i).getIniciogestion());
+            obj[6]=sdf.format(lista.get(i).getFingestion());
             
             tablamodel.addRow(obj);
         }
@@ -95,14 +96,14 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void buscar(String buscando){
+    /*public void buscar(String buscando){
         if(vistaLiderIglesia.txtbuscar.getText().length()==0){
             JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
         }else{
-            tablamodel=ldao.buscarlider(buscando);
+            tablamodel=ldao.buscar(buscando);
             vistaLiderIglesia.tablaiglesia.setModel(tablamodel);
         }
-    }
+    }*/
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();

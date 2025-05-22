@@ -61,7 +61,7 @@ public class VistaMinisterio extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setText("Registrar lideres");
+        jLabel1.setText("REGISTRO DE LÍDERES");
 
         jLabel2.setText("Nombre:");
 
@@ -129,7 +129,7 @@ public class VistaMinisterio extends javax.swing.JInternalFrame {
 
         jButton7.setText("CANCELAR");
 
-        jLabel9.setText("Lista de Líderes de ministerios");
+        jLabel9.setText("LISTA DE LIDERAZGO DE LOS MINISTERIOS");
 
         jLabel10.setText("Fin de Gestion:");
 

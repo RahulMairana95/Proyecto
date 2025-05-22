@@ -31,13 +31,13 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     VistaLiderMin vistaLiderMin=new VistaLiderMin();
     MinDAO mdao;
     MembreciaDAO memDAO;
-    Minis minis=new Minis();
+    Ministerio minis=new Ministerio();
     DefaultTableModel tablamodel=new DefaultTableModel();
     int id;
-    List<Minis> lista;
+    List<Ministerio> lista;
     Membrecia mem=new Membrecia();
     
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     List<Membrecia> lislider=new ArrayList<>();
     
     ExcelExpo exp;
@@ -84,7 +84,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderMin.botoneliminar==ae.getSource()){
             try {
-                eliminar();
+                eliminarlider();
                 limpiartabla(vistaLiderMin.tablamin);
                 mostrarlista();
                 limpiarfield();
@@ -110,7 +110,9 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderMin.botonbuscar==ae.getSource()){
             try {
-                buscar(vistaLiderMin.txtbuscar.getText());
+                 String texto = vistaLiderMin.txtbuscar.getText().trim();
+                List<Ministerio> resultados = mdao.buscarMinisterio(texto);
+                mostrarTablaMinisterios(resultados);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR LIDER");
             }
@@ -139,16 +141,18 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             id=lista.get(fila).getIdmin();
             
             String nom=vistaLiderMin.tablamin.getValueAt(fila, 0).toString();
-            String ape=vistaLiderMin.tablamin.getValueAt(fila, 1).toString();
-            String ci=vistaLiderMin.tablamin.getValueAt(fila, 2).toString();
-            String min=vistaLiderMin.tablamin.getValueAt(fila, 3).toString();
-            String cargo=vistaLiderMin.tablamin.getValueAt(fila, 4).toString();
-            String ini=vistaLiderMin.tablamin.getValueAt(fila, 5).toString();
-            String fin=vistaLiderMin.tablamin.getValueAt(fila, 6).toString();
+            String apep=vistaLiderMin.tablamin.getValueAt(fila, 1).toString();
+            String apem=vistaLiderMin.tablamin.getValueAt(fila, 2).toString();
+            String ci=vistaLiderMin.tablamin.getValueAt(fila, 3).toString();
+            String min=vistaLiderMin.tablamin.getValueAt(fila, 4).toString();
+            String cargo=vistaLiderMin.tablamin.getValueAt(fila, 5).toString();
+            String ini=vistaLiderMin.tablamin.getValueAt(fila, 6).toString();
+            String fin=vistaLiderMin.tablamin.getValueAt(fila, 7).toString();
             
             try {
                 vistaLiderMin.txtnombre.setText(nom);
-                vistaLiderMin.txtapellidos.setText(ape);
+                vistaLiderMin.txtpaterno.setText(apep);
+                vistaLiderMin.txtmaterno.setText(apem);
                 vistaLiderMin.txtdocumento.setText(ci);
                 
                 vistaLiderMin.boxministerio.setSelectedItem(min);
@@ -172,32 +176,39 @@ public class ControlMin extends MouseAdapter implements ActionListener{
           
     }
     public void mostrarlista(){
-        lista=mdao.mostrar();
+        lista=mdao.mostrarlidermin();
         tablamodel=(DefaultTableModel) vistaLiderMin.tablamin.getModel();
-        Object obj[]=new Object[7];
+        tablamodel.setRowCount(0);
+        
+        Object obj[]=new Object[8];
         //System.out.println("lista Lider");
-        for(int i=0;i<lista.size();i++){
-            
-            obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApellidos();
-            obj[2]=lista.get(i).getCi();
-            obj[3]=lista.get(i).getMinisterio();
-            obj[4]=lista.get(i).getCargo();
-            obj[5]=sdf.format(lista.get(i).getIniciogestion());
-            obj[6]=sdf.format(lista.get(i).getFingestion());
-            
-            tablamodel.addRow(obj);
-        }
-        vistaLiderMin.tablamin.setModel(tablamodel);
+        
+        // Verificar si la lista contiene datos
+        if (lista != null && !lista.isEmpty()){
+            for(int i=0;i<lista.size();i++){
+
+                obj[0]=lista.get(i).getNombre();
+                obj[1]=lista.get(i).getApellidop();
+                obj[2]=lista.get(i).getApellidom();
+                obj[3]=lista.get(i).getNumdocumento();
+                obj[4]=lista.get(i).getMinisterio();
+                obj[5]=lista.get(i).getCargo();
+                obj[6]=sdf.format(lista.get(i).getIniciogestion());
+                obj[7]=sdf.format(lista.get(i).getFingestion());
+
+                tablamodel.addRow(obj);
+            } 
+            }else {
+                System.out.println("No hay datos para mostrar.");
+            }
+                vistaLiderMin.tablamin.setModel(tablamodel);
     }
     public void agregarNuevo(){
-        if(vistaLiderMin.txtnombre.getText().trim().isEmpty()||
-                vistaLiderMin.txtapellidos.getText().trim().isEmpty()||
-                vistaLiderMin.txtdocumento.getText().trim().isEmpty()||
-                vistaLiderMin.boxministerio.getSelectedItem().toString().trim().isEmpty()||
-                vistaLiderMin.boxcargo.getSelectedItem().toString().trim().isEmpty()||
-                vistaLiderMin.fechainicio.getCalendar().toString().trim().isEmpty()||
-                vistaLiderMin.fechafin.getCalendar().toString().trim().isEmpty()){
+        
+        if(vistaLiderMin.boxministerio.getSelectedItem().toString().trim().isEmpty()||
+           vistaLiderMin.boxcargo.getSelectedItem().toString().trim().isEmpty()||
+           vistaLiderMin.fechainicio.getDate() == null||
+           vistaLiderMin.fechafin.getDate() == null){
             
           JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
         }else{
@@ -208,28 +219,27 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             
             minis.setIdmembrecia(Integer.parseInt(idmen));
             //System.err.println(idmen+"miembro num");
-            ///////DATOS LLAMADOS DE LA MEMBRECIA
-            minis.setNombre(vistaLiderMin.txtnombre.getText());
-            minis.setApellidos(vistaLiderMin.txtapellidos.getText());
-            minis.setCi(vistaLiderMin.txtdocumento.getText());
-            
+            ///////
             minis.setMinisterio((String)vistaLiderMin.boxministerio.getSelectedItem());
             minis.setCargo((String)vistaLiderMin.boxcargo.getSelectedItem());
             
-            Calendar calenn, calenc;
-            int diai,mesi,yeari,diaf,mesf,yearf;
-            calenn=vistaLiderMin.fechainicio.getCalendar();
-            diai=calenn.get(Calendar.DAY_OF_MONTH);
-            mesi=calenn.get(Calendar.MONTH);
-            yeari=calenn.get(Calendar.YEAR)-1900;
-            minis.setIniciogestion(new Date(yeari, mesi, diai));
+            // Obtener la fecha de inicio
+            Calendar calenn = vistaLiderMin.fechainicio.getCalendar();
+            int diai = calenn.get(Calendar.DAY_OF_MONTH);
+            int mesi = calenn.get(Calendar.MONTH); // Enero es 0, Diciembre es 11
+            int yeari = calenn.get(Calendar.YEAR);
+
+            minis.setIniciogestion(new java.sql.Date(calenn.getTimeInMillis()));  // Utilizando getTimeInMillis()
             
-            calenc=vistaLiderMin.fechafin.getCalendar();
-            diaf=calenc.get(Calendar.DAY_OF_MONTH);
-            mesf=calenc.get(Calendar.MONTH);
-            yearf=calenc.get(Calendar.YEAR)-1900;
-            minis.setFingestion(new Date(yearf, mesf, diaf));
-            
+            // Obtener la fecha de fin
+            Calendar calenc = vistaLiderMin.fechafin.getCalendar();
+            int diaf = calenc.get(Calendar.DAY_OF_MONTH);
+            int mesf = calenc.get(Calendar.MONTH); // Enero es 0, Diciembre es 11
+            int yearf = calenc.get(Calendar.YEAR);
+
+            minis.setFingestion(new java.sql.Date(calenc.getTimeInMillis())); // Utilizando getTimeInMillis()
+
+            // Agregar al DAO
             mdao.agregar(minis);
             
         }
@@ -238,50 +248,71 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         int fila=vistaLiderMin.tablamin.getSelectedRow();
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
-        }else{
-            if(vistaLiderMin.txtnombre.getText().trim().isEmpty()||
-                vistaLiderMin.txtapellidos.getText().trim().isEmpty()||
-                vistaLiderMin.txtdocumento.getText().trim().isEmpty()||
-                vistaLiderMin.boxministerio.getSelectedItem().toString().trim().isEmpty()||
-                vistaLiderMin.boxcargo.getSelectedItem().toString().trim().isEmpty()||
-                vistaLiderMin.fechainicio.getCalendar().toString().trim().isEmpty()||
-                vistaLiderMin.fechafin.getCalendar().toString().trim().isEmpty()){
+            return;
+        }
+        
+        if(vistaLiderMin.boxministerio.getSelectedItem() == null||
+           vistaLiderMin.boxministerio.getSelectedItem().toString().trim().isEmpty()||
+           vistaLiderMin.boxcargo.getSelectedItem() == null||
+           vistaLiderMin.boxcargo.getSelectedItem().toString().trim().isEmpty()||
+           vistaLiderMin.fechainicio.getCalendar() == null||
+           vistaLiderMin.fechafin.getCalendar() == null){
             
           JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
-        }else{
-            id=lista.get(fila).getIdmin();
-            String nombre=vistaLiderMin.txtnombre.getText();
-            String paterno=vistaLiderMin.txtapellidos.getText();
-            String num=vistaLiderMin.txtdocumento.getText();
+          return;
+        }
+        try {
+            // Obtener ID del líder seleccionado
+            int ide = lista.get(fila).getIdmin();
+            System.out.println("📌 ID seleccionado: " + ide); // Para depuración
             
-            String min=(String)vistaLiderMin.boxministerio.getSelectedItem();
-            String cargo=(String)vistaLiderMin.boxcargo.getSelectedItem();
             
-            Calendar calenn, calenc;
-            int diai,mesi,yeari,diaf,mesf,yearf;
-            calenn=vistaLiderMin.fechainicio.getCalendar();
-            diai=calenn.get(Calendar.DAY_OF_MONTH);
-            mesi=calenn.get(Calendar.MONTH);
-            yeari=calenn.get(Calendar.YEAR)-1900;
-            Date fini=(new Date(yeari, mesi, diai));
-            
-            calenc=vistaLiderMin.fechafin.getCalendar();
-            diaf=calenc.get(Calendar.DAY_OF_MONTH);
-            mesf=calenc.get(Calendar.MONTH);
-            yearf=calenc.get(Calendar.YEAR)-1900;
-            Date fin=(new Date(yearf, mesf, diaf));
-            
-            minis.setIdmin(id);
-            minis.setNombre(nombre);
-            minis.setApellidos(paterno);
-            minis.setCi(num);
-            minis.setMinisterio(min);
-            minis.setCargo(cargo);
-            minis.setIniciogestion(fini);
-            minis.setFingestion(fin);
-            
-            mdao.modificar(minis);
+
+            String ministe = vistaLiderMin.boxministerio.getSelectedItem().toString().trim();
+            String cargo = vistaLiderMin.boxcargo.getSelectedItem().toString().trim();
+
+            // Convertir fechas correctamente
+            java.sql.Date fini = obtenerFechaSQL(vistaLiderMin.fechainicio);
+            java.sql.Date fin = obtenerFechaSQL(vistaLiderMin.fechafin);
+
+            if (fini == null || fin == null) {
+                JOptionPane.showMessageDialog(null, "⚠️ Debe seleccionar ambas fechas.");
+                return;
             }
+
+            // Verificar si la fecha de inicio es posterior a la fecha de fin
+            if (fini.after(fin)) {
+                JOptionPane.showMessageDialog(null, "⚠️ La fecha de inicio no puede ser posterior a la fecha de fin.");
+                return;
+            }
+
+                // Asignar valores al objeto
+                Ministerio lider = new Ministerio();
+                lider.setIdmin(ide);
+                lider.setMinisterio(ministe);
+                lider.setCargo(cargo);
+                lider.setIniciogestion(fini);
+                lider.setFingestion(fin);
+
+                // Llamar a la función modificar y verificar si funcionó
+                boolean actualizado = mdao.modificar(lider);
+
+            if (actualizado) {
+                JOptionPane.showMessageDialog(null, "✅ ¡Modificación exitosa!");
+            } else {
+                JOptionPane.showMessageDialog(null, "❌ Error: No se pudo modificar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "❌ Error al procesar los datos. Verifique la información.");
+            e.printStackTrace(); // Para depuración
+        }
+    }
+    
+    private java.sql.Date obtenerFechaSQL(com.toedter.calendar.JDateChooser dateChooser) {
+        if (dateChooser.getDate() != null) {
+            return new java.sql.Date(dateChooser.getDate().getTime()); // Convierte java.util.Date a java.sql.Date
+        } else {
+            return null; // Si no hay fecha seleccionada, retorna null
         }
     }
     public void eliminar(){
@@ -293,14 +324,69 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             System.out.println("eliminando");
         }
     }
-    public void buscar(String buscando){
-        if(vistaLiderMin.txtbuscar.getText().length()==0){
-            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
-        }else{
-            tablamodel=mdao.buscarMinis(buscando);
-            vistaLiderMin.tablamin.setModel(tablamodel);
+    public void eliminarlider() {
+        // Obtener la fila seleccionada en la tabla
+        int fila = vistaLiderMin.tablamin.getSelectedRow();
+
+        // Verificar si se seleccionó una fila
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "⚠️ SELECCIONE UNA FILA PARA ELIMINAR");
+            return; // Salir si no se ha seleccionado ninguna fila
+        }
+
+        // Obtener el ID del líder seleccionado (asumiendo que la lista ya está cargada correctamente)
+        int ide = lista.get(fila).getIdmin();
+        System.out.println("🆔 ID del líder a eliminar: " + ide);
+
+        // Mostrar un mensaje de confirmación al usuario
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null, 
+            "¿ESTÁ SEGURO DE ELIMINAR?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE  // El tipo de mensaje (opcional, para dar más contexto)
+        );
+
+        // Si el usuario confirma, proceder con la eliminación
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al DAO para eliminar el líder
+            boolean eliminado = mdao.eliminarlider(ide);
+
+            // Si la eliminación fue exitosa
+            if (eliminado) {
+                JOptionPane.showMessageDialog(null, "✅ ¡EL LÍDER SELECCIONADO HA SIDO ELIMINADO!");
+
+                // Actualizar la lista de líderes después de la eliminación
+                lista = mdao.mostrarlidermin(); // Actualizar la lista de líderes
+                mostrarlista();         // Recargar la tabla con los datos actualizados
+            } else {
+                // Si hubo un error al eliminar
+                JOptionPane.showMessageDialog(null, "❌ Error: No se pudo eliminar el líder.");
+            }
+        } else {
+            // Si el usuario elige no eliminar
+            JOptionPane.showMessageDialog(null, "❌ El líder no ha sido eliminado.");
         }
     }
+    public void mostrarTablaMinisterios(List<Ministerio> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaLiderMin.tablamin.getModel();
+        modelo.setRowCount(0);
+
+        for (Ministerio min : lista) {
+            modelo.addRow(new Object[]{
+                min.getNombre(),
+                min.getApellidop(),
+                min.getApellidom(),
+                min.getNumdocumento(),
+                min.getMinisterio(),
+                min.getCargo(),
+                min.getIniciogestion(),
+                min.getFingestion()
+            });
+        }
+    }
+
+
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();
@@ -321,7 +407,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     }
     public void limpiarfield(){
         vistaLiderMin.txtnombre.setText("");
-        vistaLiderMin.txtapellidos.setText("");
+        vistaLiderMin.txtpaterno.setText("");
+        vistaLiderMin.txtmaterno.setText("");
         vistaLiderMin.txtdocumento.setText("");
         vistaLiderMin.boxministerio.setSelectedItem("");
         vistaLiderMin.boxcargo.setSelectedItem("");
@@ -340,7 +427,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         
         vistaLiderMin.boxnombre.setEnabled(false);
         vistaLiderMin.txtnombre.setEnabled(false);
-        vistaLiderMin.txtapellidos.setEnabled(false);
+        vistaLiderMin.txtpaterno.setEnabled(false);
+        vistaLiderMin.txtmaterno.setEnabled(false);
         vistaLiderMin.txtdocumento.setEnabled(false);
         vistaLiderMin.boxministerio.setEnabled(false);
         vistaLiderMin.boxcargo.setEnabled(false);
@@ -357,11 +445,31 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         
         vistaLiderMin.boxnombre.setEnabled(true);
         vistaLiderMin.txtnombre.setEnabled(true);
-        vistaLiderMin.txtapellidos.setEnabled(true);
+        vistaLiderMin.txtpaterno.setEnabled(true);
+        vistaLiderMin.txtmaterno.setEnabled(true);
         vistaLiderMin.txtdocumento.setEnabled(true);
         vistaLiderMin.boxministerio.setEnabled(true);
         vistaLiderMin.boxcargo.setEnabled(true);
         vistaLiderMin.fechafin.setEnabled(true);
         vistaLiderMin.fechainicio.setEnabled(true);
     }
+    
+    public void actualizarTablaConResultados(List<Ministerio> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaLiderMin.tablamin.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        for (Ministerio m : lista) {
+            modelo.addRow(new Object[]{
+                m.getNombre(),
+                m.getApellidop(),
+                m.getApellidom(),
+                m.getNumdocumento(),
+                m.getMinisterio(),
+                m.getCargo(),
+                m.getIniciogestion(),
+                m.getFingestion()
+            });
+        }
+    }
+
 }

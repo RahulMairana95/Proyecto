@@ -44,17 +44,31 @@ public class ControlCuenta implements ActionListener{
         String contra=iniciar.txtcontraseña.getText();
         
         if(nombre.equals("")||contra.equals("")){
-            JOptionPane.showMessageDialog(iniciar, "INGRESE LOS DATOS");
-        }else{
-            admin=validarAdmin.ValidarAdmin(nombre, contra);
-            System.out.println("valida nombre y contra");
+            if (nombre.equals("")){
+                //iniciar.txtcuenta.setText("los campos están vacíos");
+                JOptionPane.showMessageDialog(iniciar, "Igrese el nombre de usuario");
+            }
+            if (contra.equals("")){
+                //iniciar.txtcontraseña.setText("los campos están vacíos");
+                JOptionPane.showMessageDialog(iniciar, "Igrese la contraseña");
+            }
             
-            if(admin.getNombreusuario()!=null && admin.getContraseña()!=null){
+        }else{
+            boolean usuarioExiste= validarAdmin.existeUsuario(nombre);
+            if (!usuarioExiste){
+                JOptionPane.showMessageDialog(iniciar, "Nombre de usuario incorrecto");
+            }
+            admin=validarAdmin.validarAdmin(nombre, contra);
+            //System.out.println("valida nombre y contra");
+            
+            //if(admin != null && admin.getNombreusuario()!=null && admin.getContraseña()!=null){
+            if (admin != null && nombre.equals(admin.getNombreusuario()) && contra.equals(admin.getContraseña())) {
              VentanaPrincipal ventanaPrincipal=new VentanaPrincipal();
              VentanaPrincipalIglesia ventanaPrincipalIglesia=new VentanaPrincipalIglesia(ventanaPrincipal,admin);
              iniciar.dispose();
             }else{
-                JOptionPane.showMessageDialog(iniciar, "Datos No validos");
+                JOptionPane.showMessageDialog(iniciar, "Contraseña incorrecta.");
+                iniciar.txtcontraseña.setText("");
             }
         }
     }     

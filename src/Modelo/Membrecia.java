@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,10 +24,19 @@ public class Membrecia {
     private String talentos;
     private String dones;
     private String activo;
+    private String direccion;
+    private String nomreferencia;
+    private int numreferencia;
     
     public Membrecia(){};
+    
+    @Override
+    public String toString() {
+        return nombre + " " + apellidop + " " + apellidom;
+    }
 
-    public Membrecia(int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, Date fechanacimiento, String estadocivil, Date fechaconversion, Date fechabautizo, String talentos, String dones, String activo) {
+
+    public Membrecia(int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, Date fechanacimiento, String estadocivil, Date fechaconversion, Date fechabautizo, String talentos, String dones, String activo, String direccion, String nomreferencia, int numreferencia) {
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
         this.apellidop = apellidop;
@@ -40,6 +49,9 @@ public class Membrecia {
         this.talentos = talentos;
         this.dones = dones;
         this.activo = activo;
+        this.direccion = direccion;
+        this.nomreferencia = nomreferencia;
+        this.numreferencia = numreferencia;
     }
 
     public int getIdmembrecia() {
@@ -137,6 +149,32 @@ public class Membrecia {
     public void setActivo(String activo) {
         this.activo = activo;
     }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getNomreferencia() {
+        return nomreferencia;
+    }
+
+    public void setNomreferencia(String nomreferencia) {
+        this.nomreferencia = nomreferencia;
+    }
+
+    public int getNumreferencia() {
+        return numreferencia;
+    }
+
+    public void setNumreferencia(int numreferencia) {
+        this.numreferencia = numreferencia;
+    }
+
+    
     
     
     

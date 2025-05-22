@@ -11,13 +11,12 @@ package Modelo;
  */
 public class Administrador {
     private int idadmin;
+    private int idlider;
     private String nombre;
-    private String apaterno;
-    private String apmaterno;
+    private String apellidos;
     private String numdocumento;
     private int telefono;
     private String email;
-    private String cargo;
     private String usuario;
     private String nombreusuario;
     private String contraseña;
@@ -27,27 +26,33 @@ public class Administrador {
     
     }
 
-    public Administrador(int idadmin, String nombre, String apaterno, String apmaterno, String numdocumento, int telefono, String email, String cargo, String usuario, String nombreusuario, String contraseña) {
+    public Administrador(int idadmin, int idlider, String nombre, String apellidos, String numdocumento, int telefono, String email, String usuario, String nombreusuario, String contraseña) {
         this.idadmin = idadmin;
+        this.idlider = idlider;
         this.nombre = nombre;
-        this.apaterno = apaterno;
-        this.apmaterno = apmaterno;
+        this.apellidos = apellidos;
         this.numdocumento = numdocumento;
         this.telefono = telefono;
         this.email = email;
-        this.cargo = cargo;
         this.usuario = usuario;
         this.nombreusuario = nombreusuario;
         this.contraseña = contraseña;
     }
 
-    
     public int getIdadmin() {
         return idadmin;
     }
 
     public void setIdadmin(int idadmin) {
         this.idadmin = idadmin;
+    }
+
+    public int getIdlider() {
+        return idlider;
+    }
+
+    public void setIdlider(int idlider) {
+        this.idlider = idlider;
     }
 
     public String getNombre() {
@@ -58,20 +63,12 @@ public class Administrador {
         this.nombre = nombre;
     }
 
-    public String getApaterno() {
-        return apaterno;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApaterno(String apaterno) {
-        this.apaterno = apaterno;
-    }
-
-    public String getAmaterno() {
-        return apmaterno;
-    }
-
-    public void setAmaterno(String amaterno) {
-        this.apmaterno = amaterno;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getNumdocumento() {
@@ -81,7 +78,6 @@ public class Administrador {
     public void setNumdocumento(String numdocumento) {
         this.numdocumento = numdocumento;
     }
-
 
     public int getTelefono() {
         return telefono;
@@ -97,14 +93,6 @@ public class Administrador {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
     }
 
     public String getUsuario() {
@@ -130,6 +118,9 @@ public class Administrador {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    
+
     
     
 }

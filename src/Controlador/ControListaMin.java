@@ -25,10 +25,10 @@ import javax.swing.table.DefaultTableModel;
 public class ControListaMin extends MouseAdapter implements ActionListener{
     VistaListaLiderMin vistaLiderm=new VistaListaLiderMin();
     MinDAO mdao;
-    Minis mi=new Minis();
+    Ministerio mi=new Ministerio();
     DefaultTableModel tablamodel=new DefaultTableModel();
     int id;
-    List<Minis> lista;
+    List<Ministerio> lista;
     
     ExcelExpo exp;
     
@@ -55,7 +55,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderm.botonbuscar==ae.getSource()){
             try{
-                buscar(vistaLiderm.boxministerio.getSelectedItem().toString().trim());
+                //buscar(vistaLiderm.boxministerio.getSelectedItem().toString().trim());
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
@@ -71,32 +71,33 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     }
     
     public void mostrarlista(){
-        lista=mdao.mostrar();
+        lista=mdao.mostrarlidermin();
         tablamodel=(DefaultTableModel) vistaLiderm.tablamin.getModel();
-        Object obj[]=new Object[7];
+        Object obj[]=new Object[8];
         //System.out.println("lista Lider");
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
-            obj[1]=lista.get(i).getApellidos();
-            obj[2]=lista.get(i).getCi();
-            obj[3]=lista.get(i).getMinisterio();
-            obj[4]=lista.get(i).getCargo();
-            obj[5]=sdf.format(lista.get(i).getIniciogestion());
-            obj[6]=sdf.format(lista.get(i).getFingestion());
+            obj[1]=lista.get(i).getApellidop();
+            obj[2]=lista.get(i).getApellidom();
+            obj[3]=lista.get(i).getNumdocumento();
+            obj[4]=lista.get(i).getMinisterio();
+            obj[5]=lista.get(i).getCargo();
+            obj[6]=sdf.format(lista.get(i).getIniciogestion());
+            obj[7]=sdf.format(lista.get(i).getFingestion());
             
             tablamodel.addRow(obj);
         }
         vistaLiderm.tablamin.setModel(tablamodel);
     }
-    public void buscar(String buscando){
+   /*public void buscar(String buscando){
         //if(vistaLiderm.boxministerio.getSelectedItem()==0){
             //JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
         //}else{
             tablamodel=mdao.buscarlider(buscando);
             vistaLiderm.tablamin.setModel(tablamodel);
         //}
-    }
+    }*/
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();

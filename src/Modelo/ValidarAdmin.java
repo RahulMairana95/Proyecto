@@ -9,59 +9,72 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Vista.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
  * @author RAHUL
  */
 public class ValidarAdmin {
-    PreparedStatement pres;
-    ResultSet result;
-    
-    Conexion conexion=new Conexion();
-    Connection con;
-    
-    Administrador admin= new Administrador();
-    Usuario usuario;
-    
-    public ValidarAdmin(Usuario usuario){
-        this.usuario=this.usuario;
-        
-        System.out.println("llega");
+    private Connection con;
+    private final Conexion conexion = new Conexion();
+    private Usuario usuario;
+
+    // Constructor corregido
+    public ValidarAdmin(Usuario usuario) {
+        this.usuario = usuario;
+        System.out.println("✅ Constructor ValidarAdmin ejecutado correctamente.");
     }
     
-    public Administrador ValidarAdmin(String nombreusuario, String contraseña){
-        Administrador administrador= new Administrador();
-        String consultasql="SELECT * FROM administrador WHERE nombreusuario=? AND contraseña=?";
-        
-        System.out.println("consulta");
-        
-        //System.out.println(administrador.getCargo());
-        try {
-            con=conexion.conectando();
-            pres=con.prepareStatement(consultasql);
-            pres.setString(1, nombreusuario);
+    // Método para validar credenciales
+    public Administrador validarAdmin(String nombreUsuario, String contraseña) {
+        String consultaSQL = "SELECT * FROM administrador WHERE nombreusuario = ? AND contraseña = ?";
+        Administrador administrador = null;
+
+        try (Connection con = conexion.getConnection();
+             PreparedStatement pres = con.prepareStatement(consultaSQL)) {
+
+            pres.setString(1, nombreUsuario);
             pres.setString(2, contraseña);
-            result=pres.executeQuery();
-            
-            while(result.next()){
-                administrador.setIdadmin(result.getInt(1));
-                administrador.setNombre(result.getString(2));
-                administrador.setApaterno(result.getString(3));
-                administrador.setAmaterno(result.getString(4));
-                administrador.setNumdocumento(result.getString(5));
-                administrador.setTelefono(result.getInt(6));
-                administrador.setEmail(result.getString(7));
-                administrador.setCargo(result.getString(8));
-                administrador.setUsuario(result.getString(9));
-                administrador.setNombreusuario(result.getString(10));
-                administrador.setContraseña(result.getString(11));
+            try (ResultSet result = pres.executeQuery()) {
+                if (result.next()) {
+                    administrador = new Administrador();
+                    administrador.setIdadmin(result.getInt("idadmin"));
+                    administrador.setIdlider(result.getInt("idlider"));
+                    administrador.setNombre(result.getString("nombre"));
+                    administrador.setApellidos(result.getString("apellidos"));
+                    administrador.setNumdocumento(result.getString("numdocumento"));
+                    administrador.setTelefono(result.getInt("telefono"));
+                    administrador.setEmail(result.getString("email"));
+                    administrador.setUsuario(result.getString("usuario"));
+                    administrador.setNombreusuario(result.getString("nombreusuario"));
+                    administrador.setContraseña(result.getString("contraseña"));
+
+                    System.out.println("✅ Usuario autenticado: " + administrador.getNombre());
+                } else {
+                    System.out.println("❌ Usuario o contraseña incorrectos.");
+                }
             }
-            System.out.println("allaaa");
-        } catch (Exception e) {
-            System.out.println("error"+e);
+        } catch (SQLException e) {
+            System.err.println("❌ Error al validar el administrador: " + e.getMessage());
+            e.printStackTrace();
         }
-        return administrador;
-        
+        return administrador; // Retorna null si no encuentra el usuario
+    }
+    public boolean existeUsuario(String nombreUsuario) {
+    String sql = "SELECT 1 FROM administrador WHERE nombreusuario = ?";
+    try (Connection con = conexion.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, nombreUsuario);
+        try (ResultSet rs = ps.executeQuery()) {
+            return rs.next();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
+
+}
+

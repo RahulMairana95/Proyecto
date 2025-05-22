@@ -36,7 +36,6 @@ public class Usuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btncancelar = new javax.swing.JButton();
         botonenter = new javax.swing.JButton();
-        txtcontraseña = new javax.swing.JTextField();
         txtcuenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,6 +46,7 @@ public class Usuario extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        txtcontraseña = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -79,14 +79,6 @@ public class Usuario extends javax.swing.JFrame {
         botonenter.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 botonenterKeyPressed(evt);
-            }
-        });
-
-        txtcontraseña.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtcontraseña.setText("admin");
-        txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtcontraseñaKeyPressed(evt);
             }
         });
 
@@ -128,6 +120,12 @@ public class Usuario extends javax.swing.JFrame {
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contra.png"))); // NOI18N
 
+        txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcontraseñaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,11 +150,7 @@ public class Usuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,7 +162,11 @@ public class Usuario extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jLabel6))
                                         .addComponent(txtcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3)))))
+                                        .addComponent(jLabel3)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtcontraseña))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(72, 72, 72)
                             .addComponent(jLabel8))))
@@ -204,7 +202,7 @@ public class Usuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
                     .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncancelar)
                     .addComponent(botonenter))
@@ -267,16 +265,6 @@ public class Usuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtcuentaKeyPressed
 
-    private void txtcontraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontraseñaKeyPressed
-        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
-            botonenter.requestFocus();
-        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
-            botonenter.requestFocus();
-        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
-            txtcuenta.requestFocus();
-        }
-    }//GEN-LAST:event_txtcontraseñaKeyPressed
-
     private void botonenterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonenterKeyPressed
         if(evt.getExtendedKeyCode() == KeyEvent.VK_LEFT){
             btncancelar.requestFocus();
@@ -296,6 +284,16 @@ public class Usuario extends javax.swing.JFrame {
             txtcontraseña.requestFocus();
         }
     }//GEN-LAST:event_btncancelarKeyPressed
+
+    private void txtcontraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontraseñaKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            botonenter.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
+            txtcuenta.requestFocus();
+        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
+            botonenter.requestFocus();
+        }
+    }//GEN-LAST:event_txtcontraseñaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -350,7 +348,7 @@ public class Usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public javax.swing.JTextField txtcontraseña;
+    public javax.swing.JPasswordField txtcontraseña;
     public javax.swing.JTextField txtcuenta;
     // End of variables declaration//GEN-END:variables
 }

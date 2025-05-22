@@ -44,7 +44,7 @@ public class MembreciaDAO {
         String consultas="select * from membrecia";
         
         try {
-            con=conectarMySQL.conectando();
+            con=conectarMySQL.getConnection();
             pres=con.prepareStatement(consultas);
             rs=pres.executeQuery();
             
@@ -64,6 +64,9 @@ public class MembreciaDAO {
                 mem.setTalentos(rs.getString(10));
                 mem.setDones(rs.getString(11));
                 mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setNomreferencia(rs.getString(14));
+                mem.setNumreferencia(rs.getInt(15));
                 
                // mem.setIdmembrecia(rs.getInt(12));
                 
@@ -78,8 +81,8 @@ public class MembreciaDAO {
     }
     public boolean agregar(Membrecia men){
         int resp=0;
-        String agregarmsql="insert into membrecia(nombre,apellidop,apellidom,numdocumento,fechanacimiento,estadocivil,fechaconversion,fechabautizo,talentos,dones,activo)"
-                            +"values(?,?,?,?,?,?,?,?,?,?,?)";
+        String agregarmsql="insert into membrecia(nombre,apellidop,apellidom,numdocumento,fechanacimiento,estadocivil,fechaconversion,fechabautizo,talentos,dones,activo,direccion,nomreferencia,numreferencia)"
+                            +"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println("agregardb");
             
         try{
@@ -97,6 +100,9 @@ public class MembreciaDAO {
             pres.setString(9, men.getTalentos());
             pres.setString(10, men.getDones());
             pres.setString(11, men.getActivo());
+            pres.setString(12, men.getDireccion());
+            pres.setString(13, men.getNomreferencia());
+            pres.setInt(14, men.getNumreferencia());
             
             int n = pres.executeUpdate();
 
@@ -111,62 +117,57 @@ public class MembreciaDAO {
             return false;
         }
     }
-    public boolean modificar(Membrecia mem){
-        int res=0;
-        String modificarsql="update membrecia set nombre=?,apellidop=?,apellidom=?,numdocumento=?,fechanacimiento=?,estadocivil=?,fechaconversion=?,fechabautizo=?,talentos=?,dones=?,activo=?"
-                            +"where idmembrecia=?";
-        System.out.println("modificando");
+    public boolean modificar(Membrecia mem) {
+    String sql = "UPDATE membrecia SET nombre=?, apellidop=?, apellidom=?, numdocumento=?, fechanacimiento=?, " +
+                 "estadocivil=?, fechaconversion=?, fechabautizo=?, talentos=?, dones=?, activo=?, direccion=?, " +
+                 "nomreferencia=?, numreferencia=? WHERE idmembrecia=?";
+    
+    System.out.println("Modificando...");
 
-        try {
-            con=conectarMySQL.conectando();
-            pres=con.prepareStatement(modificarsql);
-            
-            pres.setString(1, mem.getNombre());
-            pres.setString(2,   mem.getApellidop());
-            pres.setString(3, mem.getApellidom());
-            pres.setString(4, mem.getNumdocumento());
-            pres.setDate(5, mem.getFechanacimiento());
-            pres.setString(6, mem.getEstadocivil());
-            pres.setDate(7, mem.getFechaconversion());
-            pres.setDate(8, mem.getFechabautizo());
-            pres.setString(9, mem.getTalentos());
-            pres.setString(10, mem.getDones());
-            pres.setString(11, mem.getActivo());
-            
-            pres.setInt(12, mem.getIdmembrecia());
-            
-            int n = pres.executeUpdate();
-
-            if (n != 0) {
-                
-                return true;
-            }else{
-                return false;
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
-        }
+    try (Connection con = conectarMySQL.getConnection();
+         PreparedStatement pres = con.prepareStatement(sql)) {
         
+        pres.setString(1, mem.getNombre());
+        pres.setString(2, mem.getApellidop());
+        pres.setString(3, mem.getApellidom());
+        pres.setString(4, mem.getNumdocumento());
+        pres.setDate(5, mem.getFechanacimiento());
+        pres.setString(6, mem.getEstadocivil());
+        pres.setDate(7, mem.getFechaconversion());
+        pres.setDate(8, mem.getFechabautizo());
+        pres.setString(9, mem.getTalentos());
+        pres.setString(10, mem.getDones());
+        pres.setString(11, mem.getActivo());
+        pres.setString(12, mem.getDireccion());
+        pres.setString(13, mem.getNomreferencia());
+        pres.setInt(14, mem.getNumreferencia());
+        pres.setInt(15, mem.getIdmembrecia());
+
+        return pres.executeUpdate() > 0; // Retorna true si se actualizó al menos 1 fila
+
+    } catch (Exception e) {
+        e.printStackTrace(); // Imprime el error en consola
+        return false;
     }
-    public void eliminarmiembros(int idMem){
-        int res=0;
-        String elimiarsql="delete from membrecia where idmembrecia=?";
-        try {
-            con=conectarMySQL.conectando();
-            pres=con.prepareStatement(elimiarsql);
-            pres.setInt(1, idMem);
-            
-            res =pres.executeUpdate();
-        } catch (Exception e) {
-            
-        }
+}
+    public boolean eliminar(int idMem) {
+    String elimiarsql = "DELETE FROM membrecia WHERE idmembrecia=?";
+    
+    try (Connection con = conectarMySQL.getConnection();
+         PreparedStatement pres = con.prepareStatement(elimiarsql)) {
+        
+        pres.setInt(1, idMem);
+        return pres.executeUpdate() > 0; // Retorna true si se eliminó al menos 1 fila
+        
+    } catch (Exception e) {
+        e.printStackTrace(); // Proporciona detalles sobre la excepción
+        return false; // Retorna false si ocurre un error
     }
+}
     
     public DefaultTableModel buscarMiembros(String buscar){
-        String [] nombbreColum={"NOMBRE","APELLIDO P.","APELLIDO M.","C.I.","FECHA NACIMIENTO","ESTADO CIVIL","FECHA CONVERSION","FECHA BAUTIZO","TALENTOS","DONES","ACTIVO"};
-        String [] registros=new String[11];
+        String [] nombbreColum={"NOMBRE","APELLIDO P.","APELLIDO M.","C.I.","FECHA NACIMIENTO","ESTADO CIVIL","FECHA CONVERSION","FECHA BAUTIZO","TALENTOS","DONES","ACTIVO","DIRECCION","NOMBRE REFERENCIA","NUMERO REFERENCIA"};
+        String [] registros=new String[14];
         DefaultTableModel tablabuscar=new DefaultTableModel(null, nombbreColum);
         
         String buscarsql="select * from membrecia where numdocumento like'%"+buscar+"%' or nombre like'%"+buscar+"%' or apellidop like'%"+buscar+"%' or apellidom like'%"+buscar+"%' or estadocivil like'%"+buscar+"%'";
@@ -188,6 +189,9 @@ public class MembreciaDAO {
                registros[8]=rs.getString("talentos");
                registros[9]=rs.getString("dones");
                registros[10]=rs.getString("activo");
+               registros[11]=rs.getString("direccion");
+               registros[12]=rs.getString("nomreferencia");
+               registros[13]=rs.getString("numreferencia");
                
                tablabuscar.addRow(registros);
            }
