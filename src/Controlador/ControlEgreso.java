@@ -11,10 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -33,6 +36,8 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
     
     List<Egreso> lista;
     DefaultTableModel tablamodel = new DefaultTableModel();
+    
+    ExportarEnExcel excel;
     
     public ControlEgreso(VistaEgreso ve, EgresoDAO edao){
         this.vistaEgreso=ve;
@@ -56,6 +61,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         this.vistaEgreso.botoncancelar.addActionListener(this);
         this.vistaEgreso.botonbuscar.addActionListener(this);
         this.vistaEgreso.botonlistar.addActionListener(this);
+        this.vistaEgreso.botonexportar.addActionListener(this);
         
         //////EVENTO MOUSECLICKED
         this.vistaEgreso.tablaegreso.addMouseListener(this);
@@ -127,6 +133,12 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
                 
                 limpiartabla(vistaEgreso.tablaegreso);
                 mostrarLista();  
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR LISTA");
+            }
+        }else if(vistaEgreso.botonexportar==ae.getSource()){
+            try{
+                exportars();
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR LISTA");
             }
@@ -464,6 +476,16 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
                 e.getMetodo_de_pago(),
                 e.getNombreLider()
             });
+        }
+    }
+    public void exportars(){
+        try {
+            //exp= new ExcelExpo();
+            //exp.Exportar(vistaLider.tablalider);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaEgreso.tablaegreso);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

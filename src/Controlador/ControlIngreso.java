@@ -11,10 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -35,6 +38,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
     List<Ingreso> lista;
     List<Membrecia> lislider=new ArrayList<>();
     DefaultTableModel tablamodel=new DefaultTableModel();
+    
+    ExportarEnExcel excel;
     //SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
     
     public ControlIngreso(VistaIngreso vi, IngresoDAO idao){
@@ -142,6 +147,12 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
                 vistaIngreso.txtbuscar.setText("");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al recargar");
+            }
+        }else if(vistaIngreso.botonexportar==ae.getSource()){
+            try {
+                exportars();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al exportar en Excel");
             }
         }
     }
@@ -513,7 +524,16 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             JOptionPane.showMessageDialog(null, "Error al limpiar tabla");
         }
     }
-    
+    public void exportars(){
+        try {
+            //exp= new ExcelExpo();
+            //exp.Exportar(vistaLider.tablalider);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaIngreso.tablaingreso);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     

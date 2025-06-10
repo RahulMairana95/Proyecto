@@ -30,7 +30,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     int id;
     List<Membrecia> lista;
     
-    ExcelExpo exp;
+    ExportarEnExcel excel;
     
     public ControlLista(VistaListaMembrecia vlm, MembreciaDAO aO){
         this.vistaListaMembrecia=vlm;
@@ -52,10 +52,16 @@ public class ControlLista extends MouseAdapter implements ActionListener{
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
         }else if(vistaListaMembrecia.botonbuscar==ae.getSource()){
-            try{
-                buscar(vistaListaMembrecia.txtbusqueda.getText());
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+            try {
+                String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
+                List<Membrecia> listabuscada = mdao.buscarMembrecia(texto);
+                llenarTabla(listabuscada);
+                if (listabuscada.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron coincidencias.");
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda");
+                e.printStackTrace();
             }
         }else if(vistaListaMembrecia.botonlistar==ae.getSource()){
             try{
@@ -93,12 +99,37 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     
     public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaListaMembrecia.tablalistar);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaListaMembrecia.tablalistar);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void llenarTabla(List<Membrecia> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaListaMembrecia.tablalistar.getModel();
+        modelo.setRowCount(0); // Limpia la tabla
+
+        for (Membrecia m : lista) {
+            modelo.addRow(new Object[]{
+                //m.getIdmembrecia(),
+                m.getNombre(),
+                m.getApellidop(),
+                m.getApellidom(),
+                m.getNumdocumento(),
+                m.getFechanacimiento(),
+                m.getEstadocivil(),
+                m.getFechaconversion(),
+                m.getFechabautizo(),
+                m.getTalentos(),
+                m.getDones(),
+                m.getActivo(),
+                m.getDireccion(),
+                m.getNomreferencia(),
+                m.getNumreferencia()
+            });
+        }
+    }
+
     public void buscar(String buscr){
         if(vistaListaMembrecia.txtbusqueda.getText().length()==0){
             JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");

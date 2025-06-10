@@ -31,15 +31,15 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
     int id;
     List<Lideriglesia> lista;
     
-    ExcelExpo exp;
+    ExportarEnExcel excel;
     
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     public ControlIglesia(VistaListaLider vlm, LiderDAO aO){
         this.vistaLiderIglesia=vlm;
         this.ldao=aO;
         mostrarlista();
         
-        this.vistaLiderIglesia.botonbuscar1.addActionListener(this);
+        this.vistaLiderIglesia.botonbuscar.addActionListener(this);
         this.vistaLiderIglesia.botonlistar.addActionListener(this);
         this.vistaLiderIglesia.botonreporte.addActionListener(this);
     }
@@ -53,11 +53,18 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
-        }else if(vistaLiderIglesia.botonbuscar1==ae.getSource()){
+        }else if(vistaLiderIglesia.botonbuscar==ae.getSource()){
+             String texto = vistaLiderIglesia.txtbuscar.getText().trim();
             try{
-                //buscar(vistaLiderIglesia.txtbuscar.getText());
+               List<Lideriglesia> resultado = ldao.buscarLideres(texto);
+                llenarTablaLider(resultado);
+
+                if (resultado.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron líderes con esos datos.");
+                }
+                
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                JOptionPane.showMessageDialog(null, "Error al buscar líderes.");
             }
         }else if(vistaLiderIglesia.botonlistar==ae.getSource()){
             try{
@@ -90,8 +97,8 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
     }
     public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaLiderIglesia.tablaiglesia);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaLiderIglesia.tablaiglesia);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,6 +119,23 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL LIMPIAR TABLA");
+        }
+    }
+    public void llenarTablaLider(List<Lideriglesia> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaLiderIglesia.tablaiglesia.getModel(); // ajusta el nombre de la tabla
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        for (Lideriglesia l : lista) {
+            modelo.addRow(new Object[]{
+                //l.getIdlider(),
+                l.getNombre(),
+                l.getApellidop(),
+                l.getApellidom(),
+                l.getNumdocumento(),
+                l.getCargo(),
+                l.getIniciogestion(),
+                l.getFingestion()
+            });
         }
     }
 

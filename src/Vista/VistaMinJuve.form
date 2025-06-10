@@ -2,6 +2,9 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="99" green="99" red="99" type="rgb"/>
+    </Property>
     <Property name="closable" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
@@ -41,9 +44,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jLabel3" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="scrUce" pref="487" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="scrUce" min="-2" pref="384" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +68,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Ministerio Juvenil Maranatha, comenzo el a&#xf1;o 2003, con el objetivo de ayudar a los jovenes de la iglesia.&#xa;&#xa;Es un ministerio de ayuda que tiene como misi&#xf3;n formar y capacitar al joven, para descubrir &#xa;y desarrollar su llamado de servir a Dios, a partir de las caracter&#xed;sticas apost&#xf3;licas de ser fuertes,&#xa;permanentes y vencedores para funcionar en la sociedad para transformar su entorno con la cultura &#xa;del Reino de Dios.&#xa;&#xa;OBJETIVOS PRINCIPALES&#xa;&#xa;   - Formar y capacitar: debemos chequear cuales son las &#xe1;reas en que nuestros j&#xf3;venes tienen &#xa;     carencia formativa sea por el hogar y el sistema educativo para capacitarlos.&#xa;   - Impartici&#xf3;n: ense&#xf1;anza sin impartici&#xf3;n solo le da a un banquete a tu mente pero necesariamente  &#xa;     no rompe las cadenas que te oprimen, no es solo ense&#xf1;ar lo correcto es que el factor divino &#xa;     nunca est&#xe9; ausente de nuestras actividades.&#xa;   - Fuertes, permanentes y vencedores: desarrollar a trav&#xe9;s de la revelaci&#xf3;n y la iluminaci&#xf3;n las &#xa;     tres caracter&#xed;sticas de la juventud.&#xa;   - Transformar: que sean ejecutores de un cambios, que nos den a luz una mejor sociedad bajo &#xa;      los principios del reino.&#xa;   - Cultura del reino: que la voluntad de Dios sea la que impregne nuestra naci&#xf3;n para tener una &#xa;     sociedad celestial y menos infernal.&#xa;&#xa;FUNCIONES DEL MINISTERIO JUVENIL&#xa;  &#xa;   - Planificar, coordinar y ejecutar el Plan General Anual y el Presupuesto Anual de Ingresos y Gastos &#xa;     del Ministerio.&#xa;   - Dise&#xf1;ar y ejecutar planes, programas y proyectos para los j&#xf3;venes en el cumplimiento del objeto &#xa;     del Ministerio.&#xa;   - Capacitar y entrenar al equipo ministerial y los enlaces de redes, a fin de desarrollar cualidades &#xa;     de un liderazgo de alto desempe&#xf1;o, que les permita asumir y cumplir con las exigencias &#xa;     ministeriales, para la ejecuci&#xf3;n de los planes, programas, y proyectos, y la obtenci&#xf3;n de resultados &#xa;     con los recursos disponibles en los tiempos previstos.&#xa;   - Realizar el seguimiento de los planes, programas, y proyectos en ejecuci&#xf3;n, para evaluar y medir&#xa;     trimestralmente los resultados, y presentar el correspondiente informe.&#xa;   - Elaborar Informe de Gesti&#xf3;n trimestral de los productos desarrollados en el Ministerio, de &#xa;     conformidad con la planificaci&#xf3;n y normas internas, para ser presentado al nivel superior.&#xa;&#xa;                                                                      HORARIO&#xa;                                      Las reuniones son los s&#xe1;bados a las 7:30 pm."/>
+            <Property name="text" type="java.lang.String" value="  Ministerio Juvenil Maranatha, comenzo el a&#xf1;o 2003, con el objetivo de ayudar a los jovenes de la iglesia.&#xa;&#xa;             Es un ministerio de ayuda que tiene como misi&#xf3;n formar y capacitar al joven, para descubrir &#xa;       y desarrollar su llamado de servir a Dios, a partir de las caracter&#xed;sticas apost&#xf3;licas de ser fuertes,&#xa;    permanentes y vencedores para funcionar en la sociedad para transformar su entorno con la cultura &#xa;                                                                              del Reino de Dios.&#xa;&#xa;                                                                       OBJETIVOS PRINCIPALES&#xa;&#xa;   - Formar y capacitar: debemos chequear cuales son las &#xe1;reas en que nuestros j&#xf3;venes tienen &#xa;     carencia formativa sea por el hogar y el sistema educativo para capacitarlos.&#xa;   - Impartici&#xf3;n: ense&#xf1;anza sin impartici&#xf3;n solo le da a un banquete a tu mente pero necesariamente  &#xa;     no rompe las cadenas que te oprimen, no es solo ense&#xf1;ar lo correcto es que el factor divino &#xa;     nunca est&#xe9; ausente de nuestras actividades.&#xa;   - Fuertes, permanentes y vencedores: desarrollar a trav&#xe9;s de la revelaci&#xf3;n y la iluminaci&#xf3;n las &#xa;     tres caracter&#xed;sticas de la juventud.&#xa;   - Transformar: que sean ejecutores de un cambios, que nos den a luz una mejor sociedad bajo &#xa;      los principios del reino.&#xa;   - Cultura del reino: que la voluntad de Dios sea la que impregne nuestra naci&#xf3;n para tener una &#xa;     sociedad celestial y menos infernal.&#xa;&#xa;                                                                                        HORARIO&#xa;                                                 LAS REUNIONES SON LOS S&#xc1;BADOS A HORAS 19:30"/>
           </Properties>
         </Component>
       </SubComponents>

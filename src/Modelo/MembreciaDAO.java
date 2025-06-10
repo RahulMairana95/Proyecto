@@ -11,6 +11,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -200,6 +201,52 @@ public class MembreciaDAO {
         }
         return tablabuscar;
     }
+    
+    //////BUSCAR MEMBRECIA
+    public List<Membrecia> buscarMembrecia(String texto) {
+        List<Membrecia> lista = new ArrayList<>();
+
+        // Consulta que busca por número de documento o por nombre completo
+        String sql = "SELECT * FROM membrecia WHERE " +
+                     "numdocumento LIKE ? OR " +
+                     "CONCAT(nombre, ' ', apellidop, ' ', apellidom) LIKE ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + texto + "%");
+            ps.setString(2, "%" + texto + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setNomreferencia(rs.getString(14));
+                mem.setNumreferencia(rs.getInt(15));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     
    
 }

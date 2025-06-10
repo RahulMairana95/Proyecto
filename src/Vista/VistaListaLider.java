@@ -37,7 +37,7 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
         botonreporte = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
-        botonbuscar1 = new javax.swing.JButton();
+        botonbuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -75,8 +75,8 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Buscar:");
 
-        botonbuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
-        botonbuscar1.setText("BUSCAR");
+        botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
+        botonbuscar.setText("BUSCAR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,7 +92,7 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonbuscar1)
+                        .addComponent(botonbuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonlistar)
                         .addGap(61, 61, 61)
@@ -108,7 +108,7 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(botonlistar)
                     .addComponent(botonreporte)
-                    .addComponent(botonbuscar1))
+                    .addComponent(botonbuscar))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
@@ -134,7 +134,7 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton botonbuscar1;
+    public javax.swing.JButton botonbuscar;
     public javax.swing.JButton botonlistar;
     public javax.swing.JButton botonreporte;
     private javax.swing.JLabel jLabel8;

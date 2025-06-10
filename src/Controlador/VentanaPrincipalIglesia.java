@@ -63,6 +63,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
         ventanaPrincipal.botoncdi.addActionListener(this);
         ventanaPrincipal.botondominical.addActionListener(this);
         
+        
         ventanaPrincipal.itemInfo.addActionListener(this);
         
         ventanaPrincipal.idusuarioaminnis.setText(admin.getIdadmin()+ "");
@@ -86,6 +87,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
             ventanaPrincipal.itemIglesia.setEnabled(true);
             ventanaPrincipal.iteMinis.setEnabled(true);
             ventanaPrincipal.itemmiembros.setEnabled(false);
+            
         }
     }
 

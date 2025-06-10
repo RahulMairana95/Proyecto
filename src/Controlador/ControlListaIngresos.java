@@ -34,7 +34,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
     int id;
     List<Ingreso> lista;
     
-    ExcelExpo exp;
+    
     ExportarEnExcel excel;
     
     public ControlListaIngresos(VistaListaIngresos vli, IngresoDAO dAO){

@@ -30,9 +30,9 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     int id;
     List<Ministerio> lista;
     
-    ExcelExpo exp;
+    ExportarEnExcel excel;
     
-    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     
     public ControListaMin(VistaListaLiderMin lm, MinDAO dm){
         this.vistaLiderm=lm;
@@ -53,22 +53,24 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
-        }else if(vistaLiderm.botonbuscar==ae.getSource()){
-            try{
-                //buscar(vistaLiderm.boxministerio.getSelectedItem().toString().trim());
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
-            }
-        }else if(vistaLiderm.botonlistar==ae.getSource()){
-            try{
-                limpiartabla(vistaLiderm.tablamin);
-                mostrarlista();
-                vistaLiderm.boxministerio.setSelectedItem("");
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+        }else if (vistaLiderm.botonbuscar == ae.getSource()) {
+            String ministerioSeleccionado = vistaLiderm.boxministerio.getSelectedItem().toString();
+
+            if (!ministerioSeleccionado.equalsIgnoreCase("Selecciona un ministerio")) {
+                List<Ministerio> lista = mdao.buscarPorMinisterio(ministerioSeleccionado);
+                llenarTablaMinisterio(lista);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un ministerio.");
+        }}else if(vistaLiderm.botonlistar==ae.getSource()){
+                try{
+                    limpiartabla(vistaLiderm.tablamin);
+                    mostrarlista();
+                    vistaLiderm.boxministerio.setSelectedItem("");
+                } catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                }
             }
         }
-    }
     
     public void mostrarlista(){
         lista=mdao.mostrarlidermin();
@@ -90,14 +92,25 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         }
         vistaLiderm.tablamin.setModel(tablamodel);
     }
-   /*public void buscar(String buscando){
-        //if(vistaLiderm.boxministerio.getSelectedItem()==0){
-            //JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
-        //}else{
-            tablamodel=mdao.buscarlider(buscando);
-            vistaLiderm.tablamin.setModel(tablamodel);
-        //}
-    }*/
+    public void llenarTablaMinisterio(List<Ministerio> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaLiderm.tablamin.getModel(); // ajusta el nombre si es necesario
+        modelo.setRowCount(0);
+
+        for (Ministerio m : lista) {
+            modelo.addRow(new Object[]{
+                //m.getIdmin(),
+                m.getNombre(),
+                m.getApellidop(),
+                m.getApellidom(),
+                m.getNumdocumento(),
+                m.getMinisterio(),
+                m.getCargo(),
+                m.getIniciogestion(),
+                m.getFingestion()
+            });
+        }
+    }
+
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();
@@ -110,8 +123,8 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     }
     public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaLiderm.tablamin);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaLiderm.tablamin);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }

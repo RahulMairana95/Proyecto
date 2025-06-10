@@ -30,10 +30,7 @@ public class VistaUCE extends javax.swing.JInternalFrame {
         scrUce = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -43,6 +40,7 @@ public class VistaUCE extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 153, 153));
         setClosable(true);
 
         scrUce.setEnabled(false);
@@ -50,22 +48,14 @@ public class VistaUCE extends javax.swing.JInternalFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("COMO COMIENZA LA U.C.E.\nEl origen de la Unión Cristiana Evangélica emerge paulatinamente a través de una serie de \neventos secuenciales muy importante cada uno de ellos en su tiempo. Se podría mencionar \nalgunos acontecimientos que sobresalen, los cuales son muy importantes dentro del proceso \nevolutivo en la formación de nuestra organización.\nUno de ellos es la llegada del misionero Jorge Allan a Bolivia, en septiembre de 1902. \nTambién se puede señalar la fundación de la “Bolivian Indian Mission”, en San Pedro de buena vista\nen 1907.\nLa unión cristiana evangélica (u.c.e.), se fundó el 30 de abril de 1950, en los hechos se remontan a la\n primera década de este siglo.\nLa UCE nace con 4 iglesias que surgieron por el trabajo de la Bolivian Indian Mission (BIM),\n (más tarde misión andina evangélica (MAE), afiliada a SIM internacional), desde sus inicios las\n iglesias fueron pastoreadas por obreros nacionales y algunas otras por misioneros. \nLas primeras iglesias que estuvieron presentes en su fundación son: La Iglesia de la calle “bolívar”, \nAiquile, Capinota, Esteban Arce, Acirumarca, Pichacani, Cliza y otros que poco a poco fueron \nestablecidas en el país. El mayor crecimiento de iglesias de dio en el área rural. Hasta el momento \nla denominación cuenta con más de 1000 iglesias y congregaciones en todo el país organizadas \nen 31 sub directivas.\n\nSUBDIRECTIVAS\n\nLas Subdirectivas son instancias a las que están delegadas la representación \nde la UCE en una jurisdicción territorial determinada, constituida por iglesias, congregaciones, ministerios, \ncomités y miembros, guiado por un Directorio cuyo presidente es el representante legal de la subdirectiva. \nSu organización y funcionamiento está prevista en el reglamento. \nVeamos las Subdirectivas en cada departamento:\n\nCOCHABAMBA\n\t<> Subdirectiva 5 de Aiquile\n\t<> Subdirectiva 6 en Cercado\n\t<> Subdirectiva 13 en Trópico\n\t<> Subdirectiva 17 en Cocapata\n\t<> Subdirectiva 25 en Valle Alto\nCHUQUISACA\n\t<> Subdirectiva 9 en Sucre\n\t<> Subdirectiva 15 en Pulpina\nTARIJA\n\t<> Subdirectiva 24 en Gran Chaco\n\t<> Subdirectiva 31 en Tarija\nLA PAZ\n\t<> Subdirectiva 10 en El Alto\n\t<> Subdirectiva 27 en Illimani\nORURO\n\t<> Subdirectiva 1 en Challapata\n\t<> Subdirectiva 3 en Andamarca\n\t<> Subdirectiva 7 en la ciudad de Oruro\n\t<> Subdirectiva  14 en Colque\nPOTOSI\n\t<> Subdirectiva 2 en Pocoata\n\t<> Subdirectiva 12 en la ciudad de Potosí\n\t<> Subdirectiva 18 en San Pedro de Buena Vista\n\t<> Subdirectiva 23 en Llallagua\n\t<> Subdirectiva 26 en Llawisla\nSANTA CRUZ\n\t<> Subdirectiva 16 de Montero\n\t<> Subdirectiva 19 en Valle Grande\n\t<> Subdirectiva 20 en la ciudad de Santa Cruz\n\t<> Subdirectiva 22 en San Julian\n\t<> Subdirectiva 28 en Torno\n\t<> Subdirectiva 29 en Camiri\nBENI\n\t<> Subdirectiva 8 en Magdalena\n\t<> Subdirectiva 11 en Trinidad\n\t<> Subdirectiva 21 en Guayaramerín\n\t<> Subdirectiva 30 en Riberalta\nPANDO\n\t<> Gracias a Dios hay Iglesias y Congregaciones en crecimiento. ");
+        jTextArea1.setText("                                                                                            COMO COMIENZA LA U.C.E.\n                             El origen de la Unión Cristiana Evangélica emerge paulatinamente a través de una serie de \n                            eventos secuenciales muy importante cada uno de ellos en su tiempo. Se podría mencionar \n                          algunos acontecimientos que sobresalen, los cuales son muy importantes dentro del proceso \n                                                                      evolutivo en la formación de nuestra organización.\n                                 Uno de ellos es la llegada del misionero Jorge Allan a Bolivia, en septiembre de 1902. \n                    También se puede señalar la fundación de la “Bolivian Indian Mission”, en San Pedro de buena vista\n                                                                                                        en 1907.\n                    La unión cristiana evangélica (u.c.e.), se fundó el 30 de abril de 1950, en los hechos se remontan a la\n                                                                                   primera década de este siglo.\n                           La UCE nace con 4 iglesias que surgieron por el trabajo de la Bolivian Indian Mission (BIM),\n                        (más tarde misión andina evangélica (MAE), afiliada a SIM internacional), desde sus inicios las\n                                 iglesias fueron pastoreadas por obreros nacionales y algunas otras por misioneros. \n                    Las primeras iglesias que estuvieron presentes en su fundación son: La Iglesia de la calle “bolívar”, \n                           Aiquile, Capinota, Esteban Arce, Acirumarca, Pichacani, Cliza y otros que poco a poco fueron \n                   establecidas en el país. El mayor crecimiento de iglesias de dio en el área rural. Hasta el momento \n                    la denominación cuenta con más de 1000 iglesias y congregaciones en todo el país organizadas \n                                                                                                    en 31 sub directivas.");
         scrUce.setViewportView(jTextArea1);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/uce128.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ucelid.png"))); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 0));
         jLabel3.setText("RESUMEN DE LA HISTORIA DE UNIÓN CRISTIANA EVANGÉLICA ");
-
-        jLabel4.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 0));
-        jLabel4.setText("DIRECTIVA NACIONAL");
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinaet.png"))); // NOI18N
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cfn.png"))); // NOI18N
 
@@ -95,78 +85,62 @@ public class VistaUCE extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(79, 79, 79))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrUce)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                                .addGap(55, 55, 55)
                                 .addComponent(jLabel8)
-                                .addGap(84, 84, 84)
+                                .addGap(47, 47, 47)
                                 .addComponent(jLabel9)
-                                .addGap(71, 71, 71)
-                                .addComponent(jLabel7)
-                                .addGap(17, 17, 17))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jLabel10)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel11)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(33, 33, 33))
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel12)
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel13))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel3)))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9))
+                .addContainerGap()
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jLabel11))
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel12))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -180,10 +154,7 @@ public class VistaUCE extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

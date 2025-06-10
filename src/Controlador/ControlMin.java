@@ -40,7 +40,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     List<Membrecia> lislider=new ArrayList<>();
     
-    ExcelExpo exp;
+    ExportarEnExcel excel;
     
     public ControlMin(VistaLiderMin vl, MinDAO md){
         this.vistaLiderMin=vl;
@@ -399,8 +399,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     }
     public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaLiderMin.tablamin);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaLiderMin.tablamin);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }

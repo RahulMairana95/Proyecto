@@ -31,6 +31,7 @@ public class VistaCDI extends javax.swing.JInternalFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 153, 153));
         setClosable(true);
 
         scrUce.setEnabled(false);
@@ -38,7 +39,7 @@ public class VistaCDI extends javax.swing.JInternalFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText(" ¿DE QUE SE TRATA?\n En los Centros de Desarrollo Infantil - CDI se presta un servicio institucional que busca garantizar la \n educación inicial, cuidado y nutrición a niños y niñas menores de 5 años, en el marco de la \n Atención Integral y Diferencial, a través de acciones pedagógicas, de cuidado calificado y nutrición, \n así como la realización de gestiones para promover los derechos a la salud, protección y participación, \n que permitan favorecer su desarrollo integral.\n La jornada de atención en los CDI es de ocho (8) horas diarias, cinco (5) días a la semana.\n\n Es un servicio de atención gratuito.\n \n¿A QUIÉN BENEFICIA?\n Niños y niñas de primera infancia, prioritariamente en el rango de edad de dos (2) años a menores de \n cinco (5) años y/o hasta que ingresen al grado de transición.\n\n De todas maneras, si la condición del niño o niña lo amerita y la Unidad de Servicio cuenta con las \n condiciones requeridas (espacio de Sala Cuna) para atender a esta población, podrán ser atendidos \n niños y niñas entre los seis (6) meses y los dos (2) años de edad.\n ¿Quién puede presentarlo?\n Padres o cuidadores del niño o niña que requiere el servicio.\n \n REQUISITOS DE LEY\n \n Para acceder a los servicios de un CDI, se deberá consultar con la disponibilidad del cupo en el CDI o\n Centro Zonal y posteriormente presentar una solicitud de inscripción acompañada de los siguientes \n documentos:\n\n   - Fotocopia del Registro civil de nacimiento.\n   - Fotocopia de puntaje SISBEN o carta de declaración ante el Ministerio Público (Personería, Defensoría, \n     Procuraduría) de su condición de desplazado, cuando aplique.\n   - Fotocopia de certificado de afiliación a salud vigente.\n   - Fotocopia del carné de salud infantil (puede ser fotocopia de la curva de crecimiento y desarrollo).\n   - El diagnóstico médico en caso de niños con discapacidad, el cual no es requisito para el ingreso, \n     pero si para el seguimiento en el proceso de la atención.\n   - Fotocopia del carné de vacunación al día según edad (puede ser carné de salud infantil),\n   - Para identificar lugar de residencia, fotocopia de un recibo público cuando sea necesario.\n   - Fotocopia de documento de identidad del padre, madre y/o cuidador responsable.\n   - Certificado de pertenencia a comunidad indígena, afrodescendientes, raizales y palenqueros, y \n     Rom ó que se ha auto referido como tal.\n \n\n El ICBF en coordinación con la Entidad Administradora del Servicio, estudiará las solicitudes y \n priorizará la atención de los niños o niñas que cumplan con al menos uno de los siguientes criterios:\n\n   - Víctimas de hechos violentos asociados al conflicto armado, de acuerdo con las directrices \n     establecidas en la Ley 1448/2011, y Decretos ley 4633,4634 y 4635 de 2011.\n   - Egresados de las modalidades de Recuperación Nutricional: Centros de Recuperación \n     Nutricional – CRN, Entornos saludables y Recuperación Nutricional para los primeros mil (1000) días o \n     remitidos por el Centro Zonal.\n   - Que se encuentran en Proceso Administrativo de Restablecimiento de Derechos- PARD. \n     *Pertenecientes a familias identificadas a través de la Estrategia para la Superación de la Pobreza \n     Extrema – Red UNIDOS\nRemitidos por las entidades del SNBF que se encuentren en situación de vulnerabilidad o riesgo de \nvulneración de derechos.\nPertenecientes a comunidades étnicas (indígenas, comunidades negras, afrocolombianos, \npalenqueros, raizales y Rrom), que demanden el servicio.\nCon discapacidad.\nPertenecientes a hogares cuyo puntaje SISBEN III (Sistema de Información de Potenciales \nBeneficiarios) sea igual o inferior a los nuevos puntos de corte definidos para Primera Infancia.");
+        jTextArea1.setText("                                                                            ¿DE QUE SE TRATA?\n En los Centros de Desarrollo Infantil - CDI se presta un servicio institucional que busca garantizar la \n educación inicial, cuidado y nutrición a niños y niñas menores de 5 años, en el marco de la \n Atención Integral y Diferencial, a través de acciones pedagógicas, de cuidado calificado y nutrición, \n así como la realización de gestiones para promover los derechos a la salud, protección y participación, \n que permitan favorecer su desarrollo integral.\n La jornada de atención en los CDI es de ocho (8) horas diarias, cinco (5) días a la semana.\n\n                                                                   Es un servicio de atención gratuito.\n \n                                                                          ¿A QUIÉN BENEFICIA?\n Niños y niñas de primera infancia, prioritariamente en el rango de edad de dos (2) años a menores de \n                                       cinco (5) años y/o hasta que ingresen al grado de transición.\n\n    De todas maneras, si la condición del niño o niña lo amerita y la Unidad de Servicio cuenta con las \n condiciones requeridas (espacio de Sala Cuna) para atender a esta población, podrán ser atendidos \n                              niños y niñas entre los seis (6) meses y los dos (2) años de edad.\n                                                                   ¿Quién puede presentarlo?\n                                Padres o cuidadores del niño o niña que requiere el servicio.");
         scrUce.setViewportView(jTextArea1);
 
         jLabel3.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
@@ -55,17 +56,18 @@ public class VistaCDI extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
+                        .addGap(168, 168, 168)
                         .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrUce, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

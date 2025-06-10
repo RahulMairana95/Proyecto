@@ -41,88 +41,32 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtnombre = new javax.swing.JTextField();
-        txtnumdocumento = new javax.swing.JTextField();
-        txtapellidos = new javax.swing.JTextField();
-        txttelefono = new javax.swing.JTextField();
         txtcontraseña = new javax.swing.JTextField();
         txtnombreusuario = new javax.swing.JTextField();
-        txtemail = new javax.swing.JTextField();
-        boxroles = new javax.swing.JComboBox<>();
+        boxusuarios = new javax.swing.JComboBox<>();
         btnnuevo = new javax.swing.JButton();
         btnagregar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablausuario = new javax.swing.JTable();
-        jLabel14 = new javax.swing.JLabel();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
-        boxusuarios = new javax.swing.JComboBox<>();
+        boxlider = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Garamond", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
-        jLabel1.setText("DATOS DEL ADMINISTRADOR");
-
-        jLabel2.setText("Usuarios:");
-
-        jLabel3.setText("Nombre:");
-
-        jLabel4.setText("Apellidos:");
-
-        jLabel6.setText("N° de Documento:");
-
-        jLabel8.setText("Telefono:");
-
-        jLabel9.setText("Email:");
+        jLabel2.setText("Nombre de líderes:");
 
         jLabel11.setText("Usuario:");
 
         jLabel12.setText("Nombre Usuario:");
 
         jLabel13.setText("Contraseña:");
-
-        txtnombre.setEditable(false);
-        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreKeyTyped(evt);
-            }
-        });
-
-        txtnumdocumento.setEditable(false);
-        txtnumdocumento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnumdocumentoKeyTyped(evt);
-            }
-        });
-
-        txtapellidos.setEditable(false);
-        txtapellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapellidosKeyTyped(evt);
-            }
-        });
-
-        txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txttelefonoKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txttelefonoKeyTyped(evt);
-            }
-        });
 
         txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -139,21 +83,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             }
         });
 
-        txtemail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtemailFocusLost(evt);
-            }
-        });
-        txtemail.addKeyListener(new java.awt.event.KeyAdapter() {
+        boxusuarios.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtemailKeyPressed(evt);
-            }
-        });
-
-        boxroles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretario", "Tesorero", "Pastor" }));
-        boxroles.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                boxrolesKeyPressed(evt);
+                boxusuariosKeyPressed(evt);
             }
         });
 
@@ -196,14 +128,14 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Apellidos", "N° Documento", "Telefono", "Email", "Usuario", "Cuenta", "Contraseña"
+                "NOMBRE DE USUARIOS AUTORIZADOS", "USUARIO", "NOMBRE DE USUARIO", "CONTRASEÑA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -215,10 +147,6 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tablausuario);
-
-        jLabel14.setFont(new java.awt.Font("Garamond", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 51));
-        jLabel14.setText("LISTA DE ADMINISTRADORES");
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconeliminar.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -236,18 +164,18 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             }
         });
 
-        boxusuarios.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        boxlider.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                boxusuariosPopupMenuWillBecomeVisible(evt);
+                boxliderPopupMenuWillBecomeVisible(evt);
             }
         });
-        boxusuarios.addActionListener(new java.awt.event.ActionListener() {
+        boxlider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxusuariosActionPerformed(evt);
+                boxliderActionPerformed(evt);
             }
         });
 
@@ -256,119 +184,73 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btnnuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnagregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxlider, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btneliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtemail, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txttelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txtnombreusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txtcontraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txtnumdocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txtapellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                    .addComponent(boxroles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnmodificar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(328, 328, 328))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(btnnuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnagregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btncancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btneliminar)
-                .addGap(18, 18, 18)
-                .addComponent(btnmodificar)
-                .addGap(16, 16, 16))
+                                .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 6, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel14))
+                    .addComponent(boxlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel11)
+                    .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnumdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(boxroles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnnuevo)
                     .addComponent(btnagregar)
                     .addComponent(btncancelar)
-                    .addComponent(btnmodificar)
-                    .addComponent(btneliminar))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(btneliminar)
+                    .addComponent(btnmodificar))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,95 +264,28 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btncancelarActionPerformed
 
-    private void txttelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyTyped
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo Numeros");
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttelefonoKeyTyped
-
-    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
-        // TODO add your handling code here:
-        char validar=evt.getKeyChar();
-        
-        if(Character.isDigit(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras");
-        }
-    }//GEN-LAST:event_txtnombreKeyTyped
-
-    private void txtapellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidosKeyTyped
-        // TODO add your handling code here:
-        char validar=evt.getKeyChar();
-        
-        if(Character.isDigit(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras");
-        }
-    }//GEN-LAST:event_txtapellidosKeyTyped
-
-    private void txtnumdocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumdocumentoKeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-        if(Character.isLetter(car) || Character.isDigit(car)){
-
-        }else{
-            evt.consume();
-            getToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras y Numeros");
-        }
-    }//GEN-LAST:event_txtnumdocumentoKeyTyped
-
     private void txtnombreusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreusuarioKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();
+        /*char car = evt.getKeyChar();
         if(Character.isLetter(car) || Character.isDigit(car)){
 
         }else{
             evt.consume();
             getToolkit().beep();
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo Letras y Numeros");
-        }
+        }*/
     }//GEN-LAST:event_txtnombreusuarioKeyTyped
-
-    private void txtemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtemailFocusLost
-        // TODO add your handling code here:
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
-        // El email a validar
-        //String email = "correo@prueba.com";
-
-        Matcher mather = pattern.matcher(txtemail.getText());
-
-        if (mather.find() == true) {
-            //System.out.println("El email ingresado es válido.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Ingrese Correo Valido Ej:correo@gmail.com");
-            //txtemail.requestFocus(true);
-        }
-    }//GEN-LAST:event_txtemailFocusLost
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnagregarActionPerformed
 
-    private void boxusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxusuariosActionPerformed
+    private void boxliderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxliderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_boxusuariosActionPerformed
+    }//GEN-LAST:event_boxliderActionPerformed
 
-    private void boxusuariosPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_boxusuariosPopupMenuWillBecomeVisible
-        String tmp=(String) boxusuarios.getSelectedItem();
+    private void boxliderPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_boxliderPopupMenuWillBecomeVisible
+        /*String tmp=(String) boxlider.getSelectedItem();
         String [] aux=tmp.split("-");
         String idmen=aux[0];
         
@@ -482,9 +297,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             pres.setString(1, idmen);
             rs=pres.executeQuery();
             if (rs.next()) {
-                txtnombre.setText(rs.getString("nombre"));
-                txtapellidos.setText(rs.getString("apellidos"));
-                txtnumdocumento.setText(rs.getString("ci"));
+                /*txtnombre.setText(rs.getString("nombre"));
+                txtapellidop.setText(rs.getString("apellidop"));
+                txtapellidom.setText(rs.getString("apellidom"));
 
                 System.out.println("LÍDER: " + rs.getString("nombre"));
             }
@@ -498,38 +313,24 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             if (con != null) con.close();
         } catch (SQLException ex) {
             System.err.println("Error al cerrar conexiones: " + ex.getMessage());
-        }
-    }
+        }*/
+    //}
         
-    }//GEN-LAST:event_boxusuariosPopupMenuWillBecomeVisible
+    }//GEN-LAST:event_boxliderPopupMenuWillBecomeVisible
 
-    private void txttelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyPressed
-        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
-            txtemail.requestFocus();
-        }
-    }//GEN-LAST:event_txttelefonoKeyPressed
-
-    private void txtemailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtemailKeyPressed
-        if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
-            boxroles.requestFocus();
-        }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
-           txttelefono.requestFocus();
-        }
-    }//GEN-LAST:event_txtemailKeyPressed
-
-    private void boxrolesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_boxrolesKeyPressed
+    private void boxusuariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_boxusuariosKeyPressed
         if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
             txtnombreusuario.requestFocus();
         }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
-           txtemail.requestFocus();
+          // txtemail.requestFocus();
         }
-    }//GEN-LAST:event_boxrolesKeyPressed
+    }//GEN-LAST:event_boxusuariosKeyPressed
 
     private void txtnombreusuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreusuarioKeyPressed
         if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
             txtcontraseña.requestFocus();
         }else if(evt.getExtendedKeyCode() == KeyEvent.VK_UP){
-           boxroles.requestFocus();
+           boxusuarios.requestFocus();
         }
     }//GEN-LAST:event_txtnombreusuarioKeyPressed
 
@@ -589,33 +390,21 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> boxroles;
+    public javax.swing.JComboBox<Lideriglesia> boxlider;
     public javax.swing.JComboBox<String> boxusuarios;
     public javax.swing.JButton btnagregar;
     public javax.swing.JButton btncancelar;
     public javax.swing.JButton btneliminar;
     public javax.swing.JButton btnmodificar;
     public javax.swing.JButton btnnuevo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    public javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tablausuario;
-    public javax.swing.JTextField txtapellidos;
     public javax.swing.JTextField txtcontraseña;
-    public javax.swing.JTextField txtemail;
-    public javax.swing.JTextField txtnombre;
     public javax.swing.JTextField txtnombreusuario;
-    public javax.swing.JTextField txtnumdocumento;
-    public javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 }

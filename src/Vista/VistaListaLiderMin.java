@@ -48,14 +48,14 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "NOMBRE", "APELLIDOS", "C.I.", "MINISTERIO", "CARGO", "INICIO GESTION", "FIN GESTION"
+                "NOMBRE", "APELLIDO PATERNO", "APELLIDO MATERNO", "C.I.", "MINISTERIO", "CARGO", "INICIO GESTIÓN", "FIN GESTIÓN"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

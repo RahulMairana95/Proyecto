@@ -29,8 +29,9 @@ public class VistaMisiones extends javax.swing.JInternalFrame {
 
         scrUce = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 153, 153));
         setClosable(true);
 
         scrUce.setEnabled(false);
@@ -38,12 +39,8 @@ public class VistaMisiones extends javax.swing.JInternalFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("                                                                         EVANGELISMO\nEvangelizar es cuando llevas la palabra a aquellos que de alguna forma u otra han escuchado de Jesús. \nCuando los invitas a la Iglesia, cuando cubres alguna necesidad, cuando enseñamos el amor de Dios.\n                                                                             MISIONES\n                  Es cuando llevas el evangelio a aquellos que NUNCA han escuchado de Jesús.\n\n\nLas iglesias de la Union Cristian Evangélica, tienen como objetivo el Evangelismo y Misiones, trabajando\njuntamente con DINAEM, Institucion que se encarga de administrar misioneros y con ETNOS, que se \nencarga de capasitar a los misioneros.");
+        jTextArea1.setText("                                                                                EVANGELISMO\nEvangelizar es cuando llevas la palabra a aquellos que de alguna forma u otra han escuchado de Jesús. \nCuando los invitas a la Iglesia, cuando cubres alguna necesidad, cuando enseñamos el amor de Dios.\n                                                                             \n\t\t                       MISIONES\n                  Es cuando llevas el evangelio a aquellos que NUNCA han escuchado de Jesús.\n\n\nLas iglesias de la Union Cristian Evangélica, tienen como objetivo el Evangelismo y Misiones, trabajando\njuntamente con DINAEM, Institucion que se encarga de administrar misioneros y con ETNOS, que se \nencarga de capasitar a los misioneros.");
         scrUce.setViewportView(jTextArea1);
-
-        jLabel3.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 0));
-        jLabel3.setText("EVANGELISMO Y MISIONES");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,17 +52,18 @@ public class VistaMisiones extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel3)))
+                        .addGap(240, 240, 240)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrUce, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(scrUce, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -73,7 +71,7 @@ public class VistaMisiones extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextArea jTextArea1;
     public javax.swing.JScrollPane scrUce;
     // End of variables declaration//GEN-END:variables

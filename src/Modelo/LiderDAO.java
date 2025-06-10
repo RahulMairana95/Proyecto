@@ -200,6 +200,42 @@ public class LiderDAO {
 
         return lista;
     }
+    public List<Lideriglesia> buscarLideres(String texto) {
+        List<Lideriglesia> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+                     "l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM lider l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE m.numdocumento LIKE ? OR " +
+                     "CONCAT(m.nombre, ' ', m.apellidop, ' ', m.apellidom) LIKE ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + texto + "%");
+            ps.setString(2, "%" + texto + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Lideriglesia li = new Lideriglesia();
+                li.setIdlider(rs.getInt(1));
+                li.setNombre(rs.getString(2));
+                li.setApellidop(rs.getString(3));
+                li.setApellidom(rs.getString(4));
+                li.setNumdocumento(rs.getString(5));
+                li.setCargo(rs.getString(6));
+                li.setIniciogestion(rs.getDate(7));
+                li.setFingestion(rs.getDate(8));
+                resultados.add(li);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
 
 
 

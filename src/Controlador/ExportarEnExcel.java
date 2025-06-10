@@ -35,6 +35,12 @@ public class ExportarEnExcel {
 
                 // Crear libro y hoja
                 Workbook libro = new HSSFWorkbook();  // Usar XSSFWorkbook si es .xlsx
+                // Crear estilo para encabezado con fuente en negrita
+                CellStyle estiloEncabezado = libro.createCellStyle();
+                Font fuenteNegrita = libro.createFont();
+                fuenteNegrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
+                estiloEncabezado.setFont(fuenteNegrita);
+
                 FileOutputStream archivo = new FileOutputStream(archivoXLS);
                 Sheet hoja = libro.createSheet("Datos");
                 hoja.setDisplayGridlines(false);
@@ -44,6 +50,7 @@ public class ExportarEnExcel {
                 for (int c = 0; c < tab.getColumnCount(); c++) {
                     Cell celda = filaEncabezado.createCell(c);
                     celda.setCellValue(tab.getColumnName(c));
+                    celda.setCellStyle(estiloEncabezado);
                 }
 
                 // Llenar las filas con los datos
@@ -74,6 +81,10 @@ public class ExportarEnExcel {
                             celda.setCellValue(String.valueOf(valor));
                         }
                     }
+                }
+                // Ajustar ancho de columnas para que se adapte al contenido
+                for (int c = 0; c < tab.getColumnCount(); c++) {
+                    hoja.autoSizeColumn(c);
                 }
 
                 // Escribir el archivo y cerrar

@@ -2,6 +2,9 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="99" green="99" red="99" type="rgb"/>
+    </Property>
     <Property name="closable" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
@@ -23,27 +26,25 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrUce" min="-2" pref="586" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrUce" min="-2" pref="586" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="jLabel3" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="scrUce" pref="511" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrUce" min="-2" pref="377" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +66,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="La Escuela Dominical, Escuela B&#xed;blica Dominical o EBD es una estructura educacional que ense&#xf1;a la &#xa;Biblia y doctrina en cada iglesia local de las Iglesias protestantes o evang&#xe9;licas. No debe confundirse &#xa;con el concepto de escuela parroquial, propio de las cat&#xf3;licas.&#xa;&#xa;Rese&#xf1;a hist&#xf3;rica&#xa;Fue fundada en 1780 por Robert Raikes, un periodista brit&#xe1;nico natural de Gloucester que sinti&#xf3; &#xa;preocupaci&#xf3;n por el abandono de los ni&#xf1;os en los barrios bajos de su ciudad.&#xa;&#xa;Raikes comenz&#xf3; escribiendo art&#xed;culos acerca de su preocupaci&#xf3;n, y pronto muchos creyentes se le &#xa;unieron para organizar en varias iglesias brit&#xe1;nicas un sistema que ense&#xf1;ara a leer y a escribir a los &#xa;ni&#xf1;os pobres. Con los a&#xf1;os, las escuelas dominicales que ense&#xf1;aban primeras letras se hicieron &#xa;innecesarias ante el avance de la escolaridad p&#xfa;blica. As&#xed; entonces, comenzaron a dedicarse m&#xe1;s &#xa;bien a la formaci&#xf3;n religiosa de cada iglesia para sus ni&#xf1;os.&#xa;&#xa;En los Estados Unidos de Am&#xe9;rica, este programa eclesi&#xe1;stico dominical se ampli&#xf3; para toda la familia, &#xa;en especial entre los bautistas, incluyendo cursos de Biblia para todas las edades. Tal ampliaci&#xf3;n se &#xa;dio tambi&#xe9;n en la mayor&#xed;a de los pa&#xed;ses de la Am&#xe9;rica Latina.&#xa;&#xa;En Espa&#xf1;a, la implantaci&#xf3;n tard&#xed;a de las Escuelas Dominicales vino a partir de 1857 de la mano de &#xa;una organizaci&#xf3;n cat&#xf3;lica, la Real Asociaci&#xf3;n de Escuelas Dominicales, dirigida fundamentalmente a &#xa;j&#xf3;venes sirvientas y obreras. En 1905, el n&#xfa;mero de Escuelas Dominicales dependientes de la &#xa;asociaci&#xf3;n sumaban un total de 200 establecimientos, a los que asist&#xed;an un total de 20.000 alumnas&#xa;"/>
+            <Property name="text" type="java.lang.String" value="  La Escuela Dominical, Escuela B&#xed;blica Dominical o EBD es una estructura educacional que ense&#xf1;a la &#xa;   Biblia y doctrina en cada iglesia local de las Iglesias protestantes o evang&#xe9;licas. No debe confundirse &#xa;                                       con el concepto de escuela parroquial, propio de las cat&#xf3;licas.&#xa;&#xa;                                                                              Rese&#xf1;a hist&#xf3;rica&#xa;           Fue fundada en 1780 por Robert Raikes, un periodista brit&#xe1;nico natural de Gloucester que sinti&#xf3; &#xa;                         preocupaci&#xf3;n por el abandono de los ni&#xf1;os en los barrios bajos de su ciudad.&#xa;&#xa;      Raikes comenz&#xf3; escribiendo art&#xed;culos acerca de su preocupaci&#xf3;n, y pronto muchos creyentes se le &#xa;unieron para organizar en varias iglesias brit&#xe1;nicas un sistema que ense&#xf1;ara a leer y a escribir a los &#xa;ni&#xf1;os pobres. Con los a&#xf1;os, las escuelas dominicales que ense&#xf1;aban primeras letras se hicieron &#xa;innecesarias ante el avance de la escolaridad p&#xfa;blica. As&#xed; entonces, comenzaron a dedicarse m&#xe1;s &#xa;bien a la formaci&#xf3;n religiosa de cada iglesia para sus ni&#xf1;os.&#xa;&#xa;En los Estados Unidos de Am&#xe9;rica, este programa eclesi&#xe1;stico dominical se ampli&#xf3; para toda la familia, &#xa;en especial entre los bautistas, incluyendo cursos de Biblia para todas las edades. Tal ampliaci&#xf3;n se &#xa;dio tambi&#xe9;n en la mayor&#xed;a de los pa&#xed;ses de la Am&#xe9;rica Latina.&#xa;&#xa;En Espa&#xf1;a, la implantaci&#xf3;n tard&#xed;a de las Escuelas Dominicales vino a partir de 1857 de la mano de &#xa;una organizaci&#xf3;n cat&#xf3;lica, la Real Asociaci&#xf3;n de Escuelas Dominicales, dirigida fundamentalmente a &#xa;j&#xf3;venes sirvientas y obreras. En 1905, el n&#xfa;mero de Escuelas Dominicales dependientes de la &#xa;asociaci&#xf3;n sumaban un total de 200 establecimientos, a los que asist&#xed;an un total de 20.000 alumnas&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>

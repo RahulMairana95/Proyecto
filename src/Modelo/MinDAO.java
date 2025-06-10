@@ -202,6 +202,42 @@ public class MinDAO {
         return lista;
     }
 
+    public List<Ministerio> buscarPorMinisterio(String ministerio) {
+        List<Ministerio> lista = new ArrayList<>();
+
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM ministerio l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.ministerio = ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, ministerio);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setMinisterio(rs.getString(6));
+                min.setCargo(rs.getString(7));
+                min.setIniciogestion(rs.getDate(8));
+                min.setFingestion(rs.getDate(9));
+                lista.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 
     
     

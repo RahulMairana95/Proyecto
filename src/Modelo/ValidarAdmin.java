@@ -19,7 +19,10 @@ public class ValidarAdmin {
     private Connection con;
     private final Conexion conexion = new Conexion();
     private Usuario usuario;
-
+    
+    public ValidarAdmin(){
+    
+    }
     // Constructor corregido
     public ValidarAdmin(Usuario usuario) {
         this.usuario = usuario;
@@ -41,16 +44,11 @@ public class ValidarAdmin {
                     administrador = new Administrador();
                     administrador.setIdadmin(result.getInt("idadmin"));
                     administrador.setIdlider(result.getInt("idlider"));
-                    administrador.setNombre(result.getString("nombre"));
-                    administrador.setApellidos(result.getString("apellidos"));
-                    administrador.setNumdocumento(result.getString("numdocumento"));
-                    administrador.setTelefono(result.getInt("telefono"));
-                    administrador.setEmail(result.getString("email"));
                     administrador.setUsuario(result.getString("usuario"));
                     administrador.setNombreusuario(result.getString("nombreusuario"));
                     administrador.setContraseña(result.getString("contraseña"));
 
-                    System.out.println("✅ Usuario autenticado: " + administrador.getNombre());
+                    //System.out.println("✅ Usuario autenticado: " + administrador.getNombre());
                 } else {
                     System.out.println("❌ Usuario o contraseña incorrectos.");
                 }

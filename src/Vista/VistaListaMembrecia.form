@@ -75,7 +75,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtbusqueda" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="txtbusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonbuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnexportar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel13" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>

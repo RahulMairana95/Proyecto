@@ -32,7 +32,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
     int id;
     List<Egreso> lista;
     
-    ExcelExpo exp;
+    
     ExportarEnExcel excel;
     
     public ControlListaEgreso(VistaListaEgresos vle, EgresoDAO dAO){

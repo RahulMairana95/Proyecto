@@ -10,7 +10,8 @@ package Vista;
  * @author RAHUL
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -40,6 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botondominical = new javax.swing.JButton();
         botoncdi = new javax.swing.JButton();
         botonOansa = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itemInfo = new javax.swing.JMenuItem();
@@ -155,6 +157,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))))
         );
+
+        jButton1.setText("jButton1");
 
         jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
 
@@ -385,6 +389,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemministerio;
     public javax.swing.JMenuItem itemreporteegresos;
     public javax.swing.JMenuItem itemreporteingresos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

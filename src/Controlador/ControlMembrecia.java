@@ -40,7 +40,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     
     ConverMayus con;
     
-    ExcelExpo exp;
+    ExportarEnExcel excel;
     
     public ControlMembrecia(VistaMembrecia vistaMembrecia, MembreciaDAO membreciaDAO){
         System.out.println("listando");
@@ -133,7 +133,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         }
         else if(vistaMembrecia.botonreporte==ae.getSource()){
             try{
-                excel();
+                exportars();
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
             }
@@ -382,10 +382,12 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             System.out.println("eliminando");
         }
     }
-    public void excel(){
+    public void exportars(){
         try {
-            exp= new ExcelExpo();
-            exp.Exportar(vistaMembrecia.tablademiembros);
+            //exp= new ExcelExpo();
+            //exp.Exportar(vistaLider.tablalider);
+            excel= new ExportarEnExcel();
+            excel.ExportarE(vistaMembrecia.tablademiembros);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
