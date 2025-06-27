@@ -9,9 +9,13 @@ import Vista.*;
 import java.io.*;
 import java.util.List;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -246,6 +250,56 @@ public class MembreciaDAO {
 
         return lista;
     }
+    
+    public List<Membrecia> buscarCumpleanierosPorRango(Date fechaDesde, Date fechaHasta) {
+        List<Membrecia> lista = new ArrayList<>();
+
+        // Convertimos a LocalDate correctamente
+        LocalDate inicio = fechaDesde.toLocalDate();
+        LocalDate fin = fechaHasta.toLocalDate();
+
+        // Consulta SQL que compara día y mes
+        String sql = "SELECT * FROM membrecia WHERE " +
+                     "DATE_FORMAT(fechanacimiento, '%m-%d') BETWEEN ? AND ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            // Formato MM-dd para comparar solo día y mes
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");
+            ps.setString(1, formatter.format(inicio));
+            ps.setString(2, formatter.format(fin));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setNomreferencia(rs.getString(14));
+                mem.setNumreferencia(rs.getInt(15));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 
     
    

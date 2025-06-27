@@ -7,9 +7,12 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -23,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -48,8 +52,14 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         this.membreciaDAO=membreciaDAO;
         
         listar();
+        /////CARGAR A COMBOS
+        cargarcomboTalentos();
+        combodones();
+        comboestado();
+        comboactivo();
         //mayus();
         inhabilitar();
+        ajustarAnchoColumnas(vistaMembrecia.tablademiembros);
         
         
         //EVENTO DE BOTONES
@@ -66,6 +76,30 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         
         //MODIFICAR Y ELIMINAR
         this.vistaMembrecia.tablademiembros.addMouseListener(this);
+        
+        
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
+
+        vistaMembrecia.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaMembrecia.txtbuscar.setText("");
+                    vistaMembrecia.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaMembrecia.txtbuscar.getText().trim().isEmpty()) {
+                    vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
     
     @Override
@@ -123,7 +157,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             }
         }else if(vistaMembrecia.botonlistar==ae.getSource()){
             try{
-                vistaMembrecia.txtbuscar.setText("");
+                vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
                 
                 limpiartabla(vistaMembrecia.tablademiembros);
                 listar();  
@@ -191,9 +226,63 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         }
     }
 
+    public void cargarcomboTalentos() {
+        vistaMembrecia.boxtalentos.removeAllItems(); // Limpia el combo por si ya tenía algo
 
-
-
+        // Agrega el item por defecto (para validar que se seleccione uno)
+        //vistaEgreso.boxtipo.addItem("Seleccione un tipo"); // index 0
+        vistaMembrecia.boxtalentos.addItem("Sin especificar");
+        vistaMembrecia.boxtalentos.addItem("Música");
+        vistaMembrecia.boxtalentos.addItem("Deportivo");
+        vistaMembrecia.boxtalentos.addItem("Creativo");
+        vistaMembrecia.boxtalentos.addItem("Gestión de Personal");
+        vistaMembrecia.boxtalentos.addItem("Organizacional");
+        vistaMembrecia.boxtalentos.addItem("Gastronomía");
+        vistaMembrecia.boxtalentos.addItem("Área de Ventas");
+        vistaMembrecia.boxtalentos.addItem("Manejo de Inversiones");
+        vistaMembrecia.boxtalentos.addItem("Idiomas");
+        vistaMembrecia.boxtalentos.addItem("Comunicación");
+        vistaMembrecia.boxtalentos.addItem("Cientifico");
+        vistaMembrecia.boxtalentos.addItem("Actuación");
+    }
+    
+    public void combodones(){
+        vistaMembrecia.boxdones.removeAllItems();
+        
+        vistaMembrecia.boxdones.addItem("Sin especificar");
+        vistaMembrecia.boxdones.addItem("Palabra de Sabiduría");
+        vistaMembrecia.boxdones.addItem("Palabra de Conocimiento");
+        vistaMembrecia.boxdones.addItem("Fe");
+        vistaMembrecia.boxdones.addItem("Dones de Sanidad");
+        vistaMembrecia.boxdones.addItem("Poder de Milagros");
+        vistaMembrecia.boxdones.addItem("Profecía");
+        vistaMembrecia.boxdones.addItem("Discernimiento de Espiritus");
+        vistaMembrecia.boxdones.addItem("Diversas clases de Lenguas");
+        vistaMembrecia.boxdones.addItem("Interpretación de Lenguas");
+        vistaMembrecia.boxdones.addItem("Servicio");
+        vistaMembrecia.boxdones.addItem("Enseñanza");
+        vistaMembrecia.boxdones.addItem("Exhortación");
+        vistaMembrecia.boxdones.addItem("Dar");
+        vistaMembrecia.boxdones.addItem("Liderazgo");
+        vistaMembrecia.boxdones.addItem("Misericordia");
+    }
+    
+    public void comboactivo(){
+        vistaMembrecia.boxactivo.removeAllItems();
+        
+        vistaMembrecia.boxactivo.addItem("SI");
+        vistaMembrecia.boxactivo.addItem("NO");
+    }
+    
+    public void comboestado(){
+        vistaMembrecia.boxestado.removeAllItems();
+        
+        vistaMembrecia.boxestado.addItem("Casado");
+        vistaMembrecia.boxestado.addItem("Soltero");
+        vistaMembrecia.boxestado.addItem("Viudo");
+        vistaMembrecia.boxestado.addItem("Viuda");
+        vistaMembrecia.boxestado.addItem("Concubino");
+    }
     
     public void listar(){
         lista=membreciaDAO.listarMembrecia();
@@ -470,6 +559,11 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     }
     
     public void buscar(String buscando){
+         // Validación para evitar buscar con el hint
+            if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI") || vistaMembrecia.txtbuscar.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
         if(vistaMembrecia.txtbuscar.getText().length()==0){
             JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
         }else{
@@ -478,7 +572,17 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         }
     }
     
-    
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
+    }
     
     /*public void mayus(){
         

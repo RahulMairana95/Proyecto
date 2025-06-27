@@ -315,13 +315,7 @@
         <Component class="javax.swing.JComboBox" name="boxestado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="CASADO"/>
-                <StringItem index="1" value="SOLTERO"/>
-                <StringItem index="2" value="CONCUBINO"/>
-                <StringItem index="3" value="VIUDO"/>
-                <StringItem index="4" value="VIUDA"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -599,10 +593,7 @@
         <Component class="javax.swing.JComboBox" name="boxactivo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="SI"/>
-                <StringItem index="1" value="NO"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -617,21 +608,7 @@
         <Component class="javax.swing.JComboBox" name="boxtalentos">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="13">
-                <StringItem index="0" value="SIN ESPECIFICAR"/>
-                <StringItem index="1" value="TALENTO MUSICAL"/>
-                <StringItem index="2" value="TALENTO DEPORTIVO"/>
-                <StringItem index="3" value="TALENTO CREATIVO"/>
-                <StringItem index="4" value="TALENTO EN LA GESTION DE PERSONAL"/>
-                <StringItem index="5" value="TALENTO ORGANIZACIONAL"/>
-                <StringItem index="6" value="TALENTO EN LA GASTRONOM&#xcd;A"/>
-                <StringItem index="7" value="TALENTO EN AREA DE VENTAS"/>
-                <StringItem index="8" value="TALENTO EN MANEJO DE INVERSIONES"/>
-                <StringItem index="9" value="TALENTO EN IDIOMAS"/>
-                <StringItem index="10" value="TALENTO EN LA COMUNICACI&#xd3;N"/>
-                <StringItem index="11" value="TALENTO CIENT&#xcd;FICO"/>
-                <StringItem index="12" value="TALENTO EN LA ACTUACI&#xd3;N"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>

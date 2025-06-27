@@ -157,7 +157,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
     public void agregarAdmin(){
         VistaRegistro vistaRegistro=new VistaRegistro();
         AdministradorDAO adminDAO=new AdministradorDAO(vistaRegistro);
-        ControlAdmin controlAdmin=new ControlAdmin(vistaRegistro, adminDAO);
+        ControlAdministrador controlAdmin=new ControlAdministrador(vistaRegistro, adminDAO);
         vistaRegistro.setTitle("REGISTRO DE USUARIOS");
         
         centarFrameInterno(vistaRegistro);
@@ -285,7 +285,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
    }
    public void infoIglesia(){
        VistaNJM jM=new VistaNJM();
-       jM.setTitle("SERVICIOS DE REUNIONES");
+       jM.setTitle("SERVICIOS DE REUNIONES NUEVA JERUSALÉN MOTECATO");
        centarFrameInterno(jM);
    }
     public void centarFrameInterno(JInternalFrame frameInterno){
@@ -293,6 +293,12 @@ public class VentanaPrincipalIglesia implements ActionListener{
         Dimension dimpanel=panel.getSize();
         Dimension dimframe=frameInterno.getSize();
         frameInterno.setLocation((dimpanel.width-dimframe.width)/2,(dimpanel.height-dimframe.height)/2);
-        frameInterno.show();
+        //frameInterno.show();
+        frameInterno.setVisible(true);
+        try {
+            frameInterno.setSelected(true); // Opcional, para enfocar
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
     }
 }

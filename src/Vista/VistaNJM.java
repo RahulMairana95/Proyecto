@@ -29,7 +29,6 @@ public class VistaNJM extends javax.swing.JInternalFrame {
 
         scrUce = new javax.swing.JScrollPane();
         informacionINJM = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -42,29 +41,20 @@ public class VistaNJM extends javax.swing.JInternalFrame {
         informacionINJM.setText("                      SERVICIOS DOMINICALES Y MINISTERIOS\n\n                                      ESCUELA DOMINICAL\n                                        Domingo 10:00 am\n\n                                                 OANSA\n                                        Domingo 2:00 pm\n\n                                     CULTO DE ADORACIÓN\n                                          Domingo 7:30 pm\n\n                                        CULTO DE ORACIÓN\n                                            Martes 7:30 pm\n\n                                 CULTO DE ESTUDIO BIBLICO\n                                             Jueves 7:30 pm\n\n                            REUNIÓN \"MINISTERIO FEMENIL\"\n                                             Viernes 3:00 pm\n\n                          REUNIÓN \"MINISTERIO PREJUVENIL\"\n                                             Sábado 4:00 pm\n\n                                                        CDI\n                                              Sábado 6:00 pm\n\n                              REUNIÓN \"MINISTERIO JUVENIL\"\n                                              Sábado 7:30 pm");
         scrUce.setViewportView(informacionINJM);
 
-        jLabel3.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 0));
-        jLabel3.setText("IGLESIA NUEVA JERUSALÉN MOTECATO");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrUce)
+                .addComponent(scrUce, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jLabel3)
-                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrUce, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrUce, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -74,7 +64,6 @@ public class VistaNJM extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextArea informacionINJM;
-    private javax.swing.JLabel jLabel3;
     public javax.swing.JScrollPane scrUce;
     // End of variables declaration//GEN-END:variables
 }

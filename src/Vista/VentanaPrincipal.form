@@ -364,28 +364,39 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="botonUce" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonJuve" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonfemenil" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonshiret" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonmisiones" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botondominical" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botonOansa" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botoncdi" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="botonJuve" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonfemenil" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonshiret" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonmisiones" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botondominical" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonOansa" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="botoncdi" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jLabel1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="idusuarioaminnis" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lblusuario" min="-2" pref="122" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="botonUce" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="idusuarioaminnis" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblusuario" min="-2" pref="122" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -399,9 +410,9 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="botonUce" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botonJuve" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="botonfemenil" min="-2" max="-2" attributes="0"/>

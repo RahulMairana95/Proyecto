@@ -61,6 +61,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="boxnombre" min="-2" pref="185" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="txtnombre" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
                                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -69,7 +70,6 @@
                                           </Group>
                                           <Component id="txtdocumento" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="boxnombre" min="-2" pref="213" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                           <Component id="fechafin" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="fechainicio" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
@@ -78,10 +78,11 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="boxcargo" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <Component id="boxcargo" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="912" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="botonnuevo" min="-2" max="-2" attributes="0"/>
@@ -95,32 +96,23 @@
                           <Component id="botoneliminar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="botonreporte" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <Component id="jInternalFrame1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtbuscar" min="-2" pref="234" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="botonbuscar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="botonlistar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" pref="890" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtbuscar" min="-2" pref="234" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botonbuscar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="botonlistar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="213" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -242,18 +234,7 @@
         <Component class="javax.swing.JComboBox" name="boxcargo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
-                <StringItem index="0" value="ANCIANO"/>
-                <StringItem index="1" value="DIACONO"/>
-                <StringItem index="2" value="DIACONIZA"/>
-                <StringItem index="3" value="TESORERO DE DIEZMOS"/>
-                <StringItem index="4" value="TESORERO DE OFRENDAS"/>
-                <StringItem index="5" value="SECRETARIO"/>
-                <StringItem index="6" value="SUPERINTENDENTE"/>
-                <StringItem index="7" value="MISIONES"/>
-                <StringItem index="8" value="EVANGELISMO"/>
-                <StringItem index="9" value="PASTOR"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -287,8 +268,8 @@
                     <Column editable="false" title="APELLIDO MATERNO" type="java.lang.String"/>
                     <Column editable="false" title="C.I." type="java.lang.String"/>
                     <Column editable="false" title="CARGO" type="java.lang.String"/>
-                    <Column editable="true" title="INICIO GESTI&#xd3;N" type="java.lang.String"/>
-                    <Column editable="true" title="FIN GESTI&#xd3;N" type="java.lang.String"/>
+                    <Column editable="false" title="INICIO GESTI&#xd3;N" type="java.lang.String"/>
+                    <Column editable="false" title="FIN GESTI&#xd3;N" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -7,8 +7,10 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 /**
  *
  * @author LENOVO
@@ -38,13 +41,13 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         this.vistaLiderm=lm;
         this.mdao=dm;
         mostrarlista();
+        boxministerio();
+        ajustarAnchoColumnas(vistaLiderm.tablamin);
         
         this.vistaLiderm.botonbuscar.addActionListener(this);
         this.vistaLiderm.botonlistar.addActionListener(this);
         this.vistaLiderm.botonreporte.addActionListener(this);
-        
     }
-
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(vistaLiderm.botonreporte==ae.getSource()){
@@ -70,8 +73,23 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
                     JOptionPane.showMessageDialog(null, "Error en la busqueda");
                 }
             }
-        }
+    }
     
+    //Cargar boxcargoMinisterio
+    public void boxministerio(){
+        vistaLiderm.boxministerio.removeAllItems();
+        
+        vistaLiderm.boxministerio.addItem("Selecione un Ministerio para buscar");
+        vistaLiderm.boxministerio.addItem("Ministerio Femenil");
+        vistaLiderm.boxministerio.addItem("Ministerio Juvenil");
+        vistaLiderm.boxministerio.addItem("Ministerio Prejuvenil");
+        vistaLiderm.boxministerio.addItem("Ministerio de Alabanza");
+        vistaLiderm.boxministerio.addItem("Escuela Dominical");
+        vistaLiderm.boxministerio.addItem("Evangelismo y Misiones");
+        vistaLiderm.boxministerio.addItem("Oansa");
+        vistaLiderm.boxministerio.addItem("CDI");
+        vistaLiderm.boxministerio.addItem("Otro");
+    }
     public void mostrarlista(){
         lista=mdao.mostrarlidermin();
         tablamodel=(DefaultTableModel) vistaLiderm.tablamin.getModel();
@@ -129,4 +147,16 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void ajustarAnchoColumnas(JTable tabla) {
+    for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+        int ancho = 50; // Ancho mínimo
+        for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+            TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+            Component comp = tabla.prepareRenderer(render, fila, columna);
+            ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+        }
+        tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+    }
+}
+
 }

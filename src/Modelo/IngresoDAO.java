@@ -37,11 +37,15 @@ public class IngresoDAO {
                      "LEFT JOIN membrecia m1 ON i.idmembrecia = m1.idmembrecia " +
                      "LEFT JOIN lider l ON i.idlider = l.idlider " +
                      "LEFT JOIN membrecia m2 ON l.idmembrecia = m2.idmembrecia";
-
+        class Helper {
+            String safeString(String s) {
+                return (s == null || s.trim().isEmpty()) ? "" : s.trim();
+            }
+        }
+        Helper helper = new Helper();
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 Ingreso i = new Ingreso();
                 i.setIdingreso(rs.getInt("idingreso"));
@@ -55,10 +59,12 @@ public class IngresoDAO {
                 i.setIdlider(rs.getInt("idlider"));
 
                 // Nombre del miembro
-                String miembroNombre = rs.getString("nombre_miembro") + " " +
-                                       rs.getString("apellidop_miembro") + " " +
-                                       rs.getString("apellidom_miembro");
-                i.setNombreMiembro(miembroNombre);
+                String miembroNombre = helper.safeString(rs.getString("nombre_miembro")).isEmpty()
+                    ? "--"
+                    : helper.safeString(rs.getString("nombre_miembro"));
+                miembroNombre += " " + helper.safeString(rs.getString("apellidop_miembro"));
+                miembroNombre += " " + helper.safeString(rs.getString("apellidom_miembro"));
+                i.setNombreMiembro(miembroNombre.trim());
 
                 // Nombre del líder
                 String liderNombre = rs.getString("nombre_lider") + " " +
@@ -88,7 +94,14 @@ public class IngresoDAO {
                      "LEFT JOIN lider l ON i.idlider = l.idlider " +
                      "LEFT JOIN membrecia m2 ON l.idmembrecia = m2.idmembrecia " +
                      "WHERE i.fecha BETWEEN ? AND ?";
-
+        
+        class Helper {
+            String safeString(String s) {
+                return (s == null || s.trim().isEmpty()) ? "" : s.trim();
+            }
+        }
+        Helper helper = new Helper();
+        
         // Calcular fechas
         LocalDate fechaFin = LocalDate.now();
         LocalDate fechaInicio = fechaFin.minusMonths(1);
@@ -115,10 +128,12 @@ public class IngresoDAO {
                     i.setIdlider(rs.getInt("idlider"));
 
                     // Nombre del miembro
-                    String miembroNombre = rs.getString("nombre_miembro") + " " +
-                                           rs.getString("apellidop_miembro") + " " +
-                                           rs.getString("apellidom_miembro");
-                    i.setNombreMiembro(miembroNombre);
+                    String miembroNombre = helper.safeString(rs.getString("nombre_miembro")).isEmpty()
+                    ? "--"
+                    : helper.safeString(rs.getString("nombre_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidop_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidom_miembro"));
+                    i.setNombreMiembro(miembroNombre.trim());
 
                     // Nombre del líder
                     String liderNombre = rs.getString("nombre_lider") + " " +

@@ -7,8 +7,11 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -23,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -49,8 +53,10 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         this.ldao=ld;
         //System.out.println("liderando");
         mostrarlista();
+        boxcargo();
         inhabilitar();
         mostrarNombre();
+        ajustarAnchoColumnas(vistaLider.tablalider);
         //listarnombres();
         
         this.vistaLider.botonagregar.addActionListener(this);
@@ -65,6 +71,29 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         this.vistaLider.botonlistar.addActionListener(this);
         
         this.vistaLider.tablalider.addMouseListener(this);
+        
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaLider.txtbuscar.setForeground(Color.GRAY);
+
+        vistaLider.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaLider.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaLider.txtbuscar.setText("");
+                    vistaLider.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaLider.txtbuscar.getText().trim().isEmpty()) {
+                    vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLider.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -115,6 +144,11 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         }else if(vistaLider.botonbuscar==ae.getSource()){
             try {
                 String texto = vistaLider.txtbuscar.getText().trim();
+                // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
                 List<Lideriglesia> lista = ldao.buscarLider(texto);
                 mostrarTablaLideres(lista); 
             } catch (Exception e) {
@@ -122,7 +156,8 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLider.botonlistar==ae.getSource()){
             try{
-                vistaLider.txtbuscar.setText("");
+                vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaLider.txtbuscar.setForeground(Color.GRAY);
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
             }catch (Exception e){
@@ -179,7 +214,23 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         }    
           
     }
-    
+    ///Cargar boxcargo
+    public void boxcargo(){
+        vistaLider.boxcargo.removeAllItems();
+        
+        vistaLider.boxcargo.addItem("Seleccione un cargo");
+        vistaLider.boxcargo.addItem("Pastor");
+        vistaLider.boxcargo.addItem("Anciano");
+        vistaLider.boxcargo.addItem("Diácono");
+        vistaLider.boxcargo.addItem("Diaconisa");
+        vistaLider.boxcargo.addItem("Tesorero de Diezmos");
+        vistaLider.boxcargo.addItem("Tesorero de Ofrendas");
+        vistaLider.boxcargo.addItem("Secretario");
+        vistaLider.boxcargo.addItem("Superintendente");
+        vistaLider.boxcargo.addItem("Misiones");
+        vistaLider.boxcargo.addItem("Evangelismo");
+        
+    }
     
     public void mostrarlista(){
         lista=ldao.mostrarlider();
@@ -489,5 +540,16 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         modelo.addRow(fila);
     }
     }
-
+    
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
+    }
 }

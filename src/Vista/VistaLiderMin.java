@@ -90,8 +90,6 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
 
         txtdocumento.setEditable(false);
 
-        boxcargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar Cargo", "PRESIDENTE", "VICEPRESIDENTE", "TESORERO", "SECRETARIO", "MINISTERIAL", "SOCIAL", "EVANGELISMO Y MISIONES", "DISCIPULADO" }));
-
         jLabel7.setText("Inicio de Gestion:");
 
         tablamin.setModel(new javax.swing.table.DefaultTableModel(
@@ -106,7 +104,7 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -175,8 +173,6 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 51));
         jLabel1.setText("DATOS DEL LIDER DE MINISTERIO");
 
-        boxministerio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar Ministerio", "MINISTERIO FEMENIL", "MINISTERIO JUVENIL", "MINISTERIO PREJUVENIL", "MINISTERIO DE ALABANZA", "ESCUELA DOMINICAL", "EVANGELISMO Y MISIONES", "OANSA", "CDI", "OTRO" }));
-
         jLabel4.setText("Ministerio:");
 
         jLabel9.setText("Apellido Materno:");
@@ -210,8 +206,6 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(boxministerio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boxcargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(boxnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,7 +216,9 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(txtdocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                                                 .addComponent(txtmaterno, javax.swing.GroupLayout.Alignment.LEADING)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(boxcargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(boxministerio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(12, 12, 12))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(45, 45, 45)

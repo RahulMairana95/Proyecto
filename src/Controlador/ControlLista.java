@@ -7,16 +7,22 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -31,16 +37,46 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     List<Membrecia> lista;
     
     ExportarEnExcel excel;
-    
+    Date fechaactual=new Date(Calendar.getInstance().getTime().getTime());
     public ControlLista(VistaListaMembrecia vlm, MembreciaDAO aO){
         this.vistaListaMembrecia=vlm;
         this.mdao=aO;
         listar();
+        fechaACtual();
+        ajustarAnchoColumnas(vistaListaMembrecia.tablalistar);
         
         //EVENTO DE BOTON REPORTAR
         this.vistaListaMembrecia.btnexportar.addActionListener(this);
         this.vistaListaMembrecia.botonbuscar.addActionListener(this);
         this.vistaListaMembrecia.botonlistar.addActionListener(this);
+        this.vistaListaMembrecia.botonhappy.addActionListener(this);
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+            vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
+            
+            vistaListaMembrecia.botonbuscar.requestFocusInWindow();
+        });
+
+        vistaListaMembrecia.txtbusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaListaMembrecia.txtbusqueda.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaListaMembrecia.txtbusqueda.setText("");
+                    vistaListaMembrecia.txtbusqueda.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaListaMembrecia.txtbusqueda.getText().trim().isEmpty()) {
+                    vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+                    vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
+                }
+            }
+            
+        });
     }
     
     @Override
@@ -52,8 +88,16 @@ public class ControlLista extends MouseAdapter implements ActionListener{
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
         }else if(vistaListaMembrecia.botonbuscar==ae.getSource()){
+            
             try {
                 String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
+                
+                // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre o CI para buscar.");
+                return;
+            }
+                
                 List<Membrecia> listabuscada = mdao.buscarMembrecia(texto);
                 llenarTabla(listabuscada);
                 if (listabuscada.isEmpty()) {
@@ -67,9 +111,18 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             try{
                 limpiartabla(vistaListaMembrecia.tablalistar);
                 listar();
-                vistaListaMembrecia.txtbusqueda.setText("");
+                vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+                vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
             } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                JOptionPane.showMessageDialog(null, "Error al listar");
+            }
+        }else if(vistaListaMembrecia.botonhappy==ae.getSource()){
+            try{
+                buscarCumpleañeros();
+                fechaACtual();
+            } catch (Exception e){
+                e.printStackTrace(); // muestra el error exacto en consola
+                JOptionPane.showMessageDialog(null, "Error en la búsqueda: " + e.getMessage());
             }
         }
     }
@@ -77,7 +130,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     public void listar(){
         lista=mdao.listarMembrecia();
         tablaModel=(DefaultTableModel) vistaListaMembrecia.tablalistar.getModel();
-        Object obj[]=new Object[11];
+        Object obj[]=new Object[14];
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
@@ -91,6 +144,9 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             obj[8]=lista.get(i).getTalentos();
             obj[9]=lista.get(i).getDones();
             obj[10]=lista.get(i).getActivo();
+            obj[11]=lista.get(i).getDireccion();
+            obj[12]=lista.get(i).getNomreferencia();
+            obj[13]=lista.get(i).getNumreferencia();
             
             tablaModel.addRow(obj);
         }
@@ -129,15 +185,32 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             });
         }
     }
+    
+    public void buscarCumpleañeros() {
+        java.util.Date utilDesde = vistaListaMembrecia.datehappyini.getDate();
+        java.util.Date utilHasta = vistaListaMembrecia.datehappyfin.getDate();
 
-    public void buscar(String buscr){
-        if(vistaListaMembrecia.txtbusqueda.getText().length()==0){
-            JOptionPane.showMessageDialog(null, "INGRESE UN DATO PARA BUSCAR");
-        }else{
-        tablaModel=mdao.buscarMiembros(buscr);
-        vistaListaMembrecia.tablalistar.setModel(tablaModel);
+        if (utilDesde == null || utilHasta == null) {
+            JOptionPane.showMessageDialog(vistaListaMembrecia, "Seleccione ambas fechas.");
+            return;
         }
+        // Llamamos al DAO
+        MembreciaDAO dao = new MembreciaDAO();
+        List<Membrecia> lista = dao.buscarCumpleanierosPorRango(
+                new java.sql.Date(utilDesde.getTime()), 
+                new java.sql.Date(utilHasta.getTime()));
+         llenarTabla(lista);
+
+        
     }
+    public void fechaACtual(){
+        Date fechaactual=new Date(Calendar.getInstance().getTime().getTime());
+                vistaListaMembrecia.datehappyini.setDate(fechaactual);
+                vistaListaMembrecia.datehappyfin.setDate(fechaactual);
+    }
+
+
+    
     public void limpiartabla(JTable tabla){
         try {
             int filas=tabla.getRowCount();
@@ -146,6 +219,17 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar tabla");
+        }
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
 }

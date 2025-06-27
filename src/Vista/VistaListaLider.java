@@ -36,12 +36,11 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
         botonlistar = new javax.swing.JButton();
         botonreporte = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtbuscar = new javax.swing.JTextField();
         botonbuscar = new javax.swing.JButton();
+        txtbuscar = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
 
         tablaiglesia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -54,12 +53,18 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tablaiglesia.setEnabled(false);
         jScrollPane1.setViewportView(tablaiglesia);
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
@@ -104,11 +109,11 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(botonlistar)
                     .addComponent(botonreporte)
-                    .addComponent(botonbuscar))
+                    .addComponent(botonbuscar)
+                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())

@@ -10,17 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import Modelo.*;
+import java.awt.Component;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -43,6 +47,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         
         //mostrarLista();
         listarIngresosDelUltimoMes();
+        ajustarAnchoColumnas(vistaListaIngresos.tablalistaingreso);
         //System.err.println("listar 100");
         cargarComboTipo();
         //System.err.println("listar 200");
@@ -106,6 +111,13 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
     }*/
     
     public void listarIngresosDelUltimoMes() {
+        // Calcular las fechas (inicio = un mes antes de hoy, fin = hoy)
+        LocalDate fechaFin = LocalDate.now();
+        LocalDate fechaInicio = fechaFin.minusMonths(1);
+
+        // Asignar las fechas a los JDateChooser
+        vistaListaIngresos.datedesde.setDate(java.sql.Date.valueOf(fechaInicio));
+        vistaListaIngresos.datehasta.setDate(java.sql.Date.valueOf(fechaFin));
         //System.err.println("listarIngreso");
         List<Ingreso> lista = idao.listarIngresosActual();
         DefaultTableModel modelo = (DefaultTableModel) vistaListaIngresos.tablalistaingreso.getModel();
@@ -194,7 +206,18 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
     
     private void inicializarFechasActuales() {
         java.util.Date hoy = new java.util.Date();
-        vistaListaIngresos.datedesde.setDate(hoy);
+        //vistaListaIngresos.datedesde.setDate(hoy);
         vistaListaIngresos.datehasta.setDate(hoy);
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
     }
 }

@@ -41,7 +41,6 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
 
         tablamin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,8 +82,6 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
 
         botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconbuscarazul.png"))); // NOI18N
         botonbuscar.setText("BUSCAR");
-
-        boxministerio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MINISTERIO FEMENIL", "MINISTERIO JUVENIL", "MINISTERIO PREJUVENIL", "MINISTERIO DE ALABANZA", "ESCUELA DOMINICAL", "EVANGELISMO Y MISIONES", "OANSA", "CDI", "OTRO" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

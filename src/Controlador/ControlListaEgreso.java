@@ -7,18 +7,22 @@ package Controlador;
 
 import Vista.*;
 import Modelo.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -42,6 +46,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
         //mostrarLista();
         listarEgresosDelUltimoMes();
         cargarComboTipo();
+        ajustarAnchoColumnas(vistaListaEgresos.tablalistaegreso);
         //inicializarTabla();
         
         inicializarFechasActuales();
@@ -102,6 +107,14 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
             vistaListaEgresos.tablalistaegreso.setModel(tablamodel);
     }*/
     public void listarEgresosDelUltimoMes() {
+        // Calcular las fechas (inicio = un mes antes de hoy, fin = hoy)
+        LocalDate fechaFin = LocalDate.now();
+        LocalDate fechaInicio = fechaFin.minusMonths(1);
+
+        // Asignar las fechas a los JDateChooser
+        vistaListaEgresos.datedesde.setDate(java.sql.Date.valueOf(fechaInicio));
+        vistaListaEgresos.datehasta.setDate(java.sql.Date.valueOf(fechaFin));
+        
         List<Egreso> lista = edao.listarEgresoActual();
         DefaultTableModel modelo = (DefaultTableModel) vistaListaEgresos.tablalistaegreso.getModel();
         modelo.setRowCount(0); // Limpiar tabla
@@ -197,8 +210,19 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
     }
     private void inicializarFechasActuales() {
         java.util.Date hoy = new java.util.Date();
-        vistaListaEgresos.datedesde.setDate(hoy);
+        //vistaListaEgresos.datedesde.setDate(hoy);
         vistaListaEgresos.datehasta.setDate(hoy);
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
     }
 
 }

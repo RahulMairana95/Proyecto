@@ -7,8 +7,11 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -22,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -46,8 +50,11 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         this.vistaLiderMin=vl;
         this.mdao=md;
         mostrarlista();
+        boxministerio();
+        boxcargo();
         inhabilitar();
         mostrarNombre();
+        ajustarAnchoColumnas(vistaLiderMin.tablamin);
         
         this.vistaLiderMin.botonagregar.addActionListener(this);
         this.vistaLiderMin.botonnuevo.addActionListener(this);
@@ -61,6 +68,29 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         this.vistaLiderMin.botonlistar.addActionListener(this);
         
         this.vistaLiderMin.tablamin.addMouseListener(this);
+        
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
+
+        vistaLiderMin.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaLiderMin.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaLiderMin.txtbuscar.setText("");
+                    vistaLiderMin.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaLiderMin.txtbuscar.getText().trim().isEmpty()) {
+                    vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -111,6 +141,11 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         }else if(vistaLiderMin.botonbuscar==ae.getSource()){
             try {
                  String texto = vistaLiderMin.txtbuscar.getText().trim();
+                  // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
                 List<Ministerio> resultados = mdao.buscarMinisterio(texto);
                 mostrarTablaMinisterios(resultados);
             } catch (Exception e) {
@@ -118,7 +153,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderMin.botonlistar==ae.getSource()){
             try{
-                vistaLiderMin.txtbuscar.setText("");
+                vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
                 limpiartabla(vistaLiderMin.tablamin);
                 mostrarlista();
             }catch (Exception e){
@@ -174,6 +210,35 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             
         }    
           
+    }
+    //Cargar boxcargoMinisterio
+    public void boxministerio(){
+        vistaLiderMin.boxministerio.removeAllItems();
+        
+        vistaLiderMin.boxministerio.addItem("Selecione un Ministerio");
+        vistaLiderMin.boxministerio.addItem("Ministerio Femenil");
+        vistaLiderMin.boxministerio.addItem("Ministerio Juvenil");
+        vistaLiderMin.boxministerio.addItem("Ministerio Prejuvenil");
+        vistaLiderMin.boxministerio.addItem("Ministerio de Alabanza");
+        vistaLiderMin.boxministerio.addItem("Escuela Dominical");
+        vistaLiderMin.boxministerio.addItem("Evangelismo y Misiones");
+        vistaLiderMin.boxministerio.addItem("Oansa");
+        vistaLiderMin.boxministerio.addItem("CDI");
+        vistaLiderMin.boxministerio.addItem("Otro");
+    }
+    //Cargar box cargo
+    public void boxcargo(){
+        vistaLiderMin.boxcargo.removeAll();
+        
+        vistaLiderMin.boxcargo.addItem("Seleccione un Cargo");
+        vistaLiderMin.boxcargo.addItem("Presidente");
+        vistaLiderMin.boxcargo.addItem("Vicepresidente");
+        vistaLiderMin.boxcargo.addItem("Secretario");
+        vistaLiderMin.boxcargo.addItem("Tesorero");
+        vistaLiderMin.boxcargo.addItem("Ministerial");
+        vistaLiderMin.boxcargo.addItem("Social");
+        vistaLiderMin.boxcargo.addItem("Evangelismo y Misiones");
+        vistaLiderMin.boxcargo.addItem("Discipulado");
     }
     public void mostrarlista(){
         lista=mdao.mostrarlidermin();
@@ -469,6 +534,17 @@ public class ControlMin extends MouseAdapter implements ActionListener{
                 m.getIniciogestion(),
                 m.getFingestion()
             });
+        }
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
 

@@ -7,8 +7,11 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 /**
  *
  * @author LENOVO
@@ -51,6 +55,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         cargarComboLider();
         cargarComboTipoIngreso();
         inhabilitar();
+        ajustarAnchoColumnas(vistaIngreso.tablaingreso);
         
         inicializarFechasActuales();
         
@@ -77,6 +82,28 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         
         //EVENTO DE MOUSE EN LA TABLA
         this.vistaIngreso.tablaingreso.addMouseListener(this);
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaIngreso.txtbuscar.setText("Buscar por nombres y apellidos");
+        vistaIngreso.txtbuscar.setForeground(Color.GRAY);
+
+        vistaIngreso.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaIngreso.txtbuscar.getText().equals("Buscar por nombres y apellidos")) {
+                    vistaIngreso.txtbuscar.setText("");
+                    vistaIngreso.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaIngreso.txtbuscar.getText().trim().isEmpty()) {
+                    vistaIngreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                    vistaIngreso.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
         
     }
     
@@ -135,6 +162,11 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         }else if(vistaIngreso.botonbuscar==ae.getSource()){
             try {
                 String texto = vistaIngreso.txtbuscar.getText().trim();
+                // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres y apellidos") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos del Tesorero o Miembro para que la Búsqueda sea precisa.");
+                return;
+            }
                 List<Ingreso> listabuscada = ingresoDAO.buscarIngresos(texto);
                 llenarTabla(listabuscada);
             }catch(Exception e){
@@ -144,7 +176,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         }else if(vistaIngreso.botonlistar==ae.getSource()){
             try {
                 mostrarLista();
-                vistaIngreso.txtbuscar.setText("");
+                vistaIngreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                vistaIngreso.txtbuscar.setForeground(Color.GRAY);
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al recargar");
             }
@@ -245,7 +278,9 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
                 obj[1]=lista.get(i).getTipo_ingreso();
                 obj[2]=lista.get(i).getMonto();
                 obj[3]=lista.get(i).getDescripcion();
-                obj[4]=lista.get(i).getNombreMiembro();
+                obj[4]=(lista.get(i).getNombreMiembro() == null || lista.get(i).getNombreMiembro().trim().isEmpty())
+                        ? "--"
+                        : lista.get(i).getNombreMiembro();
                 obj[5]=lista.get(i).getNombreLider();
                 
                 tablamodel.addRow(obj);
@@ -271,11 +306,11 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         sinNombre.setNombre("Sin nombre");
         sinNombre.setApellidop("");
         sinNombre.setApellidom("");
-        vistaIngreso.boxmiembro.addItem(sinNombre); // 👈 agregás el objeto
+        vistaIngreso.boxmiembro.addItem(sinNombre); // 👈 agregar el objeto
 
         for (Membrecia m : lista) {
             System.out.println("Agregando miembro: " + m.getNombre());
-            vistaIngreso.boxmiembro.addItem(m); // 👈 agregás el objeto
+            vistaIngreso.boxmiembro.addItem(m); // 👈 agregar el objeto
         }
     }
     /////////CARGAR COMO LIDER
@@ -360,18 +395,34 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         if (miembroSeleccionado != null && liderSeleccionado != null) {
             nuevoIngreso.setIdmembrecia(miembroSeleccionado.getIdmembrecia()); // Miembro
             nuevoIngreso.setIdlider(liderSeleccionado.getIdlider()); // Líder
+            
+            if(miembroSeleccionado.getNombre().equalsIgnoreCase("Sin nombre")){
+                nuevoIngreso.setNombreMiembro("--");
+                
+            } else{
+                nuevoIngreso.setNombreMiembro(
+                miembroSeleccionado.getNombre() + " " +
+                        miembroSeleccionado.getApellidop() + " " +
+                        miembroSeleccionado.getApellidom());
+            }
+            // Asignar nombre del líder
+            nuevoIngreso.setNombreLider(
+                liderSeleccionado.getNombre() + " " +
+                liderSeleccionado.getApellidop() + " " +
+                liderSeleccionado.getApellidom()
+            );
         } else {
             JOptionPane.showMessageDialog(null, "⚠️ Miembro o Líder no seleccionado.");
             return;
         }
 
         // Debugging: imprimir los valores antes de intentar insertar
-        System.out.println("Fecha: " + nuevoIngreso.getFecha());
+       /* System.out.println("Fecha: " + nuevoIngreso.getFecha());
         System.out.println("Descripción: " + nuevoIngreso.getDescripcion());
         System.out.println("Monto: " + nuevoIngreso.getMonto());
         System.out.println("Tipo de ingreso: " + nuevoIngreso.getTipo_ingreso());
         System.out.println("ID Miembro: " + nuevoIngreso.getIdmembrecia());
-        System.out.println("ID Líder: " + nuevoIngreso.getIdlider());
+        System.out.println("ID Líder: " + nuevoIngreso.getIdlider());*/
 
         // Paso 2: Registrar el ingreso en la base de datos
         IngresoDAO ingresoDAO = new IngresoDAO();
@@ -423,8 +474,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             // 4. Mostrar resultado
             if (modificado) {
                 JOptionPane.showMessageDialog(null, "Ingreso modificado con éxito");
-                mostrarLista(); // recarga la tabla si tienes ese método
-                limpiarCampos();  // limpia los campos del formulario (opcional)
+                mostrarLista(); // recarga la tabla del método
+                limpiarCampos();  // limpia los campos del formulario
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo modificar el ingreso");
             }
@@ -576,7 +627,17 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.boxlider.setEnabled(true);
         vistaIngreso.boxmiembro.setEnabled(true);
     }
-
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
+    }
     
 
 

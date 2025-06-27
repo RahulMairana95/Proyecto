@@ -7,6 +7,7 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,12 +23,13 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author RAHUL
  */
-public class ControlAdmin extends MouseAdapter implements ActionListener{
+public class ControlAdministrador extends MouseAdapter implements ActionListener{
     VistaRegistro vistaAdministrador=new VistaRegistro();
     AdministradorDAO adminDAO;
     Administrador adminis=new Administrador();
@@ -38,7 +40,7 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
     
     List<Lideriglesia> lisusua=new ArrayList<>();
     
-    public ControlAdmin(VistaRegistro vr, AdministradorDAO adao){
+    public ControlAdministrador(VistaRegistro vr, AdministradorDAO adao){
         System.out.println("listando admin");
         this.vistaAdministrador=vr;
         this.adminDAO=adao;
@@ -46,6 +48,7 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
         cargarComboTipo();
         cargarComboLider();
         inhabilitar();
+        ajustarAnchoColumnas(vistaAdministrador.tablausuario);
         //mostrarUsuarios();
         
         //  --------------EVENTOS
@@ -377,5 +380,16 @@ public class ControlAdmin extends MouseAdapter implements ActionListener{
         vistaAdministrador.txtcontraseña.setEnabled(true);
         //vistaRegistro.boxcargo.setEnabled(true);
         vistaAdministrador.boxusuarios.setEnabled(true);
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
     }
 }

@@ -161,7 +161,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
                         .addComponent(botonbuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonlistar)
-                        .addGap(0, 145, Short.MAX_VALUE))
+                        .addGap(0, 229, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)

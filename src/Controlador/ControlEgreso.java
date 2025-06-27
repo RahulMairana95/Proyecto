@@ -7,8 +7,11 @@ package Controlador;
 
 import Vista.*;
 import Modelo.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -22,6 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -50,6 +54,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         cargarComboMotivo();
         cargarComboMetodo();
         inhabilitar();
+        ajustarAnchoColumnas(vistaEgreso.tablaegreso);
         
         inicializarFechasActuales();
         
@@ -65,6 +70,28 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         
         //////EVENTO MOUSECLICKED
         this.vistaEgreso.tablaegreso.addMouseListener(this);
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
+        vistaEgreso.txtbuscar.setForeground(Color.GRAY);
+
+        vistaEgreso.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaEgreso.txtbuscar.getText().equals("Buscar por nombres y apellidos")) {
+                    vistaEgreso.txtbuscar.setText("");
+                    vistaEgreso.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaEgreso.txtbuscar.getText().trim().isEmpty()) {
+                    vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                    vistaEgreso.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
         
     }
     
@@ -122,6 +149,11 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         }else if(vistaEgreso.botonbuscar==ae.getSource()){
             try {
             String texto = vistaEgreso.txtbuscar.getText().trim();
+            // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres y apellidos") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos del quien autorizó para que la Búsqueda sea precisa.");
+                return;
+            }
                 List<Egreso> listaFiltrada = egresoDAO.buscarEgresos(texto);
                 mostrarEnTabla(listaFiltrada); ////// tu método que llena la tabla
             } catch (Exception e) {
@@ -129,7 +161,8 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             }
         }else if(vistaEgreso.botonlistar==ae.getSource()){
             try{
-                vistaEgreso.txtbuscar.setText("");
+                vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                vistaEgreso.txtbuscar.setForeground(Color.GRAY);
                 
                 limpiartabla(vistaEgreso.tablaegreso);
                 mostrarLista();  
@@ -551,5 +584,16 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.boxautorizar.setEnabled(true);
         vistaEgreso.boxmotivo.setEnabled(true);
         vistaEgreso.boxpago.setEnabled(true);
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 60; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
     }
 }

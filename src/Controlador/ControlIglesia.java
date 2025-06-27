@@ -7,8 +7,11 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -38,10 +42,33 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         this.vistaLiderIglesia=vlm;
         this.ldao=aO;
         mostrarlista();
+        ajustarAnchoColumnas(vistaLiderIglesia.tablaiglesia);
         
         this.vistaLiderIglesia.botonbuscar.addActionListener(this);
         this.vistaLiderIglesia.botonlistar.addActionListener(this);
         this.vistaLiderIglesia.botonreporte.addActionListener(this);
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+
+        vistaLiderIglesia.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaLiderIglesia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaLiderIglesia.txtbuscar.setText("");
+                    vistaLiderIglesia.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaLiderIglesia.txtbuscar.getText().trim().isEmpty()) {
+                    vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
     
     
@@ -55,6 +82,12 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderIglesia.botonbuscar==ae.getSource()){
              String texto = vistaLiderIglesia.txtbuscar.getText().trim();
+             
+             // Validación para evitar buscar con el hint
+            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
             try{
                List<Lideriglesia> resultado = ldao.buscarLideres(texto);
                 llenarTablaLider(resultado);
@@ -70,7 +103,10 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             try{
                 limpiartabla(vistaLiderIglesia.tablaiglesia);
                 mostrarlista();
-                vistaLiderIglesia.txtbuscar.setText("");
+                // Limpia el campo de texto y vuelve a mostrar el hint
+                vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+                //vistaLiderIglesia.txtbuscar.setText("");
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
@@ -136,6 +172,17 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
                 l.getIniciogestion(),
                 l.getFingestion()
             });
+        }
+    }
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            int ancho = 50; // Ancho mínimo
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                TableCellRenderer render = tabla.getCellRenderer(fila, columna);
+                Component comp = tabla.prepareRenderer(render, fila, columna);
+                ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
+            }
+            tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
 

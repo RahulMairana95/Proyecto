@@ -25,6 +25,9 @@ public class Ingreso {
 
     
     public Ingreso(){}
+    
+    
+
 
     public Ingreso(int idingreso, int idmembrecia, int idlider, Date fecha, String descripcion, Double monto, String tipo_ingreso, String nombreMiembro, String nombreLider) {
         this.idingreso = idingreso;

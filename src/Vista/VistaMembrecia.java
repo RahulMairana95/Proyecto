@@ -140,7 +140,6 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
             }
         });
 
-        boxestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CASADO", "SOLTERO", "CONCUBINO", "VIUDO", "VIUDA" }));
         boxestado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 boxestadoKeyPressed(evt);
@@ -264,7 +263,6 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
             }
         });
 
-        boxactivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
         boxactivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxactivoActionPerformed(evt);
@@ -276,7 +274,6 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
             }
         });
 
-        boxtalentos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIN ESPECIFICAR", "TALENTO MUSICAL", "TALENTO DEPORTIVO", "TALENTO CREATIVO", "TALENTO EN LA GESTION DE PERSONAL", "TALENTO ORGANIZACIONAL", "TALENTO EN LA GASTRONOMÍA", "TALENTO EN AREA DE VENTAS", "TALENTO EN MANEJO DE INVERSIONES", "TALENTO EN IDIOMAS", "TALENTO EN LA COMUNICACIÓN", "TALENTO CIENTÍFICO", "TALENTO EN LA ACTUACIÓN" }));
         boxtalentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxtalentosActionPerformed(evt);
