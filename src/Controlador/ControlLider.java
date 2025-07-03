@@ -74,13 +74,15 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         
         
         // 👇 Placeholder en el campo de texto de búsqueda
-        vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
-        vistaLider.txtbuscar.setForeground(Color.GRAY);
-
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            vistaLider.txtbuscar.setText("Buscar por nombres, apellidos o CI");
+            vistaLider.txtbuscar.setForeground(Color.GRAY);
+            vistaLider.botonbuscar.requestFocusInWindow();
+        });
         vistaLider.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaLider.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                if (vistaLider.txtbuscar.getText().equals("Buscar por nombres, apellidos o CI")) {
                     vistaLider.txtbuscar.setText("");
                     vistaLider.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -89,7 +91,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaLider.txtbuscar.getText().trim().isEmpty()) {
-                    vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLider.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                     vistaLider.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -145,7 +147,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             try {
                 String texto = vistaLider.txtbuscar.getText().trim();
                 // Validación para evitar buscar con el hint
-            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+            if (texto.equals("Buscar por nombres, apellidos o CI") || texto.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
                 return;
             }
@@ -156,7 +158,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLider.botonlistar==ae.getSource()){
             try{
-                vistaLider.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaLider.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                 vistaLider.txtbuscar.setForeground(Color.GRAY);
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
@@ -185,15 +187,17 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             String apep=vistaLider.tablalider.getValueAt(fila, 1).toString();
             String apem=vistaLider.tablalider.getValueAt(fila, 2).toString();
             String ci=vistaLider.tablalider.getValueAt(fila, 3).toString();
-            String cargo=vistaLider.tablalider.getValueAt(fila, 4).toString();
-            String ini=vistaLider.tablalider.getValueAt(fila, 5).toString();
-            String fin=vistaLider.tablalider.getValueAt(fila, 6).toString();
+            String tel=vistaLider.tablalider.getValueAt(fila, 4).toString();
+            String cargo=vistaLider.tablalider.getValueAt(fila, 5).toString();
+            String ini=vistaLider.tablalider.getValueAt(fila, 6).toString();
+            String fin=vistaLider.tablalider.getValueAt(fila, 7).toString();
             
             try {
                 vistaLider.txtnombre.setText(nom);
                 vistaLider.txtpaterno.setText(apep);
                 vistaLider.txtmaterno.setText(apem);
                 vistaLider.txtdocumento.setText(ci);
+                vistaLider.txtreferencia.setText(tel);
                 
                 vistaLider.boxcargo.setSelectedItem(cargo);
                 
@@ -239,7 +243,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         tablamodel=(DefaultTableModel) vistaLider.tablalider.getModel();
         tablamodel.setRowCount(0);
         
-        Object obj[]=new Object[7];
+        Object obj[]=new Object[8];
         //System.out.println("lista Lider");
         // Verificar si la lista contiene datos
         if (lista != null && !lista.isEmpty()) {
@@ -248,9 +252,10 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 obj[1] = lista.get(i).getApellidop();
                 obj[2] = lista.get(i).getApellidom();
                 obj[3] = lista.get(i).getNumdocumento();
-                obj[4] = lista.get(i).getCargo();
-                obj[5] = sdf.format(lista.get(i).getIniciogestion());
-                obj[6] = sdf.format(lista.get(i).getFingestion());
+                obj[4] = lista.get(i).getTelefono();
+                obj[5] = lista.get(i).getCargo();
+                obj[6] = sdf.format(lista.get(i).getIniciogestion());
+                obj[7] = sdf.format(lista.get(i).getFingestion());
 
                 // Agregar la fila a la tabla
                 tablamodel.addRow(obj);
@@ -442,6 +447,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 li.getApellidop(),
                 li.getApellidom(),
                 li.getNumdocumento(),
+                li.getTelefono(),
                 li.getCargo(),
                 li.getIniciogestion(),
                 li.getFingestion()
@@ -466,6 +472,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.txtpaterno.setText("");
         vistaLider.txtmaterno.setText("");
         vistaLider.txtdocumento.setText("");
+        vistaLider.txtreferencia.setText("");
         vistaLider.boxcargo.setSelectedItem("");
         
         Date fechaactual=new Date(Calendar.getInstance().getTime().getTime());
@@ -487,13 +494,14 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botoncancelar.setEnabled(false);
         vistaLider.botoneliminar.setEnabled(false);
         vistaLider.botoneditar.setEnabled(false);
-        vistaLider.botonreporte.setEnabled(false);
+        //vistaLider.botonreporte.setEnabled(false);
         vistaLider.tablalider.setEnabled(false);
         
         vistaLider.boxnombre.setEnabled(false);
         vistaLider.txtnombre.setEnabled(false);
         vistaLider.txtpaterno.setEnabled(false);
         vistaLider.txtdocumento.setEnabled(false);
+        vistaLider.txtreferencia.setEnabled(false);
         vistaLider.boxcargo.setEnabled(false);
         vistaLider.fechafin.setEnabled(false);
         vistaLider.fechainicio.setEnabled(false);
@@ -503,13 +511,14 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botoncancelar.setEnabled(true);
         vistaLider.botoneliminar.setEnabled(true);
         vistaLider.botoneditar.setEnabled(true);
-        vistaLider.botonreporte.setEnabled(true);
+        //vistaLider.botonreporte.setEnabled(true);
         vistaLider.tablalider.setEnabled(true);
         
         vistaLider.boxnombre.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
         vistaLider.txtpaterno.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
+        vistaLider.txtreferencia.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);
         vistaLider.fechafin.setEnabled(true);
         vistaLider.fechainicio.setEnabled(true);

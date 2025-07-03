@@ -53,7 +53,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         
         // 👇 Placeholder en el campo de texto de búsqueda
         javax.swing.SwingUtilities.invokeLater(() -> {
-            vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+            vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos o CI");
             vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
             
             vistaListaMembrecia.botonbuscar.requestFocusInWindow();
@@ -62,7 +62,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         vistaListaMembrecia.txtbusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaListaMembrecia.txtbusqueda.getText().equals("Buscar por nombres, apellidos y CI")) {
+                if (vistaListaMembrecia.txtbusqueda.getText().equals("Buscar por nombres, apellidos o CI")) {
                     vistaListaMembrecia.txtbusqueda.setText("");
                     vistaListaMembrecia.txtbusqueda.setForeground(Color.BLACK);
                 }
@@ -71,7 +71,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaListaMembrecia.txtbusqueda.getText().trim().isEmpty()) {
-                    vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+                    vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos o CI");
                     vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
                 }
             }
@@ -93,7 +93,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
                 String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
                 
                 // Validación para evitar buscar con el hint
-            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+            if (texto.equals("Buscar por nombres, apellidos o CI") || texto.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre o CI para buscar.");
                 return;
             }
@@ -111,7 +111,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             try{
                 limpiartabla(vistaListaMembrecia.tablalistar);
                 listar();
-                vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos y CI");
+                vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos o CI");
                 vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error al listar");
@@ -130,7 +130,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     public void listar(){
         lista=mdao.listarMembrecia();
         tablaModel=(DefaultTableModel) vistaListaMembrecia.tablalistar.getModel();
-        Object obj[]=new Object[14];
+        Object obj[]=new Object[15];
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
@@ -145,8 +145,9 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             obj[9]=lista.get(i).getDones();
             obj[10]=lista.get(i).getActivo();
             obj[11]=lista.get(i).getDireccion();
-            obj[12]=lista.get(i).getNomreferencia();
-            obj[13]=lista.get(i).getNumreferencia();
+            obj[12]=(lista.get(i).getTelefono()== 0) ? "--" : lista.get(i).getTelefono();
+            obj[13]=lista.get(i).getNomreferencia();
+            obj[14]=lista.get(i).getNumreferencia();
             
             tablaModel.addRow(obj);
         }
@@ -166,6 +167,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         modelo.setRowCount(0); // Limpia la tabla
 
         for (Membrecia m : lista) {
+            String telefonoMostrado = (m.getTelefono() == 0) ? "--" : String.valueOf(m.getTelefono());
             modelo.addRow(new Object[]{
                 //m.getIdmembrecia(),
                 m.getNombre(),
@@ -180,6 +182,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
                 m.getDones(),
                 m.getActivo(),
                 m.getDireccion(),
+                telefonoMostrado,
                 m.getNomreferencia(),
                 m.getNumreferencia()
             });

@@ -72,13 +72,16 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         this.vistaEgreso.tablaegreso.addMouseListener(this);
         
         // 👇 Placeholder en el campo de texto de búsqueda
-        vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
-        vistaEgreso.txtbuscar.setForeground(Color.GRAY);
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            vistaEgreso.txtbuscar.setText("Buscar por nombres o apellidos");
+            vistaEgreso.txtbuscar.setForeground(Color.GRAY);
+            vistaEgreso.botonbuscar.requestFocusInWindow();
+        });
 
         vistaEgreso.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaEgreso.txtbuscar.getText().equals("Buscar por nombres y apellidos")) {
+                if (vistaEgreso.txtbuscar.getText().equals("Buscar por nombres o apellidos")) {
                     vistaEgreso.txtbuscar.setText("");
                     vistaEgreso.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -87,7 +90,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaEgreso.txtbuscar.getText().trim().isEmpty()) {
-                    vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                    vistaEgreso.txtbuscar.setText("Buscar por nombres o apellidos");
                     vistaEgreso.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -150,7 +153,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             try {
             String texto = vistaEgreso.txtbuscar.getText().trim();
             // Validación para evitar buscar con el hint
-            if (texto.equals("Buscar por nombres y apellidos") || texto.isEmpty()) {
+            if (texto.equals("Buscar por nombres o apellidos") || texto.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos del quien autorizó para que la Búsqueda sea precisa.");
                 return;
             }
@@ -161,7 +164,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             }
         }else if(vistaEgreso.botonlistar==ae.getSource()){
             try{
-                vistaEgreso.txtbuscar.setText("Buscar por nombres y apellidos");
+                vistaEgreso.txtbuscar.setText("Buscar por nombres o apellidos");
                 vistaEgreso.txtbuscar.setForeground(Color.GRAY);
                 
                 limpiartabla(vistaEgreso.tablaegreso);
@@ -548,14 +551,14 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.botonagregar.setEnabled(false);
         vistaEgreso.botoncancelar.setEnabled(false);
         vistaEgreso.botonelminar.setEnabled(false);
-        vistaEgreso.botonexportar.setEnabled(false);
-        vistaEgreso.botonlistar.setEnabled(false);
+        //vistaEgreso.botonexportar.setEnabled(false);
+        //vistaEgreso.botonlistar.setEnabled(false);
         vistaEgreso.botoneditar.setEnabled(false);
-        vistaEgreso.botonbuscar.setEnabled(false);
+        //vistaEgreso.botonbuscar.setEnabled(false);
         
         vistaEgreso.datefecha.setEnabled(false);
         
-        vistaEgreso.txtbuscar.setEnabled(false);
+        //vistaEgreso.txtbuscar.setEnabled(false);
         vistaEgreso.txtdescripcion.setEnabled(false);
         vistaEgreso.txtmonto.setEnabled(false);
         
@@ -569,14 +572,14 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.botonagregar.setEnabled(true);
         vistaEgreso.botoncancelar.setEnabled(true);
         vistaEgreso.botonelminar.setEnabled(true);
-        vistaEgreso.botonexportar.setEnabled(true);
-        vistaEgreso.botonlistar.setEnabled(true);
+        //vistaEgreso.botonexportar.setEnabled(true);
+        //vistaEgreso.botonlistar.setEnabled(true);
         vistaEgreso.botoneditar.setEnabled(true);
-        vistaEgreso.botonbuscar.setEnabled(true);
+        //vistaEgreso.botonbuscar.setEnabled(true);
         
         vistaEgreso.datefecha.setEnabled(true);
         
-        vistaEgreso.txtbuscar.setEnabled(true);
+        //vistaEgreso.txtbuscar.setEnabled(true);
         vistaEgreso.txtdescripcion.setEnabled(true);
         vistaEgreso.txtmonto.setEnabled(true);
         

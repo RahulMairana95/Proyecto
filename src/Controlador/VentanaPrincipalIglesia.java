@@ -52,6 +52,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
         ventanaPrincipal.itemministerio.addActionListener(this);
         ventanaPrincipal.iteMinis.addActionListener(this);
         ventanaPrincipal.itemInfo.addActionListener(this);
+        ventanaPrincipal.itemrespaldo.addActionListener(this);
         //ventanaPrincipal.itemSalir.addActionListener(this);
         //BOTONES DE INFORMACION DE LA VENTANA PRINCIPAL
         ventanaPrincipal.botonUce.addActionListener(this);
@@ -62,6 +63,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
         ventanaPrincipal.botonshiret.addActionListener(this);
         ventanaPrincipal.botoncdi.addActionListener(this);
         ventanaPrincipal.botondominical.addActionListener(this);
+        
         
         
         ventanaPrincipal.itemInfo.addActionListener(this);
@@ -133,6 +135,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
             listaIngresos();
         }else if(ventanaPrincipal.itemreporteegresos==ae.getSource()){
             listaEgresos();
+        }else if(ventanaPrincipal.itemrespaldo==ae.getSource()){
+            RESPALDO();
         }
         
     }
@@ -283,11 +287,19 @@ public class VentanaPrincipalIglesia implements ActionListener{
        cDI.setTitle("CDI");
        centarFrameInterno(cDI);
    }
+   public void RESPALDO(){
+       VistaRespaldo respaldo = new VistaRespaldo();
+       respaldo.setTitle("RESPALDO DE LA BASE DE DATOS");
+       centarFrameInterno(respaldo);
+   }
+   
    public void infoIglesia(){
        VistaNJM jM=new VistaNJM();
        jM.setTitle("SERVICIOS DE REUNIONES NUEVA JERUSALÉN MOTECATO");
        centarFrameInterno(jM);
    }
+   
+   
     public void centarFrameInterno(JInternalFrame frameInterno){
         panel.add(frameInterno);
         Dimension dimpanel=panel.getSize();

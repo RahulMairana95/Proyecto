@@ -7,9 +7,11 @@ package Controlador;
 
 import Modelo.*;
 import Vista.*;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
@@ -47,6 +49,28 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         this.vistaLiderm.botonbuscar.addActionListener(this);
         this.vistaLiderm.botonlistar.addActionListener(this);
         this.vistaLiderm.botonreporte.addActionListener(this);
+        
+        // 👇 Placeholder en el campo de texto de búsqueda
+        vistaLiderm.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaLiderm.txtbuscar.setForeground(Color.GRAY);
+
+        vistaLiderm.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (vistaLiderm.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                    vistaLiderm.txtbuscar.setText("");
+                    vistaLiderm.txtbuscar.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (vistaLiderm.txtbuscar.getText().trim().isEmpty()) {
+                    vistaLiderm.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLiderm.txtbuscar.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -58,28 +82,37 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             }
         }else if (vistaLiderm.botonbuscar == ae.getSource()) {
             String ministerioSeleccionado = vistaLiderm.boxministerio.getSelectedItem().toString();
+            String textoBusqueda = vistaLiderm.txtbuscar.getText().trim();
 
-            if (!ministerioSeleccionado.equalsIgnoreCase("Selecciona un ministerio")) {
-                List<Ministerio> lista = mdao.buscarPorMinisterio(ministerioSeleccionado);
+            if (!ministerioSeleccionado.equalsIgnoreCase("Seleccione un Ministerio para buscar")) {
+                                
+                //List<Ministerio> lista = mdao.buscarPorMinisterio(ministerioSeleccionado);
+                List<Ministerio> lista = mdao.buscarMinisteriosdoble(ministerioSeleccionado, textoBusqueda);
                 llenarTablaMinisterio(lista);
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecciona un ministerio.");
-        }}else if(vistaLiderm.botonlistar==ae.getSource()){
-                try{
-                    limpiartabla(vistaLiderm.tablamin);
-                    mostrarlista();
-                    vistaLiderm.boxministerio.setSelectedItem("");
-                } catch (Exception e){
-                    JOptionPane.showMessageDialog(null, "Error en la busqueda");
+            } else if(!textoBusqueda.equalsIgnoreCase("Buscar por nombres, apellidos y CI") || textoBusqueda.isEmpty()){
+                List<Ministerio> lista = mdao.buscarPorNombreOApellido(textoBusqueda);
+                llenarTablaMinisterio(lista);
+            }else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos ó Número de C.I.ó Selecccione un Misterio para que la Búsqueda sea precisa.");
+                //JOptionPane.showMessageDialog(null, "Por favor, selecciona un ministerio.");
+            }}else if(vistaLiderm.botonlistar==ae.getSource()){
+                    try{
+                        limpiartabla(vistaLiderm.tablamin);
+                        mostrarlista();
+                        vistaLiderm.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                        vistaLiderm.txtbuscar.setForeground(Color.GRAY);
+                        vistaLiderm.boxministerio.setSelectedItem("Seleccione un Ministerio para buscar");
+                    } catch (Exception e){
+                        JOptionPane.showMessageDialog(null, "Error en la busqueda");
+                    }
                 }
-            }
     }
     
     //Cargar boxcargoMinisterio
     public void boxministerio(){
         vistaLiderm.boxministerio.removeAllItems();
         
-        vistaLiderm.boxministerio.addItem("Selecione un Ministerio para buscar");
+        vistaLiderm.boxministerio.addItem("Seleccione un Ministerio para buscar");
         vistaLiderm.boxministerio.addItem("Ministerio Femenil");
         vistaLiderm.boxministerio.addItem("Ministerio Juvenil");
         vistaLiderm.boxministerio.addItem("Ministerio Prejuvenil");

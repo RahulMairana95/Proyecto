@@ -115,7 +115,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
     public void mostrarlista(){
         lista=ldao.mostrarlider();
         tablamodel=(DefaultTableModel) vistaLiderIglesia.tablaiglesia.getModel();
-        Object obj[]=new Object[7];
+        Object obj[]=new Object[8];
         System.out.println("lista Lider");
         for(int i=0;i<lista.size();i++){
             
@@ -123,9 +123,10 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             obj[1]=lista.get(i).getApellidop();
             obj[2]=lista.get(i).getApellidom();
             obj[3]=lista.get(i).getNumdocumento();
-            obj[4]=lista.get(i).getCargo();
-            obj[5]=sdf.format(lista.get(i).getIniciogestion());
-            obj[6]=sdf.format(lista.get(i).getFingestion());
+            obj[4]=lista.get(i).getTelefono();
+            obj[5]=lista.get(i).getCargo();
+            obj[6]=sdf.format(lista.get(i).getIniciogestion());
+            obj[7]=sdf.format(lista.get(i).getFingestion());
             
             tablamodel.addRow(obj);
         }
@@ -168,6 +169,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
                 l.getApellidop(),
                 l.getApellidom(),
                 l.getNumdocumento(),
+                l.getTelefono(),
                 l.getCargo(),
                 l.getIniciogestion(),
                 l.getFingestion()

@@ -70,8 +70,9 @@ public class MembreciaDAO {
                 mem.setDones(rs.getString(11));
                 mem.setActivo(rs.getString(12));
                 mem.setDireccion(rs.getString(13));
-                mem.setNomreferencia(rs.getString(14));
-                mem.setNumreferencia(rs.getInt(15));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
                 
                // mem.setIdmembrecia(rs.getInt(12));
                 
@@ -84,18 +85,17 @@ public class MembreciaDAO {
         }
         return listamem;
     }
-    public boolean agregar(Membrecia men){
-        int resp=0;
-        String agregarmsql="insert into membrecia(nombre,apellidop,apellidom,numdocumento,fechanacimiento,estadocivil,fechaconversion,fechabautizo,talentos,dones,activo,direccion,nomreferencia,numreferencia)"
-                            +"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        System.out.println("agregardb");
+    public boolean agregar(Membrecia men) {
+        String agregarmsql = "INSERT INTO membrecia(nombre, apellidop, apellidom, numdocumento, fechanacimiento, estadocivil, fechaconversion, fechabautizo, talentos, dones, activo, direccion, telefono, nomreferencia, numreferencia) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            con = Conexion.getConnection();
+
+            pres = con.prepareStatement(agregarmsql);
             
-        try{
-            pres=con.prepareStatement(agregarmsql);
-            
-            //pres.setInt(1, men.getIdmembrecia());
             pres.setString(1, men.getNombre());
-            pres.setString(2,   men.getApellidop());
+            pres.setString(2, men.getApellidop());
             pres.setString(3, men.getApellidom());
             pres.setString(4, men.getNumdocumento());
             pres.setDate(5, men.getFechanacimiento());
@@ -106,26 +106,31 @@ public class MembreciaDAO {
             pres.setString(10, men.getDones());
             pres.setString(11, men.getActivo());
             pres.setString(12, men.getDireccion());
-            pres.setString(13, men.getNomreferencia());
-            pres.setInt(14, men.getNumreferencia());
-            
-            int n = pres.executeUpdate();
+            pres.setInt(13, men.getTelefono());
+            pres.setString(14, men.getNomreferencia());
+            pres.setInt(15, men.getNumreferencia());
 
-            if (n != 0) {
-                
-                return true;
-            }else{
-                return false;
-            }
+            int n = pres.executeUpdate();
+            return n > 0;
+
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
             return false;
+
+        } finally {
+            try {
+                if (pres != null) pres.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
+
     public boolean modificar(Membrecia mem) {
     String sql = "UPDATE membrecia SET nombre=?, apellidop=?, apellidom=?, numdocumento=?, fechanacimiento=?, " +
                  "estadocivil=?, fechaconversion=?, fechabautizo=?, talentos=?, dones=?, activo=?, direccion=?, " +
-                 "nomreferencia=?, numreferencia=? WHERE idmembrecia=?";
+                 "telefono=?, nomreferencia=?, numreferencia=? WHERE idmembrecia=?";
     
     System.out.println("Modificando...");
 
@@ -144,9 +149,10 @@ public class MembreciaDAO {
         pres.setString(10, mem.getDones());
         pres.setString(11, mem.getActivo());
         pres.setString(12, mem.getDireccion());
-        pres.setString(13, mem.getNomreferencia());
-        pres.setInt(14, mem.getNumreferencia());
-        pres.setInt(15, mem.getIdmembrecia());
+        pres.setInt(13, mem.getTelefono());
+        pres.setString(14, mem.getNomreferencia());
+        pres.setInt(15, mem.getNumreferencia());
+        pres.setInt(16, mem.getIdmembrecia());
 
         return pres.executeUpdate() > 0; // Retorna true si se actualizó al menos 1 fila
 
@@ -171,7 +177,7 @@ public class MembreciaDAO {
 }
     
     public DefaultTableModel buscarMiembros(String buscar){
-        String [] nombbreColum={"NOMBRE","APELLIDO P.","APELLIDO M.","C.I.","FECHA NACIMIENTO","ESTADO CIVIL","FECHA CONVERSION","FECHA BAUTIZO","TALENTOS","DONES","ACTIVO","DIRECCION","NOMBRE REFERENCIA","NUMERO REFERENCIA"};
+        String [] nombbreColum={"NOMBRE","APELLIDO P.","APELLIDO M.","C.I.","FECHA NACIMIENTO","ESTADO CIVIL","FECHA CONVERSION","FECHA BAUTIZO","TALENTOS","DONES","ACTIVO","DIRECCION","TELEFONO","NOMBRE REFERENCIA","NUMERO REFERENCIA"};
         String [] registros=new String[14];
         DefaultTableModel tablabuscar=new DefaultTableModel(null, nombbreColum);
         
@@ -195,8 +201,9 @@ public class MembreciaDAO {
                registros[9]=rs.getString("dones");
                registros[10]=rs.getString("activo");
                registros[11]=rs.getString("direccion");
-               registros[12]=rs.getString("nomreferencia");
-               registros[13]=rs.getString("numreferencia");
+               registros[12]=rs.getString("telefono");
+               registros[13]=rs.getString("nomreferencia");
+               registros[14]=rs.getString("numreferencia");
                
                tablabuscar.addRow(registros);
            }
@@ -238,8 +245,9 @@ public class MembreciaDAO {
                 mem.setDones(rs.getString(11));
                 mem.setActivo(rs.getString(12));
                 mem.setDireccion(rs.getString(13));
-                mem.setNomreferencia(rs.getString(14));
-                mem.setNumreferencia(rs.getInt(15));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
 
                 lista.add(mem);
             }
@@ -250,6 +258,55 @@ public class MembreciaDAO {
 
         return lista;
     }
+    public List<Membrecia> buscarmiembros(String texto) {
+        List<Membrecia> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM membrecia WHERE " +
+                     "LOWER(numdocumento) LIKE ? OR " +
+                     "LOWER(nombre) LIKE ? OR " +
+                     "LOWER(apellidop) LIKE ? OR " +
+                     "LOWER(apellidom) LIKE ? OR " +
+                     "LOWER(CONCAT(nombre, ' ', apellidop, ' ', apellidom)) LIKE ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String filtro = "%" + texto.toLowerCase().trim() + "%";
+            for (int i = 1; i <= 5; i++) {
+                ps.setString(i, filtro);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     
     public List<Membrecia> buscarCumpleanierosPorRango(Date fechaDesde, Date fechaHasta) {
         List<Membrecia> lista = new ArrayList<>();
@@ -287,8 +344,9 @@ public class MembreciaDAO {
                 mem.setDones(rs.getString(11));
                 mem.setActivo(rs.getString(12));
                 mem.setDireccion(rs.getString(13));
-                mem.setNomreferencia(rs.getString(14));
-                mem.setNumreferencia(rs.getInt(15));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
 
                 lista.add(mem);
             }
@@ -298,6 +356,24 @@ public class MembreciaDAO {
         }
 
         return lista;
+    }
+    
+    public boolean existeDocumento(String numDocumento) {
+        String sql = "SELECT COUNT(*) FROM membrecia WHERE numdocumento = ?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, numDocumento);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

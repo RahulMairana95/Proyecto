@@ -71,13 +71,15 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         
         
         // 👇 Placeholder en el campo de texto de búsqueda
-        vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
-        vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
-
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos o CI");
+            vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
+            vistaLiderMin.botonbuscar.requestFocusInWindow();
+        });
         vistaLiderMin.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaLiderMin.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                if (vistaLiderMin.txtbuscar.getText().equals("Buscar por nombres, apellidos o CI")) {
                     vistaLiderMin.txtbuscar.setText("");
                     vistaLiderMin.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -86,7 +88,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaLiderMin.txtbuscar.getText().trim().isEmpty()) {
-                    vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                     vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -142,7 +144,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             try {
                  String texto = vistaLiderMin.txtbuscar.getText().trim();
                   // Validación para evitar buscar con el hint
-            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
+            if (texto.equals("Buscar por nombres, apellidos o CI") || texto.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
                 return;
             }
@@ -153,7 +155,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
         }else if(vistaLiderMin.botonlistar==ae.getSource()){
             try{
-                vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaLiderMin.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                 vistaLiderMin.txtbuscar.setForeground(Color.GRAY);
                 limpiartabla(vistaLiderMin.tablamin);
                 mostrarlista();
@@ -487,8 +489,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoncancelar.setEnabled(false);
         vistaLiderMin.botoneliminar.setEnabled(false);
         vistaLiderMin.botoneditar.setEnabled(false);
-        vistaLiderMin.botonreporte.setEnabled(false);
-        vistaLiderMin.tablamin.setEnabled(false);
+        //vistaLiderMin.botonreporte.setEnabled(false);
+        //vistaLiderMin.tablamin.setEnabled(false);
         
         vistaLiderMin.boxnombre.setEnabled(false);
         vistaLiderMin.txtnombre.setEnabled(false);
@@ -505,8 +507,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoncancelar.setEnabled(true);
         vistaLiderMin.botoneliminar.setEnabled(true);
         vistaLiderMin.botoneditar.setEnabled(true);
-        vistaLiderMin.botonreporte.setEnabled(true);
-        vistaLiderMin.tablamin.setEnabled(true);
+        //vistaLiderMin.botonreporte.setEnabled(true);
+        //vistaLiderMin.tablamin.setEnabled(true);
         
         vistaLiderMin.boxnombre.setEnabled(true);
         vistaLiderMin.txtnombre.setEnabled(true);

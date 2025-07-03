@@ -38,7 +38,7 @@ public class LiderDAO {
     public List<Lideriglesia> mostrarlider() {
         List<Lideriglesia> lid = new ArrayList<>();
 
-        String listarsql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String listarsql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
                            "l.cargo, l.iniciogestion, l.fingestion " +
                            "FROM lider l " +
                            "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia";
@@ -56,9 +56,10 @@ public class LiderDAO {
                 li.setApellidop(rs.getString(3));      // m.apellidop
                 li.setApellidom(rs.getString(4));      // m.apellidom
                 li.setNumdocumento(rs.getString(5));   // m.numdocumento
-                li.setCargo(rs.getString(6));          // l.cargo
-                li.setIniciogestion(rs.getDate(7));    // l.iniciogestion
-                li.setFingestion(rs.getDate(8));       // l.fingestion
+                li.setTelefono(rs.getInt(6));          // m.numero de telefono
+                li.setCargo(rs.getString(7));          // l.cargo
+                li.setIniciogestion(rs.getDate(8));    // l.iniciogestion
+                li.setFingestion(rs.getDate(9));       // l.fingestion
 
                 lid.add(li);
             }
@@ -188,6 +189,7 @@ public class LiderDAO {
                 li.setApellidop(rs.getString("apellidop"));
                 li.setApellidom(rs.getString("apellidom"));
                 li.setNumdocumento(rs.getString("numdocumento"));
+                li.setTelefono(rs.getInt("telefono"));
                 li.setCargo(rs.getString("cargo"));
                 li.setIniciogestion(rs.getDate("iniciogestion"));
                 li.setFingestion(rs.getDate("fingestion"));
@@ -224,9 +226,10 @@ public class LiderDAO {
                 li.setApellidop(rs.getString(3));
                 li.setApellidom(rs.getString(4));
                 li.setNumdocumento(rs.getString(5));
-                li.setCargo(rs.getString(6));
-                li.setIniciogestion(rs.getDate(7));
-                li.setFingestion(rs.getDate(8));
+                li.setTelefono(rs.getInt(6));
+                li.setCargo(rs.getString(7));
+                li.setIniciogestion(rs.getDate(8));
+                li.setFingestion(rs.getDate(9));
                 resultados.add(li);
             }
 

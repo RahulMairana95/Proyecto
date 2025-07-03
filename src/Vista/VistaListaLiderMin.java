@@ -38,6 +38,7 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         botonbuscar = new javax.swing.JButton();
         boxministerio = new javax.swing.JComboBox<>();
+        txtbuscar = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -92,15 +93,16 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 123, Short.MAX_VALUE)
                         .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonbuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonlistar)
-                        .addGap(112, 112, 112)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonreporte)))
                 .addContainerGap())
         );
@@ -113,7 +115,8 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
                     .addComponent(botonlistar)
                     .addComponent(botonreporte)
                     .addComponent(botonbuscar)
-                    .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxministerio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
@@ -147,5 +150,6 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tablamin;
+    public javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 }

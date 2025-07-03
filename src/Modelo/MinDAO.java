@@ -238,6 +238,89 @@ public class MinDAO {
         return lista;
     }
 
+    public List<Ministerio> buscarMinisteriosdoble(String ministerio, String textoBusqueda) {
+        List<Ministerio> lista = new ArrayList<>();
+
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM ministerio l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE LOWER(l.ministerio) LIKE ? " +
+                     "AND (LOWER(m.nombre) LIKE ? OR LOWER(m.apellidop) LIKE ? OR LOWER(m.apellidom) LIKE ?)";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String filtroMinisterio = "%" + ministerio.toLowerCase().trim() + "%";
+            String filtroTexto = "%" + textoBusqueda.toLowerCase().trim() + "%";
+
+            ps.setString(1, filtroMinisterio);
+            ps.setString(2, filtroTexto);
+            ps.setString(3, filtroTexto);
+            ps.setString(4, filtroTexto);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setMinisterio(rs.getString(6));
+                min.setCargo(rs.getString(7));
+                min.setIniciogestion(rs.getDate(8));
+                min.setFingestion(rs.getDate(9));
+                lista.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Ministerio> buscarPorNombreOApellido(String textoBusqueda) {
+        List<Ministerio> lista = new ArrayList<>();
+
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+                 "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                 "FROM ministerio l " +
+                 "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                 "WHERE LOWER(m.nombre) LIKE ? OR LOWER(m.apellidop) LIKE ? " +
+                 "OR LOWER(m.apellidom) LIKE ? OR LOWER(m.numdocumento) LIKE ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String filtro = "%" + textoBusqueda.toLowerCase().trim() + "%";
+            for (int i = 1; i <= 4; i++) {
+                ps.setString(i, filtro);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setMinisterio(rs.getString(6));
+                min.setCargo(rs.getString(7));
+                min.setIniciogestion(rs.getDate(8));
+                min.setFingestion(rs.getDate(9));
+                lista.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 
     
     

@@ -18,6 +18,7 @@ public class Lideriglesia {
     private String apellidop;
     private String apellidom;
     private String numdocumento;
+    private int telefono;
     private String cargo;
     private Date iniciogestion;
     private Date fingestion;
@@ -29,14 +30,14 @@ public class Lideriglesia {
         return nombre + " " + apellidop + " " + apellidom;
     }
 
-
-    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, String cargo, Date iniciogestion, Date fingestion) {
+    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, int telefono, String cargo, Date iniciogestion, Date fingestion) {
         this.idlider = idlider;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
         this.apellidop = apellidop;
         this.apellidom = apellidom;
         this.numdocumento = numdocumento;
+        this.telefono = telefono;
         this.cargo = cargo;
         this.iniciogestion = iniciogestion;
         this.fingestion = fingestion;
@@ -90,6 +91,14 @@ public class Lideriglesia {
         this.numdocumento = numdocumento;
     }
 
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
     public String getCargo() {
         return cargo;
     }
@@ -113,7 +122,5 @@ public class Lideriglesia {
     public void setFingestion(Date fingestion) {
         this.fingestion = fingestion;
     }
-
     
-
 }

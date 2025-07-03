@@ -280,6 +280,13 @@ public class IngresoDAO {
                      "OR LOWER(CONCAT(m1.nombre, ' ', m1.apellidop, ' ', m1.apellidom)) LIKE ? " +
                      "OR LOWER(CONCAT(m2.nombre, ' ', m2.apellidop, ' ', m2.apellidom)) LIKE ? " +
                      "OR DATE_FORMAT(i.fecha, '%Y-%m-%d') LIKE ?";  // 👉 búsqueda por fecha
+        
+        class Helper {
+            String safeString(String s) {
+                return (s == null || s.trim().isEmpty()) ? "" : s.trim();
+            }
+        }
+        Helper helper = new Helper();
 
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -301,10 +308,12 @@ public class IngresoDAO {
                     i.setIdlider(rs.getInt("idlider"));
 
                     // Nombre del miembro
-                    String miembroNombre = rs.getString("nombre_miembro") + " " +
-                                           rs.getString("apellidop_miembro") + " " +
-                                           rs.getString("apellidom_miembro");
-                    i.setNombreMiembro(miembroNombre);
+                    String miembroNombre = helper.safeString(rs.getString("nombre_miembro")).isEmpty()
+                    ? "--"
+                    : helper.safeString(rs.getString("nombre_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidop_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidom_miembro"));
+                    i.setNombreMiembro(miembroNombre.trim());
 
                     // Nombre del líder
                     String liderNombre = rs.getString("nombre_lider") + " " +
@@ -336,6 +345,13 @@ public class IngresoDAO {
                      "LEFT JOIN lider l ON i.idlider = l.idlider " +
                      "LEFT JOIN membrecia m2 ON l.idmembrecia = m2.idmembrecia " +
                      "WHERE i.fecha BETWEEN ? AND ? AND i.tipo_ingreso = ?";
+        
+        class Helper {
+            String safeString(String s) {
+                return (s == null || s.trim().isEmpty()) ? "" : s.trim();
+            }
+        }
+        Helper helper = new Helper();
 
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -365,10 +381,13 @@ public class IngresoDAO {
                     i.setIdmembrecia(rs.getInt("idmembrecia"));
                     i.setIdlider(rs.getInt("idlider"));
 
-                    String miembroNombre = rs.getString("nombre_miembro") + " " +
-                                           rs.getString("apellidop_miembro") + " " +
-                                           rs.getString("apellidom_miembro");
-                    i.setNombreMiembro(miembroNombre);
+                    // Nombre del miembro
+                    String miembroNombre = helper.safeString(rs.getString("nombre_miembro")).isEmpty()
+                    ? "--"
+                    : helper.safeString(rs.getString("nombre_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidop_miembro"));
+                    miembroNombre += " " + helper.safeString(rs.getString("apellidom_miembro"));
+                    i.setNombreMiembro(miembroNombre.trim());
 
                     String liderNombre = rs.getString("nombre_lider") + " " +
                                          rs.getString("apellidop_lider") + " " +

@@ -61,6 +61,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemreporteegresos = new javax.swing.JMenuItem();
         usuarios = new javax.swing.JMenu();
         itemRegistro = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itemrespaldo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -300,6 +302,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(usuarios);
 
+        jMenu2.setForeground(new java.awt.Color(0, 51, 51));
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database.png"))); // NOI18N
+        jMenu2.setText("RESPALDO");
+        jMenu2.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+
+        itemrespaldo.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
+        itemrespaldo.setForeground(new java.awt.Color(0, 0, 51));
+        itemrespaldo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icondata.png"))); // NOI18N
+        itemrespaldo.setText("RESPALDO DE BASE DE DATOS");
+        jMenu2.add(itemrespaldo);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -395,9 +410,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemministerio;
     public javax.swing.JMenuItem itemreporteegresos;
     public javax.swing.JMenuItem itemreporteingresos;
+    public javax.swing.JMenuItem itemrespaldo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollBar jScrollBar1;
     public javax.swing.JTextField lblusuario;

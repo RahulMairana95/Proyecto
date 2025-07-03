@@ -25,6 +25,7 @@ public class Membrecia {
     private String dones;
     private String activo;
     private String direccion;
+    private int telefono;
     private String nomreferencia;
     private int numreferencia;
     
@@ -35,8 +36,7 @@ public class Membrecia {
         return nombre + " " + apellidop + " " + apellidom;
     }
 
-
-    public Membrecia(int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, Date fechanacimiento, String estadocivil, Date fechaconversion, Date fechabautizo, String talentos, String dones, String activo, String direccion, String nomreferencia, int numreferencia) {
+    public Membrecia(int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, Date fechanacimiento, String estadocivil, Date fechaconversion, Date fechabautizo, String talentos, String dones, String activo, String direccion, int telefono, String nomreferencia, int numreferencia) {
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
         this.apellidop = apellidop;
@@ -50,6 +50,7 @@ public class Membrecia {
         this.dones = dones;
         this.activo = activo;
         this.direccion = direccion;
+        this.telefono = telefono;
         this.nomreferencia = nomreferencia;
         this.numreferencia = numreferencia;
     }
@@ -158,6 +159,14 @@ public class Membrecia {
         this.direccion = direccion;
     }
 
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
     public String getNomreferencia() {
         return nomreferencia;
     }
@@ -173,10 +182,6 @@ public class Membrecia {
     public void setNumreferencia(int numreferencia) {
         this.numreferencia = numreferencia;
     }
+    
 
-    
-    
-    
-    
-    
 }

@@ -32,7 +32,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -56,6 +59,7 @@
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -68,11 +72,14 @@
                                               <Component id="txtmaterno" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txtpaterno" alignment="0" pref="151" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="txtdocumento" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="txtreferencia" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtdocumento" alignment="0" pref="117" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                           <Component id="fechafin" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <Component id="fechainicio" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <Component id="fechainicio" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -112,7 +119,7 @@
                   <Component id="botonbuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="botonlistar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="213" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -132,41 +139,42 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="boxnombre" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtnombre" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtpaterno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtmaterno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtdocumento" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="boxcargo" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fechainicio" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="boxnombre" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtnombre" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtpaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtmaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="txtdocumento" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtreferencia" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="boxcargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="fechainicio" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -174,13 +182,14 @@
                               <Component id="fechafin" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="64" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="295" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonnuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonagregar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -262,11 +271,12 @@
             <Component class="javax.swing.JTable" name="tablalider">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="0">
+                  <Table columnCount="8" rowCount="0">
                     <Column editable="false" title="NOMBRE" type="java.lang.String"/>
                     <Column editable="false" title="APELLIDO PATERNO" type="java.lang.String"/>
                     <Column editable="false" title="APELLIDO MATERNO" type="java.lang.String"/>
                     <Column editable="false" title="C.I." type="java.lang.String"/>
+                    <Column editable="false" title="TEL&#xc9;FONO" type="java.lang.Integer"/>
                     <Column editable="false" title="CARGO" type="java.lang.String"/>
                     <Column editable="false" title="INICIO GESTI&#xd3;N" type="java.lang.String"/>
                     <Column editable="false" title="FIN GESTI&#xd3;N" type="java.lang.String"/>
@@ -274,6 +284,11 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -505,6 +520,19 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="N&#xfa;mero de Referencia:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtreferencia">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -80,13 +80,13 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         
         
         // 👇 Placeholder en el campo de texto de búsqueda
-        vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+        vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos o CI");
         vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
 
         vistaMembrecia.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos o CI")) {
                     vistaMembrecia.txtbuscar.setText("");
                     vistaMembrecia.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -95,7 +95,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaMembrecia.txtbuscar.getText().trim().isEmpty()) {
-                    vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                     vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -124,7 +124,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             }
         }else if(vistaMembrecia.botoneliminar==ae.getSource()){
             try {
-                eliminar();
+                eliminarMiembros();
                 limpiartabla(vistaMembrecia.tablademiembros);
                 listar();
                 limpiarventanas();
@@ -150,14 +150,25 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             }
         }
         else if(vistaMembrecia.btnbuscar1==ae.getSource()){
+            String texto = vistaMembrecia.txtbuscar.getText().trim();
+            if(texto.equals("Buscar por nombres, apellidos o CI") || texto.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres, Apellidos o Número de Documento para que la Búsqueda sea precisa.");
+                return;
+            }
             try{
-                buscar(vistaMembrecia.txtbuscar.getText());
+                List<Membrecia> resultado = membreciaDAO.buscarmiembros(texto);
+                llenarTablaMembrecia(resultado);
+
+                if (resultado.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron miembros con esos datos.");
+                }
+                
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL BUSCAR");
             }
         }else if(vistaMembrecia.botonlistar==ae.getSource()){
             try{
-                vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                vistaMembrecia.txtbuscar.setText("Buscar por nombres, apellidos o CI");
                 vistaMembrecia.txtbuscar.setForeground(Color.GRAY);
                 
                 limpiartabla(vistaMembrecia.tablademiembros);
@@ -195,8 +206,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String don=vistaMembrecia.tablademiembros.getValueAt(fila, 9).toString();
             String act=vistaMembrecia.tablademiembros.getValueAt(fila, 10).toString();
             String dir=vistaMembrecia.tablademiembros.getValueAt(fila, 11).toString();
-            String nref=vistaMembrecia.tablademiembros.getValueAt(fila, 12).toString();
-            String ref=vistaMembrecia.tablademiembros.getValueAt(fila, 13).toString();
+            String tel=vistaMembrecia.tablademiembros.getValueAt(fila, 12).toString();
+            String nref=vistaMembrecia.tablademiembros.getValueAt(fila, 13).toString();
+            String ref=vistaMembrecia.tablademiembros.getValueAt(fila, 14).toString();
             
             
             try {
@@ -218,6 +230,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.boxdones.setSelectedItem(don);
                 vistaMembrecia.boxactivo.setSelectedItem(act);
                 vistaMembrecia.txtdireccion.setText(dir);
+                vistaMembrecia.txttelefono.setText(tel);
                 vistaMembrecia.txtnomfererencia.setText(nref);
                 vistaMembrecia.txtnumreferencia.setText(ref);
             } catch (ParseException err) {
@@ -287,7 +300,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     public void listar(){
         lista=membreciaDAO.listarMembrecia();
         tablaModel=(DefaultTableModel) vistaMembrecia.tablademiembros.getModel();
-        Object obj[]=new Object[14];
+        Object obj[]=new Object[15];
         for(int i=0;i<lista.size();i++){
             
             obj[0]=lista.get(i).getNombre();
@@ -302,8 +315,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             obj[9]=lista.get(i).getDones();
             obj[10]=lista.get(i).getActivo();
             obj[11]=lista.get(i).getDireccion();
-            obj[12]=lista.get(i).getNomreferencia();
-            obj[13]=lista.get(i).getNumreferencia();
+            obj[12]=(lista.get(i).getTelefono() == 0) ? "--" : lista.get(i).getTelefono();
+            obj[13]=lista.get(i).getNomreferencia();
+            obj[14]=lista.get(i).getNumreferencia();
             
             tablaModel.addRow(obj);
         }
@@ -322,11 +336,19 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.boxdones.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.txtdireccion.getText().trim().isEmpty()||
+                //vistaMembrecia.txttelefono.getText().trim().isEmpty()||
                 vistaMembrecia.txtnomfererencia.getText().trim().isEmpty()||
                 vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
         }else{
+            Membrecia membrecia = new Membrecia();
+            // Validar duplicado por número de documento
+            String documento = vistaMembrecia.txtdocumento.getText().trim();
+            if (membreciaDAO.existeDocumento(documento)) {
+                JOptionPane.showMessageDialog(null, "Este miembro ya está registrado con el mismo número de documento.");
+                return;
+            }
             System.out.println("probando insert");
             
             //membrecia.setIdmembrecia(Integer.parseInt(vistaMembrecia.txtnombre.getText()));
@@ -361,6 +383,20 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setDones((String)vistaMembrecia.boxdones.getSelectedItem());
             membrecia.setActivo((String) vistaMembrecia.boxactivo.getSelectedItem());
             membrecia.setDireccion(vistaMembrecia.txtdireccion.getText());
+            //membrecia.setTelefono(Integer.parseInt(vistaMembrecia.txttelefono.getText()));
+            // Validar teléfono: si está vacío, colocar 0
+            String telTexto = vistaMembrecia.txttelefono.getText().trim();
+            if (telTexto.isEmpty()) {
+                membrecia.setTelefono(0); // Valor por defecto si no se ingresa teléfono
+            } else {
+                try {
+                    membrecia.setTelefono(Integer.parseInt(telTexto));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "El número de teléfono debe ser un valor numérico.");
+                    return;
+                }
+            }
+            
             membrecia.setNomreferencia(vistaMembrecia.txtnomfererencia.getText());
             membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
             
@@ -385,6 +421,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.boxdones.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.boxactivo.getSelectedItem().toString().trim().isEmpty()||
                 vistaMembrecia.txtdireccion.getText().trim().isEmpty()||
+                //vistaMembrecia.txttelefono.getText().trim().isEmpty()||
                 vistaMembrecia.txtnomfererencia.getText().trim().isEmpty()||
                 vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
@@ -423,6 +460,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String dones=(String) vistaMembrecia.boxdones.getSelectedItem();
             String acti=(String) vistaMembrecia.boxactivo.getSelectedItem();
             String dire=vistaMembrecia.txtdireccion.getText();
+            String tel=vistaMembrecia.txttelefono.getText().trim();
+            
             String nomref=vistaMembrecia.txtnomfererencia.getText();
             String numref=vistaMembrecia.txtnumreferencia.getText();
             
@@ -443,6 +482,19 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setDones(dones);
             membrecia.setActivo(acti);
             membrecia.setDireccion(dire);
+            
+             int telefono = 0;
+             if (!tel.isEmpty()){
+                 try {
+                    telefono = Integer.parseInt(tel);  
+                 } catch (NumberFormatException e) {
+                     JOptionPane.showMessageDialog(null, "El número de teléfono no es válido.");
+                        return;
+                 }
+                
+             }
+             
+            membrecia.setTelefono(telefono);
             membrecia.setNomreferencia(nomref);
             membrecia.setNumreferencia(Integer.parseInt(numref));
             
@@ -469,6 +521,28 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         }else{
             membreciaDAO.eliminar(id);
             System.out.println("eliminando");
+        }
+    }
+    ///////ELIMINAR REGISTROS
+    public void eliminarMiembros() {
+        if (id == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar este ingreso?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        MembreciaDAO dao = new MembreciaDAO();
+        boolean eliminado = dao.eliminar(id);
+
+        if (eliminado) {
+            JOptionPane.showMessageDialog(null, "Ingreso eliminado correctamente");
+            id = 0;             // resetea ID seleccionado
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el ingreso");
         }
     }
     public void exportars(){
@@ -501,6 +575,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.boxdones.setSelectedItem("");
         vistaMembrecia.boxactivo.setSelectedItem("");
         vistaMembrecia.txtdireccion.setText("");
+        vistaMembrecia.txttelefono.setText("");
         vistaMembrecia.txtnomfererencia.setText("");
         vistaMembrecia.txtnumreferencia.setText("");
     }
@@ -509,18 +584,19 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botoncancelar.setEnabled(false);
         vistaMembrecia.botoneliminar.setEnabled(false);
         vistaMembrecia.botonmodificar.setEnabled(false);
-        vistaMembrecia.botonreporte.setEnabled(false);
-        vistaMembrecia.btnbuscar1.setEnabled(false);
-        vistaMembrecia.botonlistar.setEnabled(false);
+        //vistaMembrecia.botonreporte.setEnabled(false);
+        //vistaMembrecia.btnbuscar1.setEnabled(false);
+        //vistaMembrecia.botonlistar.setEnabled(false);
         
         vistaMembrecia.txtnombre.setEnabled(false);
         vistaMembrecia.txtpaterno.setEnabled(false);
         vistaMembrecia.txtmaterno.setEnabled(false);
         vistaMembrecia.txtdocumento.setEnabled(false);
         vistaMembrecia.txtdireccion.setEnabled(false);
+        vistaMembrecia.txttelefono.setEnabled(false);
         vistaMembrecia.txtnomfererencia.setEnabled(false);
         vistaMembrecia.txtnumreferencia.setEnabled(false);
-        vistaMembrecia.txtbuscar.setEnabled(false);
+        //vistaMembrecia.txtbuscar.setEnabled(false);
         
         vistaMembrecia.boxtalentos.setEnabled(false);
         vistaMembrecia.boxdones.setEnabled(false);
@@ -535,9 +611,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botoncancelar.setEnabled(true);
         vistaMembrecia.botoneliminar.setEnabled(true);
         vistaMembrecia.botonmodificar.setEnabled(true);
-        vistaMembrecia.botonreporte.setEnabled(true);
-        vistaMembrecia.btnbuscar1.setEnabled(true);
-        vistaMembrecia.botonlistar.setEnabled(true);
+        //vistaMembrecia.botonreporte.setEnabled(true);
+        //vistaMembrecia.btnbuscar1.setEnabled(true);
+        //vistaMembrecia.botonlistar.setEnabled(true);
         
         
         vistaMembrecia.txtnombre.setEnabled(true);
@@ -545,9 +621,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.txtmaterno.setEnabled(true);
         vistaMembrecia.txtdocumento.setEnabled(true);
         vistaMembrecia.txtdireccion.setEnabled(true);
+        vistaMembrecia.txttelefono.setEnabled(true);
         vistaMembrecia.txtnomfererencia.setEnabled(true);
         vistaMembrecia.txtnumreferencia.setEnabled(true);
-        vistaMembrecia.txtbuscar.setEnabled(true);
+        //vistaMembrecia.txtbuscar.setEnabled(true);
         
         vistaMembrecia.boxtalentos.setEnabled(true);
         vistaMembrecia.boxdones.setEnabled(true);
@@ -558,7 +635,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.datevonversion.setEnabled(true);
     }
     
-    public void buscar(String buscando){
+    /*public void buscar(String buscando){
          // Validación para evitar buscar con el hint
             if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI") || vistaMembrecia.txtbuscar.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
@@ -570,7 +647,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             tablaModel=membreciaDAO.buscarMiembros(buscando);
             vistaMembrecia.tablademiembros.setModel(tablaModel);
         }
-    }
+    }*/
     
     public void ajustarAnchoColumnas(JTable tabla) {
         for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
@@ -582,8 +659,35 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             }
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
+        
     }
-    
+    public void llenarTablaMembrecia(List<Membrecia> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) vistaMembrecia.tablademiembros.getModel(); // Asegúrate que este nombre sea correcto
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        for (Membrecia m : lista) {
+            String telefonoMostrado = (m.getTelefono() == 0) ? "--" : String.valueOf(m.getTelefono());
+            modelo.addRow(new Object[]{
+                //m.getIdmembrecia(),
+                m.getNombre(),
+                m.getApellidop(),
+                m.getApellidom(),
+                m.getNumdocumento(),
+                m.getFechanacimiento(),
+                m.getEstadocivil(),
+                m.getFechaconversion(),
+                m.getFechabautizo(),
+                m.getTalentos(),
+                m.getDones(),
+                m.getActivo(),
+                m.getDireccion(),
+                telefonoMostrado,
+                m.getNomreferencia(),
+                m.getNumreferencia()
+            });
+        }
+    }
+
     /*public void mayus(){
         
             con=new ConverMayus();
