@@ -289,8 +289,10 @@ public class VentanaPrincipalIglesia implements ActionListener{
    }
    public void RESPALDO(){
        VistaRespaldo respaldo = new VistaRespaldo();
+       RespaldoBD respaldoBD = new RespaldoBD(respaldo);
        respaldo.setTitle("RESPALDO DE LA BASE DE DATOS");
        centarFrameInterno(respaldo);
+       respaldo.setVisible(true);
    }
    
    public void infoIglesia(){
