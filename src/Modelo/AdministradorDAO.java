@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Controlador.Incriptar;
 import Vista.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -74,10 +75,21 @@ public class AdministradorDAO {
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
+            // Encriptar la contraseña antes de guardarla
+            //String contraseñaEncriptada = Incriptar.hashSHA256(a.getContraseña());
+            
             ps.setInt(1, a.getIdlider());
             ps.setString(2, a.getUsuario());
             ps.setString(3, a.getNombreusuario());
-            ps.setString(4, a.getContraseña());
+            
+                    // Encriptar solo si no está en SHA-256
+            String contraseñaIngresada = a.getContraseña();
+            String contraseñaEncriptada = Incriptar.esSHA256(contraseñaIngresada)
+                    ? contraseñaIngresada
+                    : Incriptar.hashSHA256(contraseñaIngresada);
+            
+            ps.setString(4, contraseñaEncriptada);  // Usar la contraseña encriptada
+            //ps.setString(4, a.getContraseña());
 
             int rows = ps.executeUpdate();
             return rows > 0;
@@ -88,7 +100,7 @@ public class AdministradorDAO {
         }
     }
 
-    public boolean editarAdministrador(Administrador a) {
+    /*public boolean editarAdministrador(Administrador a) {
         String sql = "UPDATE administrador SET idlider = ?, usuario = ?, nombreusuario = ?, contraseña = ? WHERE idadmin = ?";
 
         try (Connection con = Conexion.getConnection();
@@ -107,7 +119,36 @@ public class AdministradorDAO {
             e.printStackTrace();
             return false;
         }
+    }*/
+    public boolean editarAdministrador(Administrador a) {
+        String sql = "UPDATE administrador SET idlider = ?, usuario = ?, nombreusuario = ?, contraseña = ? WHERE idadmin = ?";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, a.getIdlider());
+            ps.setString(2, a.getUsuario());
+            ps.setString(3, a.getNombreusuario());
+
+            // Asegúrate de que la contraseña esté encriptada antes de guardar
+            String contraseñaOriginal = a.getContraseña();
+            String contraseñaEncriptada = Incriptar.esSHA256(contraseñaOriginal)
+                    ? contraseñaOriginal
+                    : Incriptar.hashSHA256(contraseñaOriginal);
+
+            ps.setString(4, contraseñaEncriptada);
+            ps.setInt(5, a.getIdadmin());
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
+    
     public boolean eliminarAdministrador(int idadmin) {
         String sql = "DELETE FROM administrador WHERE idadmin = ?";
 

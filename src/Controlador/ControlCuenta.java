@@ -21,6 +21,8 @@ public class ControlCuenta implements ActionListener {
     public ControlCuenta(Usuario iniciar, ValidarAdmin validaradmin) {
         this.iniciar = iniciar;
         this.validarAdmin = validaradmin;
+        
+        //validaradmin.actualizarTodasLasContraseñas();
 
         iniciar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         iniciar.setLocationRelativeTo(null);
@@ -51,10 +53,10 @@ public class ControlCuenta implements ActionListener {
                 JOptionPane.showMessageDialog(iniciar, "Nombre de usuario incorrecto");
                 return;
             }
-
+            
             admin = validarAdmin.validarAdmin(nombre, contra);
 
-            if (admin != null && nombre.equals(admin.getNombreusuario()) && contra.equals(admin.getContraseña())) {
+            if (admin != null /*&& nombre.equals(admin.getNombreusuario()) && contra.equals(admin.getContraseña())*/) {
                 VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
                 VentanaPrincipalIglesia ventanaPrincipalIglesia = new VentanaPrincipalIglesia(ventanaPrincipal, admin);
                 iniciar.dispose();

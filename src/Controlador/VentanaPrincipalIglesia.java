@@ -89,7 +89,21 @@ public class VentanaPrincipalIglesia implements ActionListener{
             ventanaPrincipal.itemIglesia.setEnabled(true);
             ventanaPrincipal.iteMinis.setEnabled(true);
             ventanaPrincipal.itemmiembros.setEnabled(false);
+            ventanaPrincipal.itemrespaldo.setEnabled(false);
             
+        }
+        if(admin.getUsuario().equalsIgnoreCase("Secretario")){
+            ventanaPrincipal.itemreporteingresos.setEnabled(true);
+            ventanaPrincipal.itemreporteegresos.setEnabled(true);
+            ventanaPrincipal.itemingresos.setEnabled(false);
+            ventanaPrincipal.itemegresos.setEnabled(false);
+            ventanaPrincipal.itemLista.setEnabled(true);
+            ventanaPrincipal.itemlideriglesia.setEnabled(true);
+            ventanaPrincipal.itemministerio.setEnabled(true);
+            ventanaPrincipal.itemIglesia.setEnabled(true);
+            ventanaPrincipal.iteMinis.setEnabled(true);
+            ventanaPrincipal.itemmiembros.setEnabled(true);
+            ventanaPrincipal.itemrespaldo.setEnabled(false);
         }
     }
 
