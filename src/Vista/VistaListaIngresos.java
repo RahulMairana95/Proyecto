@@ -68,7 +68,6 @@ public class VistaListaIngresos extends javax.swing.JInternalFrame {
         botonexportar = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
 
         tablalistaingreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

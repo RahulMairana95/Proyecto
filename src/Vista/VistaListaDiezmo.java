@@ -44,8 +44,6 @@ public class VistaListaDiezmo extends javax.swing.JInternalFrame {
         botonlistar = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
 
         tabladiezmo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

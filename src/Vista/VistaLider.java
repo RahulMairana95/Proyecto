@@ -77,7 +77,6 @@ public class VistaLider extends javax.swing.JInternalFrame {
         txtreferencia = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
 
         jLabel2.setText("Miembros:");
 

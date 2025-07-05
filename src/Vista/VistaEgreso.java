@@ -59,7 +59,6 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         botoneditar = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
 
         jLabel1.setText("Buscar:");
 

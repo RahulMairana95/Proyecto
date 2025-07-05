@@ -165,6 +165,22 @@ public class AdministradorDAO {
             return false;
         }
     }
+    public boolean actualizarContraseña(int idadmin, String nuevaContraseñaHash) {
+        String sql = "UPDATE administrador SET contraseña = ? WHERE idadmin = ?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nuevaContraseñaHash);
+            ps.setInt(2, idadmin);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 

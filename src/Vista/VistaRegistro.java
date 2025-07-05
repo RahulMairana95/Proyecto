@@ -56,9 +56,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         boxlider = new javax.swing.JComboBox<>();
+        botonrestablecer = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
 
         jLabel2.setText("Nombre de líderes:");
 
@@ -68,6 +68,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Contraseña:");
 
+        txtcontraseña.setEditable(false);
         txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtcontraseñaKeyPressed(evt);
@@ -179,6 +180,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             }
         });
 
+        botonrestablecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconrestablecer.png"))); // NOI18N
+        botonrestablecer.setText("RESTABLECER CONTRASEÑA");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -204,7 +208,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btneliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnmodificar))
+                                .addComponent(btnmodificar)
+                                .addGap(72, 72, 72)
+                                .addComponent(botonrestablecer))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,7 +248,8 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                     .addComponent(btnagregar)
                     .addComponent(btncancelar)
                     .addComponent(btneliminar)
-                    .addComponent(btnmodificar))
+                    .addComponent(btnmodificar)
+                    .addComponent(botonrestablecer))
                 .addGap(0, 27, Short.MAX_VALUE))
         );
 
@@ -390,6 +397,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton botonrestablecer;
     public javax.swing.JComboBox<Lideriglesia> boxlider;
     public javax.swing.JComboBox<String> boxusuarios;
     public javax.swing.JButton btnagregar;

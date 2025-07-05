@@ -45,7 +45,6 @@ public class VistaListaEgresos extends javax.swing.JInternalFrame {
         botonexportar = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
 
         tablalistaegreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

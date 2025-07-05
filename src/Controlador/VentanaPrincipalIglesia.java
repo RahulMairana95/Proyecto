@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Vista.*;
 import java.awt.Dimension;
+import java.beans.PropertyVetoException;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -162,6 +163,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaMembrecia.setTitle("REGISTRO DE MIEMBROS");
         
         centarFrameInterno(vistaMembrecia);
+        
+        abrirVentanaInterna(vistaMembrecia);
     }
     public void agregarLider(){
         VistaLider vistaLider=new VistaLider();
@@ -170,6 +173,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaLider.setTitle("REGISTRO DE LIDERES");
         
         centarFrameInterno(vistaLider);
+        
+        abrirVentanaInterna(vistaLider);
        
     }
     public void agregarAdmin(){
@@ -179,6 +184,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaRegistro.setTitle("REGISTRO DE USUARIOS");
         
         centarFrameInterno(vistaRegistro);
+        
+        abrirVentanaInterna(vistaRegistro);
     }
     
     public void agregarIngreso(){
@@ -188,6 +195,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaIngreso.setTitle("REGISTRO DE INGRESOS");
         
         centarFrameInterno(vistaIngreso);
+        
+        abrirVentanaInterna(vistaIngreso);
     }
     public void agregarEgreso(){
         VistaEgreso vistaegreso= new VistaEgreso();
@@ -196,6 +205,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaegreso.setTitle("REGISTRO DE EGRESOS");
         
         centarFrameInterno(vistaegreso);
+        
+        abrirVentanaInterna(vistaegreso);
     }
     public void listaIngresos(){
         VistaListaIngresos vistaListaIngresos = new VistaListaIngresos();
@@ -204,6 +215,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaListaIngresos.setTitle("REPORTE DE INGRESOS");
         
         centarFrameInterno(vistaListaIngresos);
+        
+        abrirVentanaInterna(vistaListaIngresos);
        
     }
     public void listaEgresos(){
@@ -213,6 +226,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaListaEgresos.setTitle("REPORTE DE EGRESOS");
         
         centarFrameInterno(vistaListaEgresos);
+        
+        abrirVentanaInterna(vistaListaEgresos);
        
     }
     public void listarMiembros(){
@@ -222,6 +237,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaListaMembrecia.setTitle("LISTA DE MIEMBROS BAUTIZADOS");
         
         centarFrameInterno(vistaListaMembrecia);
+        
+        abrirVentanaInterna(vistaListaMembrecia);
        
     }
     public void listarLideresGlesia(){
@@ -232,6 +249,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
         
         centarFrameInterno(vistaLiderIglesia);
        
+        abrirVentanaInterna(vistaLiderIglesia);
     }
     
     
@@ -242,6 +260,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vlm.setTitle("REGISTRO DE MINISTERIOS");
         
         centarFrameInterno(vlm);
+        
+        abrirVentanaInterna(vlm);
     }
     public void listamin(){
         VistaListaLiderMin vistaLiderm=new VistaListaLiderMin();
@@ -250,6 +270,8 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaLiderm.setTitle("LISTA DE LIDERES DE MINISTERIOS");
         
         centarFrameInterno(vistaLiderm);
+        
+        abrirVentanaInterna(vistaLiderm);
        
     }
     public void uce(){
@@ -260,46 +282,64 @@ public class VentanaPrincipalIglesia implements ActionListener{
         vistaUCE.setTitle("UNIÓN CRISTIANA EVANGÉLICA");
         
         centarFrameInterno(vistaUCE);
+        
+        abrirVentanaInterna(vistaUCE);
     }
    public void minJuve(){
        VistaMinJuve vistaJuve=new VistaMinJuve();
        vistaJuve.setTitle("MINISTERIO JUVENIL");
        centarFrameInterno(vistaJuve);
+       
+       abrirVentanaInterna(vistaJuve);
    }
    public void OANSA(){
        VistaOANSA vistaOANSA=new VistaOANSA();
        vistaOANSA.setTitle("OANSA");
        centarFrameInterno(vistaOANSA);
+       
+       abrirVentanaInterna(vistaOANSA);
    }
    public void femenil(){
        VistaMinFem fem= new VistaMinFem();
        fem.setTitle("MINISTERIO FEMENIL");
        centarFrameInterno(fem);
+       
+       abrirVentanaInterna(fem);
    }
    public void prejuve(){
        VistaMinPre minPre=new VistaMinPre();
        minPre.setTitle("MINISTERIO PREJUVENIL");
        centarFrameInterno(minPre);
+       
+       abrirVentanaInterna(minPre);
    }
    public void juvenil(){
        VistaMinJuve juve=new VistaMinJuve();
        juve.setTitle("OANSA");
        centarFrameInterno(juve);
+       
+       abrirVentanaInterna(juve);
    }
    public void misiones(){
        VistaMisiones misiones= new VistaMisiones();
        misiones.setTitle("EVANGELISMO Y MISIONES");
        centarFrameInterno(misiones);
+       
+       abrirVentanaInterna(misiones);
    }
    public void dominical(){
        VistaDominical dominical=new VistaDominical();
        dominical.setTitle("ESCUELA DOMINICAL");
        centarFrameInterno(dominical);
+       
+       abrirVentanaInterna(dominical);
    }
    public void CDI(){
        VistaCDI cDI=new VistaCDI();
        cDI.setTitle("CDI");
        centarFrameInterno(cDI);
+       
+       abrirVentanaInterna(cDI);
    }
    public void RESPALDO(){
        VistaRespaldo respaldo = new VistaRespaldo();
@@ -307,12 +347,16 @@ public class VentanaPrincipalIglesia implements ActionListener{
        respaldo.setTitle("RESPALDO DE LA BASE DE DATOS");
        centarFrameInterno(respaldo);
        respaldo.setVisible(true);
+       
+       abrirVentanaInterna(respaldo);
    }
    
    public void infoIglesia(){
        VistaNJM jM=new VistaNJM();
        jM.setTitle("SERVICIOS DE REUNIONES NUEVA JERUSALÉN MOTECATO");
        centarFrameInterno(jM);
+       
+       abrirVentanaInterna(jM);
    }
    
    
@@ -329,4 +373,21 @@ public class VentanaPrincipalIglesia implements ActionListener{
             e.printStackTrace();
         }
     }
+    
+    public void abrirVentanaInterna(JInternalFrame nuevaVentana) {
+        // Cerrar todas las ventanas internas abiertas
+        JInternalFrame[] ventanas = panel.getAllFrames(); // "escritorio" es tu JDesktopPane
+        for (JInternalFrame v : ventanas) {
+            v.dispose();
+        }
+
+        panel.add(nuevaVentana);
+        nuevaVentana.setVisible(true);
+        try {
+            nuevaVentana.setSelected(true);
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

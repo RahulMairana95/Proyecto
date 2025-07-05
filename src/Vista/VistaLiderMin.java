@@ -76,7 +76,6 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
         txtmaterno = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
 
         jLabel2.setText("Miembros:");
 

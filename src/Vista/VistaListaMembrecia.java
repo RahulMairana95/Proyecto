@@ -71,8 +71,6 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
         txtbusqueda = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
-        setTitle("REGISTRO DE MEMBRECÍA");
 
         tablalistar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

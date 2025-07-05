@@ -41,7 +41,6 @@ public class VistaListaLiderMin extends javax.swing.JInternalFrame {
         txtbuscar = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
 
         tablamin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

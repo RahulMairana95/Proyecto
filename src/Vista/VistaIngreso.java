@@ -59,7 +59,6 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         botonmodificar = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
 
         jLabel1.setText("Buscar:");
 

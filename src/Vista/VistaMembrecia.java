@@ -79,7 +79,6 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         txttelefono = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
         setTitle("REGISTRO DE MEMBRECÍA");
 
         jLabel2.setText("Nombres:");

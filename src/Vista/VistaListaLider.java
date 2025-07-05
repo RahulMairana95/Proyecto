@@ -40,7 +40,6 @@ public class VistaListaLider extends javax.swing.JInternalFrame {
         txtbuscar = new javax.swing.JTextField();
 
         setClosable(true);
-        setIconifiable(true);
 
         tablaiglesia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

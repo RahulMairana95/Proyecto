@@ -58,6 +58,8 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         this.vistaAdministrador.btneliminar.addActionListener(this);
         this.vistaAdministrador.btncancelar.addActionListener(this);
         this.vistaAdministrador.btnnuevo.addActionListener(this);
+        
+        this.vistaAdministrador.botonrestablecer.addActionListener(this);
 
         
         this.vistaAdministrador.tablausuario.addMouseListener(this);
@@ -89,6 +91,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 limpiarfield();
                 limpiartabla(vistaAdministrador.tablausuario);
                 mostrar();
+                inhabilitar();
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo cancelar");
@@ -107,6 +110,8 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 habilitar();
             } catch (Exception e) {
             }
+        }else if(vistaAdministrador.botonrestablecer == ae.getSource()){
+            restablecerContraseña();
         }
     }
      @Override
@@ -152,7 +157,8 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 obj[0]=lista.get(i).getNombrelider();
                 obj[1]=lista.get(i).getUsuario();
                 obj[2]=lista.get(i).getNombreusuario();
-                obj[3]=lista.get(i).getContraseña();
+                obj[3] = "••••••";
+                //obj[3]=lista.get(i).getContraseña();
                 
                 tablamodel.addRow(obj);
                 
@@ -355,14 +361,9 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.btncancelar.setEnabled(false);
         vistaAdministrador.btneliminar.setEnabled(false);
         vistaAdministrador.btnmodificar.setEnabled(false);
-        
-        /*vistaAdministrador.txtnombre.setEnabled(false);
-        //vistaRegistro.txtnombre.setEnabled(false);
-        vistaAdministrador.txtapellidop.setEnabled(false);
-        vistaAdministrador.txtapellidom.setEnabled(false);*/
         vistaAdministrador.txtnombreusuario.setEnabled(false);
         vistaAdministrador.txtcontraseña.setEnabled(false);
-        //vistaRegistro.boxcargo.setEnabled(false);
+        vistaAdministrador.boxlider.setEnabled(false);
         vistaAdministrador.boxusuarios.setEnabled(false);
         //vistaAdministrador.tablausuario.setEnabled(false);
     }
@@ -378,7 +379,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.txtapellidom.setEnabled(true);*/
         vistaAdministrador.txtnombreusuario.setEnabled(true);
         vistaAdministrador.txtcontraseña.setEnabled(true);
-        //vistaRegistro.boxcargo.setEnabled(true);
+        vistaAdministrador.boxlider.setEnabled(true);
         vistaAdministrador.boxusuarios.setEnabled(true);
     }
     public void ajustarAnchoColumnas(JTable tabla) {
@@ -392,4 +393,30 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
+    public void restablecerContraseña() {
+        int fila = vistaAdministrador.tablausuario.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un administrador");
+            return;
+        }
+
+        String nuevaPass = JOptionPane.showInputDialog("Ingrese nueva contraseña:");
+        if (nuevaPass == null || nuevaPass.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña.");
+            return;
+        }
+
+        int idAdmin = lista.get(fila).getIdadmin();
+        String nuevaHash = Incriptar.hashSHA256(nuevaPass);
+
+        boolean actualizado = adminDAO.actualizarContraseña(idAdmin, nuevaHash);
+        if (actualizado) {
+            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente.");
+            mostrar(); // vuelve a cargar la tabla
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la contraseña.");
+        }
+    }
+
+    
 }
