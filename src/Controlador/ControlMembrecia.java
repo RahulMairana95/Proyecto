@@ -192,6 +192,11 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
+            /// Habilitar botones
+            vistaMembrecia.botonmodificar.setEnabled(true);
+            vistaMembrecia.botoneliminar.setEnabled(true);
+            vistaMembrecia.botonreporte.setEnabled(true);
+            
             id=lista.get(fila).getIdmembrecia();
             
             String nom=vistaMembrecia.tablademiembros.getValueAt(fila, 0).toString();
@@ -584,7 +589,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.botoncancelar.setEnabled(false);
         vistaMembrecia.botoneliminar.setEnabled(false);
         vistaMembrecia.botonmodificar.setEnabled(false);
-        //vistaMembrecia.botonreporte.setEnabled(false);
+        vistaMembrecia.botonreporte.setEnabled(false);
         //vistaMembrecia.btnbuscar1.setEnabled(false);
         //vistaMembrecia.botonlistar.setEnabled(false);
         
@@ -609,8 +614,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     public void habilitar(){
         vistaMembrecia.botonagregar.setEnabled(true);
         vistaMembrecia.botoncancelar.setEnabled(true);
-        vistaMembrecia.botoneliminar.setEnabled(true);
-        vistaMembrecia.botonmodificar.setEnabled(true);
+        //vistaMembrecia.botoneliminar.setEnabled(true);
+        //vistaMembrecia.botonmodificar.setEnabled(true);
         //vistaMembrecia.botonreporte.setEnabled(true);
         //vistaMembrecia.btnbuscar1.setEnabled(true);
         //vistaMembrecia.botonlistar.setEnabled(true);

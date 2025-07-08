@@ -181,6 +181,10 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
+            vistaLider.botoneditar.setEnabled(true);
+            vistaLider.botoneliminar.setEnabled(true);
+            vistaLider.botonreporte.setEnabled(true);
+            
             id=lista.get(fila).getIdlider();
             
             String nom=vistaLider.tablalider.getValueAt(fila, 0).toString();
@@ -252,7 +256,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 obj[1] = lista.get(i).getApellidop();
                 obj[2] = lista.get(i).getApellidom();
                 obj[3] = lista.get(i).getNumdocumento();
-                obj[4] = lista.get(i).getTelefono();
+                obj[4] = (lista.get(i).getTelefono() == 0) ? "--": lista.get(i).getTelefono();
                 obj[5] = lista.get(i).getCargo();
                 obj[6] = sdf.format(lista.get(i).getIniciogestion());
                 obj[7] = sdf.format(lista.get(i).getFingestion());
@@ -494,11 +498,12 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botoncancelar.setEnabled(false);
         vistaLider.botoneliminar.setEnabled(false);
         vistaLider.botoneditar.setEnabled(false);
-        //vistaLider.botonreporte.setEnabled(false);
-        vistaLider.tablalider.setEnabled(false);
+        vistaLider.botonreporte.setEnabled(false);
+        //vistaLider.tablalider.setEnabled(false);
         
         vistaLider.boxnombre.setEnabled(false);
         vistaLider.txtnombre.setEnabled(false);
+        vistaLider.txtmaterno.setEnabled(false);
         vistaLider.txtpaterno.setEnabled(false);
         vistaLider.txtdocumento.setEnabled(false);
         vistaLider.txtreferencia.setEnabled(false);
@@ -509,14 +514,15 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     public void habilitar(){
         vistaLider.botonagregar.setEnabled(true);
         vistaLider.botoncancelar.setEnabled(true);
-        vistaLider.botoneliminar.setEnabled(true);
-        vistaLider.botoneditar.setEnabled(true);
+        //vistaLider.botoneliminar.setEnabled(true);
+        //vistaLider.botoneditar.setEnabled(true);
         //vistaLider.botonreporte.setEnabled(true);
         vistaLider.tablalider.setEnabled(true);
         
         vistaLider.boxnombre.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
         vistaLider.txtpaterno.setEnabled(true);
+        vistaLider.txtmaterno.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
         vistaLider.txtreferencia.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);

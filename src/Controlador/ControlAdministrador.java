@@ -121,6 +121,10 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
             
         }else{
+            vistaAdministrador.btnmodificar.setEnabled(true);
+            vistaAdministrador.btneliminar.setEnabled(true);
+            vistaAdministrador.botonrestablecer.setEnabled(true);
+            
             id=lista.get(fila).getIdadmin();
             
             String roles=vistaAdministrador.tablausuario.getValueAt(fila, 1).toString();
@@ -370,8 +374,8 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
     public void habilitar(){
         vistaAdministrador.btnagregar.setEnabled(true);
         vistaAdministrador.btncancelar.setEnabled(true);
-        vistaAdministrador.btneliminar.setEnabled(true);
-        vistaAdministrador.btnmodificar.setEnabled(true);
+        //vistaAdministrador.btneliminar.setEnabled(true);
+        //vistaAdministrador.btnmodificar.setEnabled(true);
         
         /*vistaAdministrador.txtnombre.setEnabled(true);
         //vistaRegistro.txtnombre.setEnabled(true);

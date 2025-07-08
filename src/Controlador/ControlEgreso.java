@@ -188,6 +188,10 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         } else {
+            vistaEgreso.botoneditar.setEnabled(true);
+            vistaEgreso.botonelminar.setEnabled(true);
+            vistaEgreso.botonexportar.setEnabled(true);
+            
             id = lista.get(fila).getIdegreso();
 
             String fecha = vistaEgreso.tablaegreso.getValueAt(fila, 0).toString();
@@ -551,7 +555,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.botonagregar.setEnabled(false);
         vistaEgreso.botoncancelar.setEnabled(false);
         vistaEgreso.botonelminar.setEnabled(false);
-        //vistaEgreso.botonexportar.setEnabled(false);
+        vistaEgreso.botonexportar.setEnabled(false);
         //vistaEgreso.botonlistar.setEnabled(false);
         vistaEgreso.botoneditar.setEnabled(false);
         //vistaEgreso.botonbuscar.setEnabled(false);
@@ -571,10 +575,10 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
     public void habilitar(){/// habilita los campos
         vistaEgreso.botonagregar.setEnabled(true);
         vistaEgreso.botoncancelar.setEnabled(true);
-        vistaEgreso.botonelminar.setEnabled(true);
+        //vistaEgreso.botonelminar.setEnabled(true);
         //vistaEgreso.botonexportar.setEnabled(true);
         //vistaEgreso.botonlistar.setEnabled(true);
-        vistaEgreso.botoneditar.setEnabled(true);
+        //vistaEgreso.botoneditar.setEnabled(true);
         //vistaEgreso.botonbuscar.setEnabled(true);
         
         vistaEgreso.datefecha.setEnabled(true);

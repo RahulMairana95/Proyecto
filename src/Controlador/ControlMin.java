@@ -176,6 +176,10 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
+            vistaLiderMin.botoneditar.setEnabled(true);
+            vistaLiderMin.botoneliminar.setEnabled(true);
+            vistaLiderMin.botonreporte.setEnabled(true);
+            
             id=lista.get(fila).getIdmin();
             
             String nom=vistaLiderMin.tablamin.getValueAt(fila, 0).toString();
@@ -489,7 +493,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoncancelar.setEnabled(false);
         vistaLiderMin.botoneliminar.setEnabled(false);
         vistaLiderMin.botoneditar.setEnabled(false);
-        //vistaLiderMin.botonreporte.setEnabled(false);
+        vistaLiderMin.botonreporte.setEnabled(false);
         //vistaLiderMin.tablamin.setEnabled(false);
         
         vistaLiderMin.boxnombre.setEnabled(false);
@@ -505,8 +509,8 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     public void habilitar(){
         vistaLiderMin.botonagregar.setEnabled(true);
         vistaLiderMin.botoncancelar.setEnabled(true);
-        vistaLiderMin.botoneliminar.setEnabled(true);
-        vistaLiderMin.botoneditar.setEnabled(true);
+        //vistaLiderMin.botoneliminar.setEnabled(true);
+        //vistaLiderMin.botoneditar.setEnabled(true);
         //vistaLiderMin.botonreporte.setEnabled(true);
         //vistaLiderMin.tablamin.setEnabled(true);
         
