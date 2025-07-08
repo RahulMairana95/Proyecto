@@ -123,7 +123,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             obj[1]=lista.get(i).getApellidop();
             obj[2]=lista.get(i).getApellidom();
             obj[3]=lista.get(i).getNumdocumento();
-            obj[4]=lista.get(i).getTelefono();
+            obj[4]=(lista.get(i).getTelefono() == 0) ? "--" : lista.get(i).getTelefono();
             obj[5]=lista.get(i).getCargo();
             obj[6]=sdf.format(lista.get(i).getIniciogestion());
             obj[7]=sdf.format(lista.get(i).getFingestion());

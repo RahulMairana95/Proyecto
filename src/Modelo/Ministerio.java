@@ -18,6 +18,7 @@ public class Ministerio {
     private String apellidop;
     private String apellidom;
     private String numdocumento;
+    private int telefono;
     private String ministerio;
     private String cargo;
     private Date iniciogestion;
@@ -25,13 +26,14 @@ public class Ministerio {
     
     public Ministerio(){}
 
-    public Ministerio(int idmin, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, String ministerio, String cargo, Date iniciogestion, Date fingestion) {
+    public Ministerio(int idmin, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, int telefono, String ministerio, String cargo, Date iniciogestion, Date fingestion) {
         this.idmin = idmin;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;
         this.apellidop = apellidop;
         this.apellidom = apellidom;
         this.numdocumento = numdocumento;
+        this.telefono = telefono;
         this.ministerio = ministerio;
         this.cargo = cargo;
         this.iniciogestion = iniciogestion;
@@ -86,6 +88,14 @@ public class Ministerio {
         this.numdocumento = numdocumento;
     }
 
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
     public String getMinisterio() {
         return ministerio;
     }
@@ -117,6 +127,8 @@ public class Ministerio {
     public void setFingestion(Date fingestion) {
         this.fingestion = fingestion;
     }
+
+    
 
     
 }

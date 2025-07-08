@@ -100,7 +100,31 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 }
             }
         });
+        
+        vistaMembrecia.txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+
+                // Solo permitir dígitos y tecla borrar (backspace)
+                if (!Character.isDigit(c) && c != '\b') {
+                    evt.consume(); // No se escribe el carácter
+                    JOptionPane.showMessageDialog(null, "Solo escribe números.");
+                }
+
+                // Limitar a 8 caracteres
+                if (vistaMembrecia.txttelefono.getText().length() >= 8) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Solo debes ingresas 8 dígitos.");
+                }
+            }
+        });
+        
+        
+
+
     }
+    
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -196,6 +220,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             vistaMembrecia.botonmodificar.setEnabled(true);
             vistaMembrecia.botoneliminar.setEnabled(true);
             vistaMembrecia.botonreporte.setEnabled(true);
+            vistaMembrecia.botoncancelar.setEnabled(true);
+            habilitarClic();
             
             id=lista.get(fila).getIdmembrecia();
             
@@ -357,7 +383,9 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             System.out.println("probando insert");
             
             //membrecia.setIdmembrecia(Integer.parseInt(vistaMembrecia.txtnombre.getText()));
-            membrecia.setNombre(vistaMembrecia.txtnombre.getText());
+            String nombre = vistaMembrecia.txtnombre.getText().trim();
+            membrecia.setNombre(capitalizarNombre(nombre));
+            
             membrecia.setApellidop(vistaMembrecia.txtpaterno.getText());
             membrecia.setApellidom(vistaMembrecia.txtmaterno.getText());
             membrecia.setNumdocumento(vistaMembrecia.txtdocumento.getText());
@@ -393,16 +421,18 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String telTexto = vistaMembrecia.txttelefono.getText().trim();
             if (telTexto.isEmpty()) {
                 membrecia.setTelefono(0); // Valor por defecto si no se ingresa teléfono
+            } else if(!telTexto.matches("\\d{8}")){
+                JOptionPane.showMessageDialog(null, "El número de teléfono debe tener exactamente 8 dígitos numéricos.");
+                return;
             } else {
-                try {
+                
                     membrecia.setTelefono(Integer.parseInt(telTexto));
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "El número de teléfono debe ser un valor numérico.");
-                    return;
-                }
+                
             }
             
-            membrecia.setNomreferencia(vistaMembrecia.txtnomfererencia.getText());
+            String nomref = vistaMembrecia.txtnomfererencia.getText().trim();
+            membrecia.setNomreferencia(capitalizarNombre(nomref));
+            
             membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
             
             membreciaDAO.agregar(membrecia);
@@ -473,7 +503,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 System.out.println("id " +id );
             
             membrecia.setIdmembrecia(id);
-            membrecia.setNombre(nombre);
+            membrecia.setNombre(capitalizarNombre(nombre));
             membrecia.setApellidop(paterno);
             membrecia.setApellidom(materno);
             membrecia.setNumdocumento(num);
@@ -500,7 +530,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
              }
              
             membrecia.setTelefono(telefono);
-            membrecia.setNomreferencia(nomref);
+            
+            membrecia.setNomreferencia(capitalizarNombre(nomref));
+            
+            
             membrecia.setNumreferencia(Integer.parseInt(numref));
             
                 System.out.println("probando modificar");
@@ -640,6 +673,26 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         vistaMembrecia.datevonversion.setEnabled(true);
     }
     
+    public void habilitarClic(){
+        vistaMembrecia.txtnombre.setEnabled(true);
+        vistaMembrecia.txtpaterno.setEnabled(true);
+        vistaMembrecia.txtmaterno.setEnabled(true);
+        vistaMembrecia.txtdocumento.setEnabled(true);
+        vistaMembrecia.txtdireccion.setEnabled(true);
+        vistaMembrecia.txttelefono.setEnabled(true);
+        vistaMembrecia.txtnomfererencia.setEnabled(true);
+        vistaMembrecia.txtnumreferencia.setEnabled(true);
+        //vistaMembrecia.txtbuscar.setEnabled(true);
+        
+        vistaMembrecia.boxtalentos.setEnabled(true);
+        vistaMembrecia.boxdones.setEnabled(true);
+        vistaMembrecia.boxactivo.setEnabled(true);
+        vistaMembrecia.boxestado.setEnabled(true);
+        vistaMembrecia.datebautizo.setEnabled(true);
+        vistaMembrecia.datenacimiento.setEnabled(true);
+        vistaMembrecia.datevonversion.setEnabled(true);
+    }
+    
     /*public void buscar(String buscando){
          // Validación para evitar buscar con el hint
             if (vistaMembrecia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI") || vistaMembrecia.txtbuscar.getText().isEmpty()) {
@@ -692,6 +745,24 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             });
         }
     }
+    
+    public String capitalizarNombre(String texto) {
+        if (texto == null || texto.isEmpty()) return "";
+
+        String[] palabras = texto.trim().toLowerCase().split("\\s+");
+        StringBuilder resultado = new StringBuilder();
+
+        for (String palabra : palabras) {
+            if (palabra.length() > 0) {
+                resultado.append(Character.toUpperCase(palabra.charAt(0)))
+                         .append(palabra.substring(1))
+                         .append(" ");
+            }
+        }
+
+        return resultado.toString().trim();
+    }
+
 
     /*public void mayus(){
         

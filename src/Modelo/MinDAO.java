@@ -37,7 +37,7 @@ public class MinDAO {
         List<Ministerio> lid = new ArrayList<>();
 
         // Consulta SQL corregida: Solo seleccionamos las columnas necesarias
-        String listarsql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String listarsql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
                            "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
                            "FROM ministerio l " +
                            "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia";
@@ -56,11 +56,12 @@ public class MinDAO {
                 min.setApellidop(rs.getString(3));     // m.apellidop
                 min.setApellidom(rs.getString(4));     // m.apellidom
                 min.setNumdocumento(rs.getString(5));            // m.numdocumento
-                min.setMinisterio(rs.getString(6));    // l.ministerio
-                min.setCargo(rs.getString(7));         // l.cargo
-                min.setIniciogestion(rs.getDate(8));   // l.iniciogestion
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));    // l.ministerio
+                min.setCargo(rs.getString(8));         // l.cargo
+                min.setIniciogestion(rs.getDate(9));   // l.iniciogestion
 
-                min.setFingestion(rs.getDate(9));      // l.fingestion
+                min.setFingestion(rs.getDate(10));      // l.fingestion
 
                 lid.add(min);
             }
@@ -157,7 +158,7 @@ public class MinDAO {
     public List<Ministerio> buscarMinisterio(String texto) {
         List<Ministerio> lista = new ArrayList<>();
 
-        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono," +
                      "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
                      "FROM ministerio l " +
                      "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
@@ -165,6 +166,7 @@ public class MinDAO {
                      "OR LOWER(m.apellidop) LIKE ? " +
                      "OR LOWER(m.apellidom) LIKE ? " +
                      "OR LOWER(m.numdocumento) LIKE ? " +
+                     "OR LOWER(m.telefono) LIKE ? " +
                      "OR LOWER(l.ministerio) LIKE ? " +
                      "OR LOWER(l.cargo) LIKE ? " +
                      "OR DATE_FORMAT(l.iniciogestion, '%Y-%m-%d') LIKE ? " +
@@ -187,6 +189,7 @@ public class MinDAO {
                 min.setApellidop(rs.getString("apellidop"));
                 min.setApellidom(rs.getString("apellidom"));
                 min.setNumdocumento(rs.getString("numdocumento"));
+                min.setTelefono(rs.getInt("telefono"));
                 min.setMinisterio(rs.getString("ministerio"));
                 min.setCargo(rs.getString("cargo"));
                 min.setIniciogestion(rs.getDate("iniciogestion"));
@@ -205,7 +208,7 @@ public class MinDAO {
     public List<Ministerio> buscarPorMinisterio(String ministerio) {
         List<Ministerio> lista = new ArrayList<>();
 
-        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono," +
                      "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
                      "FROM ministerio l " +
                      "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
@@ -224,10 +227,11 @@ public class MinDAO {
                 min.setApellidop(rs.getString(3));
                 min.setApellidom(rs.getString(4));
                 min.setNumdocumento(rs.getString(5));
-                min.setMinisterio(rs.getString(6));
-                min.setCargo(rs.getString(7));
-                min.setIniciogestion(rs.getDate(8));
-                min.setFingestion(rs.getDate(9));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
                 lista.add(min);
             }
 
@@ -241,7 +245,7 @@ public class MinDAO {
     public List<Ministerio> buscarMinisteriosdoble(String ministerio, String textoBusqueda) {
         List<Ministerio> lista = new ArrayList<>();
 
-        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono," +
                      "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
                      "FROM ministerio l " +
                      "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
@@ -268,10 +272,11 @@ public class MinDAO {
                 min.setApellidop(rs.getString(3));
                 min.setApellidom(rs.getString(4));
                 min.setNumdocumento(rs.getString(5));
-                min.setMinisterio(rs.getString(6));
-                min.setCargo(rs.getString(7));
-                min.setIniciogestion(rs.getDate(8));
-                min.setFingestion(rs.getDate(9));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
                 lista.add(min);
             }
 
@@ -284,7 +289,7 @@ public class MinDAO {
     public List<Ministerio> buscarPorNombreOApellido(String textoBusqueda) {
         List<Ministerio> lista = new ArrayList<>();
 
-        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
                  "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
                  "FROM ministerio l " +
                  "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
@@ -308,10 +313,11 @@ public class MinDAO {
                 min.setApellidop(rs.getString(3));
                 min.setApellidom(rs.getString(4));
                 min.setNumdocumento(rs.getString(5));
-                min.setMinisterio(rs.getString(6));
-                min.setCargo(rs.getString(7));
-                min.setIniciogestion(rs.getDate(8));
-                min.setFingestion(rs.getDate(9));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
                 lista.add(min);
             }
 

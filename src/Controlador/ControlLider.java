@@ -181,9 +181,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
-            vistaLider.botoneditar.setEnabled(true);
-            vistaLider.botoneliminar.setEnabled(true);
-            vistaLider.botonreporte.setEnabled(true);
+            clic();
             
             id=lista.get(fila).getIdlider();
             
@@ -518,6 +516,24 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         //vistaLider.botoneditar.setEnabled(true);
         //vistaLider.botonreporte.setEnabled(true);
         vistaLider.tablalider.setEnabled(true);
+        
+        vistaLider.boxnombre.setEnabled(true);
+        vistaLider.txtnombre.setEnabled(true);
+        vistaLider.txtpaterno.setEnabled(true);
+        vistaLider.txtmaterno.setEnabled(true);
+        vistaLider.txtdocumento.setEnabled(true);
+        vistaLider.txtreferencia.setEnabled(true);
+        vistaLider.boxcargo.setEnabled(true);
+        vistaLider.fechafin.setEnabled(true);
+        vistaLider.fechainicio.setEnabled(true);
+    }
+    public void clic(){
+        //vistaLider.botonagregar.setEnabled(true);
+        vistaLider.botoncancelar.setEnabled(true);
+        vistaLider.botoneliminar.setEnabled(true);
+        vistaLider.botoneditar.setEnabled(true);
+        vistaLider.botonreporte.setEnabled(true);
+        //vistaLider.tablalider.setEnabled(true);
         
         vistaLider.boxnombre.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);

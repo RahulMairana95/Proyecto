@@ -188,9 +188,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         } else {
-            vistaEgreso.botoneditar.setEnabled(true);
-            vistaEgreso.botonelminar.setEnabled(true);
-            vistaEgreso.botonexportar.setEnabled(true);
+            clic();
             
             id = lista.get(fila).getIdegreso();
 
@@ -579,6 +577,26 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         //vistaEgreso.botonexportar.setEnabled(true);
         //vistaEgreso.botonlistar.setEnabled(true);
         //vistaEgreso.botoneditar.setEnabled(true);
+        //vistaEgreso.botonbuscar.setEnabled(true);
+        
+        vistaEgreso.datefecha.setEnabled(true);
+        
+        //vistaEgreso.txtbuscar.setEnabled(true);
+        vistaEgreso.txtdescripcion.setEnabled(true);
+        vistaEgreso.txtmonto.setEnabled(true);
+        
+        vistaEgreso.boxtipo.setEnabled(true);
+        vistaEgreso.boxautorizar.setEnabled(true);
+        vistaEgreso.boxmotivo.setEnabled(true);
+        vistaEgreso.boxpago.setEnabled(true);
+    }
+    public void clic(){
+        //vistaEgreso.botonagregar.setEnabled(true);
+        vistaEgreso.botoncancelar.setEnabled(true);
+        vistaEgreso.botonelminar.setEnabled(true);
+        vistaEgreso.botonexportar.setEnabled(true);
+        //vistaEgreso.botonlistar.setEnabled(true);
+        vistaEgreso.botoneditar.setEnabled(true);
         //vistaEgreso.botonbuscar.setEnabled(true);
         
         vistaEgreso.datefecha.setEnabled(true);

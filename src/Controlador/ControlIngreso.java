@@ -201,9 +201,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         } else {
-            vistaIngreso.botonmodificar.setEnabled(true);
-            vistaIngreso.botoneliminar.setEnabled(true);
-            vistaIngreso.botonexportar.setEnabled(true);
+            clic();
             
             id = lista.get(fila).getIdingreso();
 
@@ -623,6 +621,25 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         //vistaIngreso.botonexportar.setEnabled(true);
         //vistaIngreso.botonlistar.setEnabled(true);
         //vistaIngreso.botonmodificar.setEnabled(true);
+        //vistaIngreso.botonbuscar.setEnabled(true);
+        
+        vistaIngreso.dateingreso.setEnabled(true);
+        
+        //vistaIngreso.txtbuscar.setEnabled(true);
+        vistaIngreso.txtdescripcion.setEnabled(true);
+        vistaIngreso.txtmonto.setEnabled(true);
+        
+        vistaIngreso.boxingreso.setEnabled(true);
+        vistaIngreso.boxlider.setEnabled(true);
+        vistaIngreso.boxmiembro.setEnabled(true);
+    }
+    public void clic(){
+        //vistaIngreso.botonregistrar.setEnabled(true);
+        vistaIngreso.botoncancelar.setEnabled(true);
+        vistaIngreso.botoneliminar.setEnabled(true);
+        vistaIngreso.botonexportar.setEnabled(true);
+        //vistaIngreso.botonlistar.setEnabled(true);
+        vistaIngreso.botonmodificar.setEnabled(true);
         //vistaIngreso.botonbuscar.setEnabled(true);
         
         vistaIngreso.dateingreso.setEnabled(true);

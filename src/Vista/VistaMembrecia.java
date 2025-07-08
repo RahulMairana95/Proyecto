@@ -354,6 +354,12 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
 
         jLabel17.setText("Número de Teléfono:");
 
+        txttelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttelefonoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -844,11 +850,11 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         SwingUtilities.invokeLater(() -> {
             String texto = txtpaterno.getText();
             if (!texto.isEmpty()) {
-                txtpaterno.setText(capitalizeFirstLetter(texto));
+                //txtpaterno.setText(capitalizeFirstLetter(texto));
             }
         });
             String nomref=txtnomfererencia.getText();
-            txtnomfererencia.setText(capitalizeFirstLetter(nomref));
+            //txtnomfererencia.setText(capitalizeFirstLetter(nomref));
         
     }//GEN-LAST:event_txtnomfererenciaKeyTyped
 
@@ -872,6 +878,10 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "INGRESE SOLO NÚMEROS");
         }
     }//GEN-LAST:event_txtnumreferenciaKeyTyped
+
+    private void txttelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelefonoActionPerformed
+        
+    }//GEN-LAST:event_txttelefonoActionPerformed
     public static String capitalizeFirstLetter(String text) {
         if (text == null || text.isEmpty()) {
         return text;

@@ -369,6 +369,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.txtcontraseña.setEnabled(false);
         vistaAdministrador.boxlider.setEnabled(false);
         vistaAdministrador.boxusuarios.setEnabled(false);
+        vistaAdministrador.botonrestablecer.setEnabled(false);
         //vistaAdministrador.tablausuario.setEnabled(false);
     }
     public void habilitar(){

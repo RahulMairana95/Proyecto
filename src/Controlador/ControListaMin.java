@@ -126,7 +126,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     public void mostrarlista(){
         lista=mdao.mostrarlidermin();
         tablamodel=(DefaultTableModel) vistaLiderm.tablamin.getModel();
-        Object obj[]=new Object[8];
+        Object obj[]=new Object[9];
         //System.out.println("lista Lider");
         for(int i=0;i<lista.size();i++){
             
@@ -134,10 +134,11 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             obj[1]=lista.get(i).getApellidop();
             obj[2]=lista.get(i).getApellidom();
             obj[3]=lista.get(i).getNumdocumento();
-            obj[4]=lista.get(i).getMinisterio();
-            obj[5]=lista.get(i).getCargo();
-            obj[6]=sdf.format(lista.get(i).getIniciogestion());
-            obj[7]=sdf.format(lista.get(i).getFingestion());
+            obj[4]=(lista.get(i).getTelefono() == 0) ? "--" : lista.get(i).getTelefono();
+            obj[5]=lista.get(i).getMinisterio();
+            obj[6]=lista.get(i).getCargo();
+            obj[7]=sdf.format(lista.get(i).getIniciogestion());
+            obj[8]=sdf.format(lista.get(i).getFingestion());
             
             tablamodel.addRow(obj);
         }
@@ -155,6 +156,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
                 m.getApellidom(),
                 m.getNumdocumento(),
                 m.getMinisterio(),
+                m.getTelefono(),
                 m.getCargo(),
                 m.getIniciogestion(),
                 m.getFingestion()

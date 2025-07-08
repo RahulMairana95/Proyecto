@@ -176,9 +176,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
         }else{
-            vistaLiderMin.botoneditar.setEnabled(true);
-            vistaLiderMin.botoneliminar.setEnabled(true);
-            vistaLiderMin.botonreporte.setEnabled(true);
+            clic();
             
             id=lista.get(fila).getIdmin();
             
@@ -186,16 +184,18 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             String apep=vistaLiderMin.tablamin.getValueAt(fila, 1).toString();
             String apem=vistaLiderMin.tablamin.getValueAt(fila, 2).toString();
             String ci=vistaLiderMin.tablamin.getValueAt(fila, 3).toString();
-            String min=vistaLiderMin.tablamin.getValueAt(fila, 4).toString();
-            String cargo=vistaLiderMin.tablamin.getValueAt(fila, 5).toString();
-            String ini=vistaLiderMin.tablamin.getValueAt(fila, 6).toString();
-            String fin=vistaLiderMin.tablamin.getValueAt(fila, 7).toString();
+            String tel=vistaLiderMin.tablamin.getValueAt(fila, 4).toString();
+            String min=vistaLiderMin.tablamin.getValueAt(fila, 5).toString();
+            String cargo=vistaLiderMin.tablamin.getValueAt(fila, 6).toString();
+            String ini=vistaLiderMin.tablamin.getValueAt(fila, 7).toString();
+            String fin=vistaLiderMin.tablamin.getValueAt(fila, 8).toString();
             
             try {
                 vistaLiderMin.txtnombre.setText(nom);
                 vistaLiderMin.txtpaterno.setText(apep);
                 vistaLiderMin.txtmaterno.setText(apem);
                 vistaLiderMin.txtdocumento.setText(ci);
+                vistaLiderMin.txttelefono.setText(tel);
                 
                 vistaLiderMin.boxministerio.setSelectedItem(min);
                 vistaLiderMin.boxcargo.setSelectedItem(cargo);
@@ -251,7 +251,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         tablamodel=(DefaultTableModel) vistaLiderMin.tablamin.getModel();
         tablamodel.setRowCount(0);
         
-        Object obj[]=new Object[8];
+        Object obj[]=new Object[9];
         //System.out.println("lista Lider");
         
         // Verificar si la lista contiene datos
@@ -262,10 +262,11 @@ public class ControlMin extends MouseAdapter implements ActionListener{
                 obj[1]=lista.get(i).getApellidop();
                 obj[2]=lista.get(i).getApellidom();
                 obj[3]=lista.get(i).getNumdocumento();
-                obj[4]=lista.get(i).getMinisterio();
-                obj[5]=lista.get(i).getCargo();
-                obj[6]=sdf.format(lista.get(i).getIniciogestion());
-                obj[7]=sdf.format(lista.get(i).getFingestion());
+                obj[4]=(lista.get(i).getTelefono() == 0) ? "--" : lista.get(i).getTelefono();
+                obj[5]=lista.get(i).getMinisterio();
+                obj[6]=lista.get(i).getCargo();
+                obj[7]=sdf.format(lista.get(i).getIniciogestion());
+                obj[8]=sdf.format(lista.get(i).getFingestion());
 
                 tablamodel.addRow(obj);
             } 
@@ -449,6 +450,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
                 min.getApellidop(),
                 min.getApellidom(),
                 min.getNumdocumento(),
+                min.getTelefono(),
                 min.getMinisterio(),
                 min.getCargo(),
                 min.getIniciogestion(),
@@ -481,6 +483,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.txtpaterno.setText("");
         vistaLiderMin.txtmaterno.setText("");
         vistaLiderMin.txtdocumento.setText("");
+        vistaLiderMin.txttelefono.setText("");
         vistaLiderMin.boxministerio.setSelectedItem("");
         vistaLiderMin.boxcargo.setSelectedItem("");
         
@@ -501,6 +504,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.txtpaterno.setEnabled(false);
         vistaLiderMin.txtmaterno.setEnabled(false);
         vistaLiderMin.txtdocumento.setEnabled(false);
+        vistaLiderMin.txttelefono.setEnabled(false);
         vistaLiderMin.boxministerio.setEnabled(false);
         vistaLiderMin.boxcargo.setEnabled(false);
         vistaLiderMin.fechafin.setEnabled(false);
@@ -511,7 +515,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoncancelar.setEnabled(true);
         //vistaLiderMin.botoneliminar.setEnabled(true);
         //vistaLiderMin.botoneditar.setEnabled(true);
-        //vistaLiderMin.botonreporte.setEnabled(true);
+        //
         //vistaLiderMin.tablamin.setEnabled(true);
         
         vistaLiderMin.boxnombre.setEnabled(true);
@@ -519,6 +523,23 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.txtpaterno.setEnabled(true);
         vistaLiderMin.txtmaterno.setEnabled(true);
         vistaLiderMin.txtdocumento.setEnabled(true);
+        vistaLiderMin.txttelefono.setEnabled(true);
+        vistaLiderMin.boxministerio.setEnabled(true);
+        vistaLiderMin.boxcargo.setEnabled(true);
+        vistaLiderMin.fechafin.setEnabled(true);
+        vistaLiderMin.fechainicio.setEnabled(true);
+    }
+    public void clic(){
+        vistaLiderMin.botoneliminar.setEnabled(true);
+        vistaLiderMin.botoneditar.setEnabled(true);
+        vistaLiderMin.botonreporte.setEnabled(true);
+        vistaLiderMin.botoncancelar.setEnabled(true);
+        vistaLiderMin.boxnombre.setEnabled(true);
+        vistaLiderMin.txtnombre.setEnabled(true);
+        vistaLiderMin.txtpaterno.setEnabled(true);
+        vistaLiderMin.txtmaterno.setEnabled(true);
+        vistaLiderMin.txtdocumento.setEnabled(true);
+        vistaLiderMin.txttelefono.setEnabled(true);
         vistaLiderMin.boxministerio.setEnabled(true);
         vistaLiderMin.boxcargo.setEnabled(true);
         vistaLiderMin.fechafin.setEnabled(true);
