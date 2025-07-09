@@ -424,7 +424,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
 
             // Si la eliminación fue exitosa
             if (eliminado) {
-                JOptionPane.showMessageDialog(null, "✅ ¡EL LÍDER SELECCIONADO HA SIDO ELIMINADO!");
+                JOptionPane.showMessageDialog(null, "¡EL LÍDER SELECCIONADO HA SIDO ELIMINADO!");
 
                 // Actualizar la lista de líderes después de la eliminación
                 lista = ldao.mostrarlider(); // Actualizar la lista de líderes

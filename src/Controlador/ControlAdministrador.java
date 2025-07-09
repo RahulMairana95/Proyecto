@@ -121,9 +121,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA");
             
         }else{
-            vistaAdministrador.btnmodificar.setEnabled(true);
-            vistaAdministrador.btneliminar.setEnabled(true);
-            vistaAdministrador.botonrestablecer.setEnabled(true);
+            clic();
             
             id=lista.get(fila).getIdadmin();
             
@@ -377,6 +375,22 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.btncancelar.setEnabled(true);
         //vistaAdministrador.btneliminar.setEnabled(true);
         //vistaAdministrador.btnmodificar.setEnabled(true);
+        
+        /*vistaAdministrador.txtnombre.setEnabled(true);
+        //vistaRegistro.txtnombre.setEnabled(true);
+        vistaAdministrador.txtapellidop.setEnabled(true);
+        vistaAdministrador.txtapellidom.setEnabled(true);*/
+        vistaAdministrador.txtnombreusuario.setEnabled(true);
+        vistaAdministrador.txtcontraseña.setEnabled(true);
+        vistaAdministrador.boxlider.setEnabled(true);
+        vistaAdministrador.boxusuarios.setEnabled(true);
+    }
+    public void clic(){
+        //vistaAdministrador.btnagregar.setEnabled(true);
+        vistaAdministrador.btncancelar.setEnabled(true);
+        vistaAdministrador.btneliminar.setEnabled(true);
+        vistaAdministrador.btnmodificar.setEnabled(true);
+        vistaAdministrador.botonrestablecer.setEnabled(true);
         
         /*vistaAdministrador.txtnombre.setEnabled(true);
         //vistaRegistro.txtnombre.setEnabled(true);
