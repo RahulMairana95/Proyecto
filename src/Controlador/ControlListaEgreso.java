@@ -37,7 +37,8 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
     List<Egreso> lista;
     
     
-    ExportarEnExcel excel;
+    //ExportarEnExcel excel;
+    ExportarIngresosEgresos excel;
     
     public ControlListaEgreso(VistaListaEgresos vle, EgresoDAO dAO){
         this.vistaListaEgresos = vle;
@@ -132,6 +133,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
             };
             modelo.addRow(fila);
         }
+        calcularTotalIngresos();
     }
     public void cargarComboTipo() {
         vistaListaEgresos.boxtiposelect.removeAllItems(); // Limpia el combo por si ya tenía algo
@@ -189,6 +191,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
                 e.getNombreLider()
             });
         }
+        calcularTotalIngresos();
     }
     
     private void inicializarTabla() {
@@ -202,8 +205,8 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
         try {
             //exp= new ExcelExpo();
             //exp.Exportar(vistaLider.tablalider);
-            excel= new ExportarEnExcel();
-            excel.ExportarE(vistaListaEgresos.tablalistaegreso);
+            excel= new ExportarIngresosEgresos();
+            excel.exportarConTotal(vistaListaEgresos.tablalistaegreso);
         } catch (IOException ex) {
             Logger.getLogger(VistaListaMembrecia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -223,6 +226,26 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
             }
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
+    }
+    
+    private void calcularTotalIngresos() {
+        double total = 0.0;
+        DefaultTableModel modelo = (DefaultTableModel) vistaListaEgresos.tablalistaegreso.getModel();
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Object valor = modelo.getValueAt(i, 2); // columna 2 es "Monto"
+            if (valor instanceof Number) {
+                total += ((Number) valor).doubleValue();
+            } else {
+                try {
+                    total += Double.parseDouble(valor.toString());
+                } catch (NumberFormatException e) {
+                    // Ignorar valores inválidos
+                }
+            }
+        }
+
+        vistaListaEgresos.txtcalcular.setText("Total: Bs. " + String.format("%.2f", total));
     }
 
 }

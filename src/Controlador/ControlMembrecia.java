@@ -314,8 +314,8 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     public void comboactivo(){
         vistaMembrecia.boxactivo.removeAllItems();
         
-        vistaMembrecia.boxactivo.addItem("SI");
-        vistaMembrecia.boxactivo.addItem("NO");
+        vistaMembrecia.boxactivo.addItem("Activo");
+        vistaMembrecia.boxactivo.addItem("Inactivo");
     }
     
     public void comboestado(){
