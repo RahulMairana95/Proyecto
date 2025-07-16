@@ -376,6 +376,235 @@ public class MembreciaDAO {
         return false;
     }
 
+    public List<Membrecia> buscarPorEstadoCivil(String estadoCivil) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE estadocivil = ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, estadoCivil);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Membrecia> buscarPorDones(String dones) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE dones = ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, dones);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Membrecia> buscarPorTalentos(String talentos) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE talentos = ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, talentos);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Membrecia> buscarPorActivo(String activo) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE activo = ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, activo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Membrecia> buscarPorFechaNacimiento(Date desde, Date hasta) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE fechanacimiento BETWEEN ? AND ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    public List<Membrecia> buscarPorFechaBautizo(Date desde, Date hasta) {
+        List<Membrecia> lista = new ArrayList<>();
+        String sql = "SELECT * FROM membrecia WHERE fechabautizo BETWEEN ? AND ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 
     
    
