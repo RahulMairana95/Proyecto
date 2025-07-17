@@ -444,12 +444,13 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         modelo.setRowCount(0); // limpiar tabla
 
         for (Lideriglesia li : lista) {
+            String telefonoMostrado = (li.getTelefono() == 0) ? "--" : String.valueOf(li.getTelefono());
             modelo.addRow(new Object[]{
                 li.getNombre(),
                 li.getApellidop(),
                 li.getApellidom(),
                 li.getNumdocumento(),
-                li.getTelefono(),
+                telefonoMostrado,
                 li.getCargo(),
                 li.getIniciogestion(),
                 li.getFingestion()

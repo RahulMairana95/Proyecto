@@ -205,7 +205,7 @@ public class LiderDAO {
     public List<Lideriglesia> buscarLideres(String texto) {
         List<Lideriglesia> resultados = new ArrayList<>();
 
-        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, " +
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
                      "l.cargo, l.iniciogestion, l.fingestion " +
                      "FROM lider l " +
                      "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
@@ -240,6 +240,115 @@ public class LiderDAO {
         return resultados;
     }
 
+    public List<Lideriglesia> buscarPorCargo(String cargo) {
+        List<Lideriglesia> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+                     "l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM lider l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.cargo = ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cargo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Lideriglesia li = new Lideriglesia();
+                li.setIdlider(rs.getInt(1));
+                li.setNombre(rs.getString(2));
+                li.setApellidop(rs.getString(3));
+                li.setApellidom(rs.getString(4));
+                li.setNumdocumento(rs.getString(5));
+                li.setTelefono(rs.getInt(6));
+                li.setCargo(rs.getString(7));
+                li.setIniciogestion(rs.getDate(8));
+                li.setFingestion(rs.getDate(9));
+                resultados.add(li);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
+    public List<Lideriglesia> buscarPorInicioGestion(Date desde, Date hasta) {
+        List<Lideriglesia> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+                     "l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM lider l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.iniciogestion BETWEEN ? AND ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Lideriglesia li = new Lideriglesia();
+                li.setIdlider(rs.getInt(1));
+                li.setNombre(rs.getString(2));
+                li.setApellidop(rs.getString(3));
+                li.setApellidom(rs.getString(4));
+                li.setNumdocumento(rs.getString(5));
+                li.setTelefono(rs.getInt(6));
+                li.setCargo(rs.getString(7));
+                li.setIniciogestion(rs.getDate(8));
+                li.setFingestion(rs.getDate(9));
+                resultados.add(li);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
+    public List<Lideriglesia> buscarPorFinGestion(Date desde, Date hasta) {
+        List<Lideriglesia> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+                     "l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM lider l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.fingestion BETWEEN ? AND ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Lideriglesia li = new Lideriglesia();
+                li.setIdlider(rs.getInt(1));
+                li.setNombre(rs.getString(2));
+                li.setApellidop(rs.getString(3));
+                li.setApellidom(rs.getString(4));
+                li.setNumdocumento(rs.getString(5));
+                li.setTelefono(rs.getInt(6));
+                li.setCargo(rs.getString(7));
+                li.setIniciogestion(rs.getDate(8));
+                li.setFingestion(rs.getDate(9));
+                resultados.add(li);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
 
 
 

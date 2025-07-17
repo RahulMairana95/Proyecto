@@ -14,12 +14,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -43,19 +47,29 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         this.ldao=aO;
         mostrarlista();
         ajustarAnchoColumnas(vistaLiderIglesia.tablaiglesia);
+        boxcargo();
+        
+        agregarValidacionesLider();
+        fechaACtual();
         
         this.vistaLiderIglesia.botonbuscar.addActionListener(this);
         this.vistaLiderIglesia.botonlistar.addActionListener(this);
         this.vistaLiderIglesia.botonreporte.addActionListener(this);
+        this.vistaLiderIglesia.botondesde.addActionListener(this);
+        this.vistaLiderIglesia.botonhasta.addActionListener(this);
         
         // 👇 Placeholder en el campo de texto de búsqueda
-        vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
-        vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+            vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+            
+            vistaLiderIglesia.botonbuscar.requestFocusInWindow();
+        });
 
         vistaLiderIglesia.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaLiderIglesia.txtbuscar.getText().equals("Buscar por nombres, apellidos y CI")) {
+                if (vistaLiderIglesia.txtbuscar.getText().equals("Ingrese Nombres, Apellidos o CI")) {
                     vistaLiderIglesia.txtbuscar.setText("");
                     vistaLiderIglesia.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -64,7 +78,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaLiderIglesia.txtbuscar.getText().trim().isEmpty()) {
-                    vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
+                    vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
                     vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -81,35 +95,21 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
         }else if(vistaLiderIglesia.botonbuscar==ae.getSource()){
-             String texto = vistaLiderIglesia.txtbuscar.getText().trim();
-             
-             // Validación para evitar buscar con el hint
-            if (texto.equals("Buscar por nombres, apellidos y CI") || texto.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
-                return;
-            }
-            try{
-               List<Lideriglesia> resultado = ldao.buscarLideres(texto);
-                llenarTablaLider(resultado);
-
-                if (resultado.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron líderes con esos datos.");
-                }
-                
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error al buscar líderes.");
-            }
+            ejecutarBusquedaLideres();
         }else if(vistaLiderIglesia.botonlistar==ae.getSource()){
             try{
                 limpiartabla(vistaLiderIglesia.tablaiglesia);
                 mostrarlista();
-                // Limpia el campo de texto y vuelve a mostrar el hint
-                vistaLiderIglesia.txtbuscar.setText("Buscar por nombres, apellidos y CI");
-                vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
-                //vistaLiderIglesia.txtbuscar.setText("");
+                limpiarFiltros();
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Error en la busqueda");
             }
+        }else if(vistaLiderIglesia.botondesde==ae.getSource()){
+            buscarInicio();
+            fechaACtual();
+        }else if(vistaLiderIglesia.botonhasta==ae.getSource()){
+            buscarFin();
+            fechaACtual();
         }
     }
     public void mostrarlista(){
@@ -163,13 +163,14 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         modelo.setRowCount(0); // Limpiar la tabla
 
         for (Lideriglesia l : lista) {
+            String telefonoMostrado = (l.getTelefono() == 0) ? "--" : String.valueOf(l.getTelefono());
             modelo.addRow(new Object[]{
                 //l.getIdlider(),
                 l.getNombre(),
                 l.getApellidop(),
                 l.getApellidom(),
                 l.getNumdocumento(),
-                l.getTelefono(),
+                telefonoMostrado,
                 l.getCargo(),
                 l.getIniciogestion(),
                 l.getFingestion()
@@ -187,6 +188,157 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
+    ///Cargar boxcargo
+    public void boxcargo(){
+        vistaLiderIglesia.boxcargos.removeAllItems();
+        
+        vistaLiderIglesia.boxcargos.addItem("Buscar por Cargo");
+        vistaLiderIglesia.boxcargos.addItem("Pastor");
+        vistaLiderIglesia.boxcargos.addItem("Anciano");
+        vistaLiderIglesia.boxcargos.addItem("Diácono");
+        vistaLiderIglesia.boxcargos.addItem("Diaconisa");
+        vistaLiderIglesia.boxcargos.addItem("Tesorero de Diezmos");
+        vistaLiderIglesia.boxcargos.addItem("Tesorero de Ofrendas");
+        vistaLiderIglesia.boxcargos.addItem("Secretario");
+        vistaLiderIglesia.boxcargos.addItem("Superintendente");
+        vistaLiderIglesia.boxcargos.addItem("Misiones");
+        vistaLiderIglesia.boxcargos.addItem("Evangelismo");
+        
+    }
+    public void ejecutarBusquedaLideres() {
+        try {
+            String texto = vistaLiderIglesia.txtbuscar.getText().trim();
+            String cargo = vistaLiderIglesia.boxcargos.getSelectedItem().toString();
 
+            int filtrosUsados = 0;
+
+            if (!texto.isEmpty() && !texto.equalsIgnoreCase("Ingrese Nombres, Apellidos o CI")) {
+                filtrosUsados++;
+            }
+
+            if (!cargo.equalsIgnoreCase("Buscar por Cargo")) {
+                filtrosUsados++;
+            }
+
+            if (filtrosUsados == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese nombres o CI, o seleccione un cargo para buscar.");
+                return;
+            }
+
+            if (filtrosUsados > 1) {
+                JOptionPane.showMessageDialog(null, "Por favor, use solo un filtro a la vez.");
+                limpiarFiltros(); // si tienes un método para limpiar texto y combo
+                return;
+            }
+
+            List<Lideriglesia> lista = null;
+
+            if (!cargo.equalsIgnoreCase("Buscar por Cargo")) {
+                lista = ldao.buscarPorCargo(cargo);
+            } else if (!texto.isEmpty() && !texto.equalsIgnoreCase("Ingrese Nombres, Apellidos o CI")) {
+                lista = ldao.buscarLideres(texto);
+            }
+
+            llenarTablaLider(lista);
+
+            if (lista == null || lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron líderes con esos datos.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda.");
+            e.printStackTrace();
+        }
+    }
+    private void agregarValidacionesLider() {
+        // Validar cuando se escribe en el campo de texto
+        vistaLiderIglesia.txtbuscar.getDocument().addDocumentListener(new DocumentListener() {
+            private void validarTexto() {
+                String texto = vistaLiderIglesia.txtbuscar.getText().trim();
+                boolean activo = !texto.isEmpty() && !texto.equalsIgnoreCase("Ingrese Nombres, Apellidos o CI");
+
+                // Desactivar boxcargo si se está escribiendo texto
+                vistaLiderIglesia.boxcargos.setEnabled(!activo);
+            }
+
+            public void insertUpdate(DocumentEvent e) { validarTexto(); }
+            public void removeUpdate(DocumentEvent e) { validarTexto(); }
+            public void changedUpdate(DocumentEvent e) { validarTexto(); }
+        });
+
+        // Validar cuando se selecciona un cargo en el combo
+        vistaLiderIglesia.boxcargos.addActionListener(e -> {
+            String cargoSeleccionado = vistaLiderIglesia.boxcargos.getSelectedItem().toString();
+            boolean activo = !cargoSeleccionado.equals("Buscar por Cargo");
+
+            // Desactiva el campo de texto si hay un cargo seleccionado
+            vistaLiderIglesia.txtbuscar.setEnabled(!activo);
+        });
+    }
+
+    public void limpiarFiltros() {
+        vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+        vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
+        vistaLiderIglesia.boxcargos.setSelectedIndex(0);
+    }
+    public void fechaACtual(){
+        Date fechaactual=new Date(Calendar.getInstance().getTime().getTime());
+                vistaLiderIglesia.datedesde.setDate(fechaactual);
+                vistaLiderIglesia.datehasta.setDate(fechaactual);
+    }
+    public void buscarInicio(){
+        java.util.Date desde = vistaLiderIglesia.datedesde.getDate();
+        java.util.Date hasta = vistaLiderIglesia.datehasta.getDate();
+
+        if (desde == null || hasta == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione ambas fechas.");
+            return;
+        }
+        java.sql.Date fechaDesde = new java.sql.Date(desde.getTime());
+        java.sql.Date fechaHasta = new java.sql.Date(hasta.getTime());
+        if (desde.after(hasta)) {
+            JOptionPane.showMessageDialog(null, "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.");
+            return;
+        }
+
+        try {
+            List<Lideriglesia> resultado = ldao.buscarPorInicioGestion(fechaDesde, fechaHasta);
+            llenarTablaLider(resultado);
+
+            if (resultado.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron líderes en ese rango de fechas.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar por fecha de inicio de gestión.");
+            e.printStackTrace();
+        }
+    }
+    public void buscarFin(){
+        java.util.Date desde = vistaLiderIglesia.datedesde.getDate();
+        java.util.Date hasta = vistaLiderIglesia.datehasta.getDate();
+
+        if (desde == null || hasta == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione ambas fechas.");
+            return;
+        }
+        java.sql.Date fechaDesde = new java.sql.Date(desde.getTime());
+        java.sql.Date fechaHasta = new java.sql.Date(hasta.getTime());
+        if (desde.after(hasta)) {
+            JOptionPane.showMessageDialog(null, "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.");
+            return;
+        }
+
+        try {
+            List<Lideriglesia> resultado = ldao.buscarPorFinGestion(fechaDesde, fechaHasta);
+            llenarTablaLider(resultado);
+
+            if (resultado.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron líderes en ese rango de fechas.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar por fecha de fin de gestión.");
+            e.printStackTrace();
+        }
+    }
     
 }

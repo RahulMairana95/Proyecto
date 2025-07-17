@@ -149,6 +149,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         modelo.setRowCount(0);
 
         for (Ministerio m : lista) {
+            String telefonoMostrado = (m.getTelefono() == 0) ? "--" : String.valueOf(m.getTelefono());
             modelo.addRow(new Object[]{
                 //m.getIdmin(),
                 m.getNombre(),
@@ -156,7 +157,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
                 m.getApellidom(),
                 m.getNumdocumento(),
                 m.getMinisterio(),
-                m.getTelefono(),
+                telefonoMostrado,
                 m.getCargo(),
                 m.getIniciogestion(),
                 m.getFingestion()
