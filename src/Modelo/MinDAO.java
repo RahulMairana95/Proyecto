@@ -7,6 +7,7 @@ package Modelo;
 
 import Vista.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -241,51 +242,6 @@ public class MinDAO {
 
         return lista;
     }
-
-    public List<Ministerio> buscarMinisteriosdoble(String ministerio, String textoBusqueda) {
-        List<Ministerio> lista = new ArrayList<>();
-
-        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono," +
-                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
-                     "FROM ministerio l " +
-                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
-                     "WHERE LOWER(l.ministerio) LIKE ? " +
-                     "AND (LOWER(m.nombre) LIKE ? OR LOWER(m.apellidop) LIKE ? OR LOWER(m.apellidom) LIKE ?)";
-
-        try (Connection con = consql.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            String filtroMinisterio = "%" + ministerio.toLowerCase().trim() + "%";
-            String filtroTexto = "%" + textoBusqueda.toLowerCase().trim() + "%";
-
-            ps.setString(1, filtroMinisterio);
-            ps.setString(2, filtroTexto);
-            ps.setString(3, filtroTexto);
-            ps.setString(4, filtroTexto);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Ministerio min = new Ministerio();
-                min.setIdmin(rs.getInt(1));
-                min.setNombre(rs.getString(2));
-                min.setApellidop(rs.getString(3));
-                min.setApellidom(rs.getString(4));
-                min.setNumdocumento(rs.getString(5));
-                min.setTelefono(rs.getInt(6));
-                min.setMinisterio(rs.getString(7));
-                min.setCargo(rs.getString(8));
-                min.setIniciogestion(rs.getDate(9));
-                min.setFingestion(rs.getDate(10));
-                lista.add(min);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return lista;
-    }
     public List<Ministerio> buscarPorNombreOApellido(String textoBusqueda) {
         List<Ministerio> lista = new ArrayList<>();
 
@@ -327,8 +283,118 @@ public class MinDAO {
 
         return lista;
     }
+    public List<Ministerio> buscarPorCargo(String cargo) {
+        List<Ministerio> resultados = new ArrayList<>();
 
-    
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono," +
+                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM ministerio l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.cargo = ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cargo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
+                resultados.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
+    public List<Ministerio> buscarPorInicioGestion(Date desde, Date hasta) {
+        List<Ministerio> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM ministerio l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.iniciogestion BETWEEN ? AND ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
+                resultados.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
+    public List<Ministerio> buscarPorFinGestion(Date desde, Date hasta) {
+        List<Ministerio> resultados = new ArrayList<>();
+
+        String sql = "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+                     "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+                     "FROM ministerio l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE l.fingestion BETWEEN ? AND ?";
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(desde.getTime()));
+            ps.setDate(2, new java.sql.Date(hasta.getTime()));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
+                resultados.add(min);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultados;
+    }
     
 
     
