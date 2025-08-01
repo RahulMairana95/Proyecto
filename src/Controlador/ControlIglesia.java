@@ -49,10 +49,11 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         ajustarAnchoColumnas(vistaLiderIglesia.tablaiglesia);
         boxcargo();
         
-        agregarValidacionesLider();
+        //agregarValidacionesLider();
         fechaACtual();
         
         this.vistaLiderIglesia.botonbuscar.addActionListener(this);
+        this.vistaLiderIglesia.botonfiltrar.addActionListener(this);
         this.vistaLiderIglesia.botonlistar.addActionListener(this);
         this.vistaLiderIglesia.botonreporte.addActionListener(this);
         this.vistaLiderIglesia.botondesde.addActionListener(this);
@@ -60,7 +61,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         
         // 👇 Placeholder en el campo de texto de búsqueda
         javax.swing.SwingUtilities.invokeLater(() -> {
-            vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+            vistaLiderIglesia.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
             vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
             
             vistaLiderIglesia.botonbuscar.requestFocusInWindow();
@@ -69,7 +70,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         vistaLiderIglesia.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaLiderIglesia.txtbuscar.getText().equals("Ingrese Nombres, Apellidos o CI")) {
+                if (vistaLiderIglesia.txtbuscar.getText().equals("Buscar líderes por nombres, apellidos o CI")) {
                     vistaLiderIglesia.txtbuscar.setText("");
                     vistaLiderIglesia.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -78,7 +79,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaLiderIglesia.txtbuscar.getText().trim().isEmpty()) {
-                    vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+                    vistaLiderIglesia.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
                     vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -95,7 +96,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
         }else if(vistaLiderIglesia.botonbuscar==ae.getSource()){
-            ejecutarBusquedaLideres();
+            buscarlideres();
         }else if(vistaLiderIglesia.botonlistar==ae.getSource()){
             try{
                 limpiartabla(vistaLiderIglesia.tablaiglesia);
@@ -110,6 +111,8 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         }else if(vistaLiderIglesia.botonhasta==ae.getSource()){
             buscarFin();
             fechaACtual();
+        }else if(vistaLiderIglesia.botonfiltrar==ae.getSource()){
+            filltrarcargos();
         }
     }
     public void mostrarlista(){
@@ -192,7 +195,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
     public void boxcargo(){
         vistaLiderIglesia.boxcargos.removeAllItems();
         
-        vistaLiderIglesia.boxcargos.addItem("Buscar por Cargo");
+        vistaLiderIglesia.boxcargos.addItem("Filtrar por Cargo");
         vistaLiderIglesia.boxcargos.addItem("Pastor");
         vistaLiderIglesia.boxcargos.addItem("Anciano");
         vistaLiderIglesia.boxcargos.addItem("Diácono");
@@ -205,6 +208,42 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         vistaLiderIglesia.boxcargos.addItem("Evangelismo");
         
     }
+    public void buscarlideres(){
+        try {
+            String texto = vistaLiderIglesia.txtbuscar.getText().trim();
+            if (texto.equals("Buscar líderes por nombres, apellidos o CI") || texto.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres, Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
+                List<Lideriglesia> resultado = ldao.buscarLideres(texto);
+                llenarTablaLider(resultado);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda.");
+            e.printStackTrace();
+        }
+    }
+    public void filltrarcargos(){
+        try {
+            String cargo = vistaLiderIglesia.boxcargos.getSelectedItem().toString();
+            int filtrosUsados = 0;
+            if (!cargo.equalsIgnoreCase("Filtrar por Cargo")) {
+                filtrosUsados++;
+            }
+            if (filtrosUsados == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un cargo para filtrar.");
+                return;
+            }
+            List<Lideriglesia> lista = null;
+
+            if (!cargo.equalsIgnoreCase("Filtrar por Cargo")) {
+                lista = ldao.buscarPorCargo(cargo);
+            }
+            llenarTablaLider(lista);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al filtrar cargos");
+            e.printStackTrace();
+        }
+    }
     public void ejecutarBusquedaLideres() {
         try {
             String texto = vistaLiderIglesia.txtbuscar.getText().trim();
@@ -216,7 +255,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
                 filtrosUsados++;
             }
 
-            if (!cargo.equalsIgnoreCase("Buscar por Cargo")) {
+            if (!cargo.equalsIgnoreCase("Filtrar por Cargo")) {
                 filtrosUsados++;
             }
 
@@ -233,7 +272,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
 
             List<Lideriglesia> lista = null;
 
-            if (!cargo.equalsIgnoreCase("Buscar por Cargo")) {
+            if (!cargo.equalsIgnoreCase("Filtrar por Cargo")) {
                 lista = ldao.buscarPorCargo(cargo);
             } else if (!texto.isEmpty() && !texto.equalsIgnoreCase("Ingrese Nombres, Apellidos o CI")) {
                 lista = ldao.buscarLideres(texto);
@@ -269,7 +308,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
         // Validar cuando se selecciona un cargo en el combo
         vistaLiderIglesia.boxcargos.addActionListener(e -> {
             String cargoSeleccionado = vistaLiderIglesia.boxcargos.getSelectedItem().toString();
-            boolean activo = !cargoSeleccionado.equals("Buscar por Cargo");
+            boolean activo = !cargoSeleccionado.equals("Filtrar por Cargo");
 
             // Desactiva el campo de texto si hay un cargo seleccionado
             vistaLiderIglesia.txtbuscar.setEnabled(!activo);
@@ -277,7 +316,7 @@ public class ControlIglesia extends MouseAdapter implements ActionListener{
     }
 
     public void limpiarFiltros() {
-        vistaLiderIglesia.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+        vistaLiderIglesia.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
         vistaLiderIglesia.txtbuscar.setForeground(Color.GRAY);
         vistaLiderIglesia.boxcargos.setSelectedIndex(0);
     }

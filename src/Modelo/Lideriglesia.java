@@ -30,7 +30,10 @@ public class Lideriglesia {
         return nombre + " " + apellidop + " " + apellidom;
     }
 
-    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, int telefono, String cargo, Date iniciogestion, Date fingestion) {
+    public Lideriglesia(int idlider, int idmembrecia, String nombre, String apellidop, 
+            String apellidom, String numdocumento, int telefono, String cargo, 
+            Date iniciogestion, Date fingestion) {
+        
         this.idlider = idlider;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;

@@ -22,7 +22,9 @@ public class Administrador {
     
     }
 
-    public Administrador(int idadmin, int idlider, String nombrelider, String usuario, String nombreusuario, String contraseña) {
+    public Administrador(int idadmin, int idlider, String nombrelider, 
+            String usuario, String nombreusuario, String contraseña) {
+        
         this.idadmin = idadmin;
         this.idlider = idlider;
         this.nombrelider = nombrelider;

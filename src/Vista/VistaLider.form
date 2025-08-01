@@ -60,31 +60,24 @@
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="boxnombre" min="-2" pref="185" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="txtnombre" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="txtmaterno" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtpaterno" alignment="0" pref="151" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="txtreferencia" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtdocumento" alignment="0" pref="117" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="fechafin" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <Component id="fechainicio" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                                      </Group>
+                              <Component id="boxnombre" min="-2" pref="185" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtnombre" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtmaterno" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtpaterno" alignment="0" pref="151" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtreferencia" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtdocumento" alignment="0" pref="117" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="boxcargo" min="-2" pref="185" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="fechafin" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="fechainicio" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="boxcargo" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>

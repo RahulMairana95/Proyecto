@@ -375,6 +375,9 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                 String add4=rs.getString("numdocumento");
                 txtdocumento.setText(add4);
                 
+                String add5=rs.getString("telefono");
+                txttelefono.setText(add5);
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

@@ -23,7 +23,9 @@ public class Egreso {
     
     public Egreso(){}
 
-    public Egreso(int idegreso, int idlider, Date fecha, String tipo_egreso, Double monto, String descripcion, String motivo, String metodo_de_pago, String nombreLider) {
+    public Egreso(int idegreso, int idlider, Date fecha, String tipo_egreso, 
+            Double monto, String descripcion, String motivo, String metodo_de_pago, 
+            String nombreLider) {
         this.idegreso = idegreso;
         this.idlider = idlider;
         this.fecha = fecha;

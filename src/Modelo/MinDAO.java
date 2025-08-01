@@ -283,6 +283,55 @@ public class MinDAO {
 
         return lista;
     }
+    public List<Ministerio> filtrarLiderMinisterioAvanzado(String ministerio, String cargo) {
+        List<Ministerio> lista = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(
+            "SELECT l.idmin, m.nombre, m.apellidop, m.apellidom, m.numdocumento, m.telefono, " +
+            "l.ministerio, l.cargo, l.iniciogestion, l.fingestion " +
+            "FROM ministerio l " +
+            "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia WHERE 1=1"
+        );
+        List<String> parametros = new ArrayList<>();
+
+        if (!ministerio.isEmpty()) {
+            sql.append(" AND l.ministerio = ?");
+            parametros.add(ministerio);
+        }
+        if (!cargo.isEmpty()) {
+            sql.append(" AND l.cargo = ?");
+            parametros.add(cargo);
+        }
+
+        try (Connection con = consql.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setString(i + 1, parametros.get(i));
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Ministerio min = new Ministerio();
+                min.setIdmin(rs.getInt(1));
+                min.setNombre(rs.getString(2));
+                min.setApellidop(rs.getString(3));
+                min.setApellidom(rs.getString(4));
+                min.setNumdocumento(rs.getString(5));
+                min.setTelefono(rs.getInt(6));
+                min.setMinisterio(rs.getString(7));
+                min.setCargo(rs.getString(8));
+                min.setIniciogestion(rs.getDate(9));
+                min.setFingestion(rs.getDate(10));
+                lista.add(min);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     public List<Ministerio> buscarPorCargo(String cargo) {
         List<Ministerio> resultados = new ArrayList<>();
 

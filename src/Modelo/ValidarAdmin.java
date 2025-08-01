@@ -30,40 +30,35 @@ public class ValidarAdmin {
         System.out.println("✅ Constructor ValidarAdmin ejecutado correctamente.");
     }
     
-    // Método para validar credenciales
-    /*public Administrador validarAdmin(String nombreUsuario, String contraseña) {
-        String consultaSQL = "SELECT * FROM administrador WHERE nombreusuario = ? AND contraseña = ?";
-        Administrador administrador = null;
-        
-        // Encriptar la contraseña que ingresa el usuario antes de enviarla al SQL
-        String contraseñaEncriptada = Incriptar.hashSHA256(contraseña);
-        
-        try (Connection con = conexion.getConnection();
-             PreparedStatement pres = con.prepareStatement(consultaSQL)) {
-
-            pres.setString(1, nombreUsuario);
-            pres.setString(2, contraseñaEncriptada);
-            try (ResultSet result = pres.executeQuery()) {
-                if (result.next()) {
-                    administrador = new Administrador();
-                    administrador.setIdadmin(result.getInt("idadmin"));
-                    administrador.setIdlider(result.getInt("idlider"));
-                    administrador.setUsuario(result.getString("usuario"));
-                    administrador.setNombreusuario(result.getString("nombreusuario"));
-                    administrador.setContraseña(result.getString("contraseña"));
-
-                    //System.out.println("✅ Usuario autenticado: " + administrador.getNombre());
-                } else {
-                    System.out.println("❌ Usuario o contraseña incorrectos.");
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("❌ Error al validar el administrador: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return administrador; // Retorna null si no encuentra el usuario
-    }*/
+    
     public Administrador validarAdmin(String nombreUsuario, String contraseña) {
+        // Validación especial para el superadmin (no almacenado en la BD)
+        if (nombreUsuario.equals("superadmin")) {
+            String hashIngresado = Incriptar.hashSHA256(contraseña).trim();
+            String hashSuperAdmin = "207c71aacaafa5ca29b0e88414e52bbf56b93a131e9b915c5519938d40ed223d"; // Calcula esto previamente
+
+            if (hashIngresado.equals(hashSuperAdmin)) {
+                 /*System.out.println("✅ Contraseña correcta para superadmin.");
+                 System.out.println("Contraseña ingresada: " + contraseña);
+                 System.out.println("Hash generado: " + hashIngresado);*/
+                 
+                Administrador administrador = new Administrador();
+                administrador.setIdadmin(0); // puedes usar 0 o algún valor fijo
+                administrador.setIdlider(0);
+                administrador.setUsuario("SUPERADMIN");
+                administrador.setNombreusuario("superadmin");
+                administrador.setContraseña(hashSuperAdmin);
+                return administrador;
+
+            } else {
+                /*System.out.println("Contraseña incorrecta para superadmin.");
+                System.out.println("Contraseña ingresada: " + contraseña);
+                System.out.println("Hash generado: " + hashIngresado);*/
+                return null;
+            }
+        }
+
+        // Validación regular desde la base de datos
         String sql = "SELECT * FROM administrador WHERE nombreusuario = ?";
         Administrador administrador = null;
 
@@ -73,24 +68,16 @@ public class ValidarAdmin {
             pres.setString(1, nombreUsuario);
             try (ResultSet result = pres.executeQuery()) {
                 if (result.next()) {
-                    // Se obtiene la contraseña guardada (encriptada)
                     String contraseñaBD = result.getString("contraseña").trim();
-
-                    // Se encripta la ingresada
                     String contraseñaIngresadaHash = Incriptar.hashSHA256(contraseña).trim();
-                    
-                    //System.out.println("Hash ingresado: " + contraseñaIngresadaHash);
-                    //System.out.println("Hash en DB: " + contraseñaBD);
-                    
-                    // Comparar hashes
+
                     if (contraseñaBD.equals(contraseñaIngresadaHash)) {
                         administrador = new Administrador();
                         administrador.setIdadmin(result.getInt("idadmin"));
                         administrador.setIdlider(result.getInt("idlider"));
                         administrador.setUsuario(result.getString("usuario"));
                         administrador.setNombreusuario(result.getString("nombreusuario"));
-                        administrador.setContraseña(contraseñaBD); // puedes omitir si no necesitas mostrarla
-                         //System.out.println("✅ Usuario y contraseña correctos. Inicio de sesión válido.");
+                        administrador.setContraseña(contraseñaBD);
                     } else {
                         System.out.println("❌ Contraseña incorrecta.");
                     }
@@ -104,6 +91,8 @@ public class ValidarAdmin {
 
         return administrador;
     }
+
+    
     public void actualizarTodasLasContraseñas() {
         String selectSQL = "SELECT idadmin, contraseña FROM administrador";
         String updateSQL = "UPDATE administrador SET contraseña = ? WHERE idadmin = ?";

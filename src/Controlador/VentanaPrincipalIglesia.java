@@ -92,6 +92,7 @@ public class VentanaPrincipalIglesia implements ActionListener{
             ventanaPrincipal.itemmiembros.setEnabled(false);
             ventanaPrincipal.itemrespaldo.setEnabled(false);
             
+            
         }
         if(admin.getUsuario().equalsIgnoreCase("Secretario")){
             ventanaPrincipal.itemreporteingresos.setEnabled(true);

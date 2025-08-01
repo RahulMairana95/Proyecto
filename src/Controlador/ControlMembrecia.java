@@ -415,9 +415,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setTalentos((String)vistaMembrecia.boxtalentos.getSelectedItem());
             membrecia.setDones((String)vistaMembrecia.boxdones.getSelectedItem());
             membrecia.setActivo((String) vistaMembrecia.boxactivo.getSelectedItem());
-            membrecia.setDireccion(vistaMembrecia.txtdireccion.getText());
-            //membrecia.setTelefono(Integer.parseInt(vistaMembrecia.txttelefono.getText()));
-            // Validar teléfono: si está vacío, colocar 0
+            
+            String direc = vistaMembrecia.txtdireccion.getText().trim();
+            membrecia.setDireccion(capitalizarNombre(direc));
+            
             String telTexto = vistaMembrecia.txttelefono.getText().trim();
             if (telTexto.isEmpty()) {
                 membrecia.setTelefono(0); // Valor por defecto si no se ingresa teléfono
@@ -435,7 +436,11 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             
             membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
             
-            membreciaDAO.agregar(membrecia);
+            boolean agregar = membreciaDAO.agregar(membrecia);
+            
+            if (agregar){
+                JOptionPane.showMessageDialog(null, "¡Nuevo Miembro Registrado!");
+            }
         }
     }
     public void modificar(){
@@ -516,7 +521,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setTalentos(tale);
             membrecia.setDones(dones);
             membrecia.setActivo(acti);
-            membrecia.setDireccion(dire);
+            membrecia.setDireccion(capitalizarNombre(dire));
             
              int telefono = 0;
              if (!tel.isEmpty()){
@@ -538,7 +543,11 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             
                 System.out.println("probando modificar");
             
-            membreciaDAO.modificar(membrecia);
+            boolean modificado = membreciaDAO.modificar(membrecia);
+            
+            if(modificado){
+                JOptionPane.showMessageDialog(null, "¡Modificación exitosa!");
+            }
             }
         }
     }

@@ -26,7 +26,10 @@ public class Ministerio {
     
     public Ministerio(){}
 
-    public Ministerio(int idmin, int idmembrecia, String nombre, String apellidop, String apellidom, String numdocumento, int telefono, String ministerio, String cargo, Date iniciogestion, Date fingestion) {
+    public Ministerio(int idmin, int idmembrecia, String nombre, String apellidop, 
+            String apellidom, String numdocumento, int telefono, String ministerio, 
+            String cargo, Date iniciogestion, Date fingestion) {
+        
         this.idmin = idmin;
         this.idmembrecia = idmembrecia;
         this.nombre = nombre;

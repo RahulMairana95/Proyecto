@@ -52,11 +52,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtmonto" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                              <Component id="boxingreso" alignment="0" max="32767" attributes="0"/>
-                              <Component id="dateingreso" alignment="0" max="32767" attributes="0"/>
                               <Component id="boxlider" alignment="0" max="32767" attributes="0"/>
-                              <Component id="boxmiembro" alignment="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="0" pref="195" max="32767" attributes="0"/>
+                              <Component id="boxmiembro" alignment="0" max="32767" attributes="0"/>
+                              <Component id="boxingreso" alignment="0" max="32767" attributes="0"/>
+                              <Component id="dateingreso" alignment="0" pref="195" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -152,7 +152,7 @@
                       <Component id="botoneliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonmodificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

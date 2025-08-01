@@ -87,12 +87,6 @@ public class LiderDAO {
         try (Connection con = Conexion.getConnection(); 
              PreparedStatement pres = con.prepareStatement(agregarsql)) {
 
-            // Depuración: Verificar valores antes de la inserción
-            System.out.println("ID Membrecia: " + lid.getIdmembrecia());
-            System.out.println("Cargo: " + lid.getCargo());
-            System.out.println("Fecha Inicio: " + lid.getIniciogestion());
-            System.out.println("Fecha Fin: " + lid.getFingestion());
-
             if (lid.getIdmembrecia() <= 0) {
                 JOptionPane.showMessageDialog(null, "ERROR: ID DE MEMBRECIA NO VÁLIDO");
                 return false;

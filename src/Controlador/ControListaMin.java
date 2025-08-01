@@ -51,9 +51,10 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         boxcargo();
         ajustarAnchoColumnas(vistaLiderm.tablamin);
         fechaACtual();
-        agregarValidacionesLider();
+        //agregarValidacionesLider();
         
         this.vistaLiderm.botonbuscar.addActionListener(this);
+        this.vistaLiderm.botonfiltrar.addActionListener(this);
         this.vistaLiderm.botonlistar.addActionListener(this);
         this.vistaLiderm.botonreporte.addActionListener(this);
         this.vistaLiderm.botondesde.addActionListener(this);
@@ -61,7 +62,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         
         // 👇 Placeholder en el campo de texto de búsqueda
         javax.swing.SwingUtilities.invokeLater(() -> {
-        vistaLiderm.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+        vistaLiderm.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
         vistaLiderm.txtbuscar.setForeground(Color.GRAY);
         
         vistaLiderm.botonbuscar.requestFocusInWindow();
@@ -70,7 +71,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         vistaLiderm.txtbuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (vistaLiderm.txtbuscar.getText().equals("Ingrese Nombres, Apellidos o CI")) {
+                if (vistaLiderm.txtbuscar.getText().equals("Buscar líderes por nombres, apellidos o CI")) {
                     vistaLiderm.txtbuscar.setText("");
                     vistaLiderm.txtbuscar.setForeground(Color.BLACK);
                 }
@@ -79,7 +80,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             @Override
             public void focusLost(FocusEvent e) {
                 if (vistaLiderm.txtbuscar.getText().trim().isEmpty()) {
-                    vistaLiderm.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+                    vistaLiderm.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
                     vistaLiderm.txtbuscar.setForeground(Color.GRAY);
                 }
             }
@@ -94,7 +95,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
                 JOptionPane.showMessageDialog(null, "ERROR EN REPORTAR");
             }
         }else if (vistaLiderm.botonbuscar == ae.getSource()) {
-            ejecutarBusquedaLideres();
+            buscarlideres();
         }else if(vistaLiderm.botonlistar==ae.getSource()){
             try{
                     limpiartabla(vistaLiderm.tablamin);
@@ -108,6 +109,8 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             buscarFin();
         }else if (vistaLiderm.botondesde == ae.getSource()) {
             buscarInicio();
+        }else if (vistaLiderm.botonfiltrar == ae.getSource()) {
+            filtrardatos();
         }
     }
     
@@ -115,7 +118,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     public void boxministerio(){
         vistaLiderm.boxministerio.removeAllItems();
         
-        vistaLiderm.boxministerio.addItem("Buscar por Ministerio");
+        vistaLiderm.boxministerio.addItem("Filtrar por Ministerio");
         vistaLiderm.boxministerio.addItem("Ministerio Femenil");
         vistaLiderm.boxministerio.addItem("Ministerio Juvenil");
         vistaLiderm.boxministerio.addItem("Ministerio Prejuvenil");
@@ -130,7 +133,7 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
     public void boxcargo(){
         vistaLiderm.boxcargo.removeAll();
         
-        vistaLiderm.boxcargo.addItem("Buscar por Cargo");
+        vistaLiderm.boxcargo.addItem("Filtrar por Cargo");
         vistaLiderm.boxcargo.addItem("Presidente");
         vistaLiderm.boxcargo.addItem("Vicepresidente");
         vistaLiderm.boxcargo.addItem("Secretario");
@@ -210,6 +213,50 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
             }
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
+    }
+    public void buscarlideres(){
+        try {
+            String texto = vistaLiderm.txtbuscar.getText().trim();
+            if (texto.equals("Buscar líderes por nombres, apellidos o CI") || texto.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres, Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
+            }
+                List<Ministerio> resultado = mdao.buscarPorNombreOApellido(texto);
+                llenarTablaMinisterio(resultado);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda.");
+            e.printStackTrace();
+        }
+    }
+    public void filtrardatos(){
+        try {
+            String ministerio = vistaLiderm.boxministerio.getSelectedItem().toString().trim();
+            String cargo = vistaLiderm.boxcargo.getSelectedItem().toString().trim();
+            // Validar si no se ha seleccionado ningún filtro
+            boolean sinFiltro = ministerio.equalsIgnoreCase("Filtrar por Ministerio") &&
+                                cargo.equalsIgnoreCase("Filtrar por Cargo");
+
+            if (sinFiltro) {
+                JOptionPane.showMessageDialog(null, "Seleccione al menos una opción para filtrar.");
+                return; // Sale del método sin hacer la búsqueda
+            }
+            // Validar si se seleccionaron filtros reales
+                if (ministerio.equalsIgnoreCase("Filtrar por Ministerio")) ministerio = "";
+                if (cargo.equalsIgnoreCase("Filtrar por Cargo")) cargo = "";
+
+            List<Ministerio> lista = mdao.filtrarLiderMinisterioAvanzado(ministerio, cargo);
+                if (lista.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron resultados con los filtros seleccionados.");
+
+                }
+            llenarTablaMinisterio(lista);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al Filtrar.");
+            e.printStackTrace();
+        }
+        
+        
+
     }
     public void ejecutarBusquedaLideres() {
         try {
@@ -297,15 +344,13 @@ public class ControListaMin extends MouseAdapter implements ActionListener{
         });
     }
     public void limpiarFiltros() {
-        vistaLiderm.txtbuscar.setText("Ingrese Nombres, Apellidos o CI");
+        vistaLiderm.txtbuscar.setText("Buscar líderes por nombres, apellidos o CI");
         vistaLiderm.txtbuscar.setForeground(Color.GRAY);
         vistaLiderm.txtbuscar.setEnabled(true);
         
         vistaLiderm.boxcargo.setSelectedIndex(0);
         vistaLiderm.boxministerio.setSelectedIndex(0);
         
-        vistaLiderm.boxcargo.setEnabled(true);
-        vistaLiderm.boxministerio.setEnabled(true);
         
     }
     public void fechaACtual(){

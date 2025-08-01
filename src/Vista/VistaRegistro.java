@@ -68,7 +68,6 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Contraseña:");
 
-        txtcontraseña.setEditable(false);
         txtcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtcontraseñaKeyPressed(evt);

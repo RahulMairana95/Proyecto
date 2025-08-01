@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -375,6 +376,111 @@ public class MembreciaDAO {
         }
         return false;
     }
+    
+    public List<Membrecia> filtrarMembreciaAvanzado(String estadoCivil, String dones, String talentos, String activo) {
+        List<Membrecia> lista = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM membrecia WHERE 1=1");
+        List<String> parametros = new ArrayList<>();
+
+        if (!estadoCivil.isEmpty()) {
+            sql.append(" AND estadocivil = ?");
+            parametros.add(estadoCivil);
+        }
+        if (!dones.isEmpty()) {
+            sql.append(" AND dones = ?");
+            parametros.add(dones);
+        }
+        if (!talentos.isEmpty()) {
+            sql.append(" AND talentos = ?");
+            parametros.add(talentos);
+        }
+        if (!activo.isEmpty()) {
+            sql.append(" AND activo = ?");
+            parametros.add(activo);
+        }
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setString(i + 1, parametros.get(i));
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public List<Membrecia> filtrarMembrecia(String campo, String valor) {
+        List<Membrecia> lista = new ArrayList<>();
+
+        // Validar campos permitidos para evitar SQL Injection
+        List<String> camposValidos = Arrays.asList("estadocivil", "dones", "talentos", "activo");
+        if (!camposValidos.contains(campo.toLowerCase())) {
+            System.err.println("Campo inválido para filtrar: " + campo);
+            return lista;
+        }
+
+        String sql = "SELECT * FROM membrecia WHERE " + campo + " = ?";
+
+        try (Connection con = conectarMySQL.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, valor);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Membrecia mem = new Membrecia();
+                mem.setIdmembrecia(rs.getInt(1));
+                mem.setNombre(rs.getString(2));
+                mem.setApellidop(rs.getString(3));
+                mem.setApellidom(rs.getString(4));
+                mem.setNumdocumento(rs.getString(5));
+                mem.setFechanacimiento(rs.getDate(6));
+                mem.setEstadocivil(rs.getString(7));
+                mem.setFechaconversion(rs.getDate(8));
+                mem.setFechabautizo(rs.getDate(9));
+                mem.setTalentos(rs.getString(10));
+                mem.setDones(rs.getString(11));
+                mem.setActivo(rs.getString(12));
+                mem.setDireccion(rs.getString(13));
+                mem.setTelefono(rs.getInt(14));
+                mem.setNomreferencia(rs.getString(15));
+                mem.setNumreferencia(rs.getInt(16));
+                lista.add(mem);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 
     public List<Membrecia> buscarPorEstadoCivil(String estadoCivil) {
         List<Membrecia> lista = new ArrayList<>();

@@ -23,13 +23,12 @@ public class Ingreso {
     private String nombreLider;
 // getters y setters
 
-    
     public Ingreso(){}
     
-    
-
-
-    public Ingreso(int idingreso, int idmembrecia, int idlider, Date fecha, String descripcion, Double monto, String tipo_ingreso, String nombreMiembro, String nombreLider) {
+    public Ingreso(int idingreso, int idmembrecia, int idlider, Date fecha, 
+            String descripcion, Double monto, String tipo_ingreso, 
+            String nombreMiembro, String nombreLider) {
+        
         this.idingreso = idingreso;
         this.idmembrecia = idmembrecia;
         this.idlider = idlider;

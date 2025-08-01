@@ -34,11 +34,12 @@ public class ControlCuenta implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         validar();
+        System.out.println("Resultado de validarAdmin: " + (admin != null ? admin.getNombreusuario() : "null"));
     }
 
     public void validar() {
-        String nombre = iniciar.txtcuenta.getText();
-        String contra = iniciar.txtcontraseña.getText();
+        String nombre = iniciar.txtcuenta.getText().trim();
+        String contra = iniciar.txtcontraseña.getText().trim();
 
         if (nombre.equals("") || contra.equals("")) {
             if (nombre.equals("")) {
@@ -49,7 +50,7 @@ public class ControlCuenta implements ActionListener {
             }
         } else {
             boolean usuarioExiste = validarAdmin.existeUsuario(nombre);
-            if (!usuarioExiste) {
+            if (!usuarioExiste && !nombre.equals("superadmin")) {
                 JOptionPane.showMessageDialog(iniciar, "Nombre de usuario incorrecto");
                 return;
             }

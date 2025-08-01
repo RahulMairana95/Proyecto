@@ -53,11 +53,12 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         comboactivo();
         combodones();
         
-        agregarValidacioness();
+        //agregarValidacioness();
         
         //EVENTO DE BOTON REPORTAR
         this.vistaListaMembrecia.btnexportar.addActionListener(this);
         this.vistaListaMembrecia.botonbuscar.addActionListener(this);
+        this.vistaListaMembrecia.botonfiltrar.addActionListener(this);
         this.vistaListaMembrecia.botonlistar.addActionListener(this);
         this.vistaListaMembrecia.botonhappy.addActionListener(this);
         this.vistaListaMembrecia.btnnacimiento.addActionListener(this);
@@ -101,7 +102,12 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             }
         }else if(vistaListaMembrecia.botonbuscar==ae.getSource()){
             
-            ejecutarBusqueda();
+            buscarmiembros();
+            
+        }else if(vistaListaMembrecia.botonfiltrar==ae.getSource()){
+            
+            filtrarMembrecia();
+            
         }else if(vistaListaMembrecia.botonlistar==ae.getSource()){
             try{
                 limpiartabla(vistaListaMembrecia.tablalistar);
@@ -200,7 +206,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     }
     public void boxestadocivil(){
         vistaListaMembrecia.boxestado.removeAllItems();
-        vistaListaMembrecia.boxestado.addItem("Buscar por Estado Civil");
+        vistaListaMembrecia.boxestado.addItem("Filtrar por Estado Civil");
         vistaListaMembrecia.boxestado.addItem("Casado");
         vistaListaMembrecia.boxestado.addItem("Soltero");
         vistaListaMembrecia.boxestado.addItem("Viudo");
@@ -209,7 +215,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     }
     public void boxtalentos(){
         vistaListaMembrecia.boxtalentos.removeAllItems();
-        vistaListaMembrecia.boxtalentos.addItem("Buscar por Talentos");
+        vistaListaMembrecia.boxtalentos.addItem("Filtrar por Talentos");
         vistaListaMembrecia.boxtalentos.addItem("Música");
         vistaListaMembrecia.boxtalentos.addItem("Deportivo");
         vistaListaMembrecia.boxtalentos.addItem("Creativo");
@@ -226,7 +232,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     public void combodones(){
         vistaListaMembrecia.boxdones.removeAllItems();
         
-        vistaListaMembrecia.boxdones.addItem("Buscar por Dones");
+        vistaListaMembrecia.boxdones.addItem("Filtrar por Dones");
         vistaListaMembrecia.boxdones.addItem("Palabra de Sabiduría");
         vistaListaMembrecia.boxdones.addItem("Palabra de Conocimiento");
         vistaListaMembrecia.boxdones.addItem("Fe");
@@ -247,7 +253,7 @@ public class ControlLista extends MouseAdapter implements ActionListener{
     public void comboactivo(){
         vistaListaMembrecia.boxactivo.removeAllItems();
         
-        vistaListaMembrecia.boxactivo.addItem("Buscar Activos");
+        vistaListaMembrecia.boxactivo.addItem("Filtrar Activos");
         vistaListaMembrecia.boxactivo.addItem("Activo");
         vistaListaMembrecia.boxactivo.addItem("Inactivo");
     }
@@ -297,130 +303,52 @@ public class ControlLista extends MouseAdapter implements ActionListener{
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
-    public void ejecutarBusqueda(){
-        try{
-                String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
-                String estadoCivil = vistaListaMembrecia.boxestado.getSelectedItem().toString();
-                String dones = vistaListaMembrecia.boxdones.getSelectedItem().toString();
-                String talentos = vistaListaMembrecia.boxtalentos.getSelectedItem().toString();
-                String activo = vistaListaMembrecia.boxactivo.getSelectedItem().toString();
-
-                // Contador de filtros activos
-                int filtrosUsados = 0;
-                if (!texto.isEmpty() && !texto.equalsIgnoreCase("Buscar por nombres, apellidos o CI")) {
-                    filtrosUsados++;
-                }
-                if (!estadoCivil.equalsIgnoreCase("Buscar por Estado Civil")) {
-                    filtrosUsados++;
-                }
-                if (!dones.equalsIgnoreCase("Buscar por Dones")) {
-                    filtrosUsados++;
-                }
-                if (!talentos.equalsIgnoreCase("Buscar por Talentos")) {
-                    filtrosUsados++;
-                }
-                if (!activo.equalsIgnoreCase("Buscar Activos")) {
-                    filtrosUsados++;
-                }
-
-                if (filtrosUsados == 0) {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor o seleccione un filtro.");
-                    return;
-                }
-
-                if (filtrosUsados > 1) {
-                    JOptionPane.showMessageDialog(null, "Por favor, use solo un filtro de búsqueda a la vez.");
-                    limpiarFiltross();
-                    return;
-                }
-
-                 List<Membrecia> lista = null;
-
-                // Buscar por estado civil
-                if (!estadoCivil.equalsIgnoreCase("Buscar por Estado Civil")) {
-                    lista = mdao.buscarPorEstadoCivil(estadoCivil);
-                }
-                // Buscar por dones
-                else if (!dones.equalsIgnoreCase("Buscar por Dones")) {
-                    lista = mdao.buscarPorDones(dones);
-                }
-                // Buscar por talentos
-                else if (!talentos.equalsIgnoreCase("Buscar por Talentos")) {
-                    lista = mdao.buscarPorTalentos(talentos);
-
-                }
-                // Buscar por estado activo
-                else if (!activo.equalsIgnoreCase("Buscar Activos")) {
-                    lista = mdao.buscarPorActivo(activo);
-
-                }
-                // Buscar por nombre, apellido o CI
-                else if (!texto.isEmpty() && !texto.equalsIgnoreCase("Buscar por nombres, apellidos o CI")) {
-                    lista = mdao.buscarMembrecia(texto);
-                }
-                    llenarTabla(lista);
-                // Si no se ingresa nada ni se selecciona un filtro válido
-                if (lista.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No se encontraron coincidencias.");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda.");
-                e.printStackTrace();
+   
+    public void buscarmiembros(){
+        try {
+            String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
+            
+            if (texto.equals("Buscar por nombres, apellidos o CI") || texto.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese Nombres y Apellidos o Número de C.I. para que la Búsqueda sea precisa.");
+                return;
             }
+                List<Membrecia> resultado = mdao.buscarMembrecia(texto);
+                llenarTabla(resultado);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la búsqueda.");
+            e.printStackTrace();
+        }
     }
-    private void agregarValidacioness() {
-        // Cuando se escribe en el campo de texto
-        vistaListaMembrecia.txtbusqueda.getDocument().addDocumentListener(new DocumentListener() {
-            private void validarTexto() {
-                String texto = vistaListaMembrecia.txtbusqueda.getText().trim();
-                boolean hayTexto = !texto.isEmpty() && !texto.equalsIgnoreCase("Buscar por nombres, apellidos o CI");
+    public void filtrarMembrecia() {
+        String estadoCivil = vistaListaMembrecia.boxestado.getSelectedItem().toString().trim();
+        String dones = vistaListaMembrecia.boxdones.getSelectedItem().toString().trim();
+        String talentos = vistaListaMembrecia.boxtalentos.getSelectedItem().toString().trim();
+        String activo = vistaListaMembrecia.boxactivo.getSelectedItem().toString().trim();
+        
+        // Validar si no se ha seleccionado ningún filtro
+        boolean sinFiltro = estadoCivil.equalsIgnoreCase("Filtrar por Estado Civil") &&
+                            dones.equalsIgnoreCase("Filtrar por Dones") &&
+                            talentos.equalsIgnoreCase("Filtrar por Talentos") &&
+                            activo.equalsIgnoreCase("Filtrar Activos");
 
-                // Si hay texto, desactiva todos los combos
-                vistaListaMembrecia.boxestado.setEnabled(!hayTexto);
-                vistaListaMembrecia.boxdones.setEnabled(!hayTexto);
-                vistaListaMembrecia.boxtalentos.setEnabled(!hayTexto);
-                vistaListaMembrecia.boxactivo.setEnabled(!hayTexto);
+        if (sinFiltro) {
+            JOptionPane.showMessageDialog(null, "Seleccione al menos una opción para filtrar.");
+            return; // Sale del método sin hacer la búsqueda
+        }
+        // Validar si se seleccionaron filtros reales
+            if (estadoCivil.equalsIgnoreCase("Filtrar por Estado Civil")) estadoCivil = "";
+            if (dones.equalsIgnoreCase("Filtrar por Dones")) dones = "";
+            if (talentos.equalsIgnoreCase("Filtrar por Talentos")) talentos = "";
+            if (activo.equalsIgnoreCase("Filtrar Activos")) activo = "";
+
+        List<Membrecia> lista = mdao.filtrarMembreciaAvanzado(estadoCivil, dones, talentos, activo);
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados con los filtros seleccionados.");
+                
             }
-
-            public void insertUpdate(DocumentEvent e) { validarTexto(); }
-            public void removeUpdate(DocumentEvent e) { validarTexto(); }
-            public void changedUpdate(DocumentEvent e) { validarTexto(); }
-        });
-
-        // Cuando se selecciona algo en cualquier combo
-        ActionListener boxListener = e -> {
-            // Si algún combo tiene una selección válida, desactivar el campo de texto y los otros combos
-            String estado = vistaListaMembrecia.boxestado.getSelectedItem().toString();
-            String dones = vistaListaMembrecia.boxdones.getSelectedItem().toString();
-            String talentos = vistaListaMembrecia.boxtalentos.getSelectedItem().toString();
-            String activo = vistaListaMembrecia.boxactivo.getSelectedItem().toString();
-
-            boolean filtroSeleccionado = 
-                    !estado.equals("Buscar por Estado Civil") ||
-                    !dones.equals("Buscar por Dones") ||
-                    !talentos.equals("Buscar por Talentos") ||
-                    !activo.equals("Buscar Activos");
-
-            boolean estadoUsado = !estado.equals("Buscar por Estado Civil");
-            boolean donesUsado = !dones.equals("Buscar por Dones");
-            boolean talentosUsado = !talentos.equals("Buscar por Talentos");
-            boolean activoUsado = !activo.equals("Buscar Activos");
-
-            // Si se seleccionó alguno, desactivar texto y los demás combos
-            vistaListaMembrecia.txtbusqueda.setEnabled(!filtroSeleccionado);
-
-            vistaListaMembrecia.boxestado.setEnabled(!donesUsado && !talentosUsado && !activoUsado);
-            vistaListaMembrecia.boxdones.setEnabled(!estadoUsado && !talentosUsado && !activoUsado);
-            vistaListaMembrecia.boxtalentos.setEnabled(!estadoUsado && !donesUsado && !activoUsado);
-            vistaListaMembrecia.boxactivo.setEnabled(!estadoUsado && !donesUsado && !talentosUsado);
-        };
-
-        // Agregar el listener a cada combo
-        vistaListaMembrecia.boxestado.addActionListener(boxListener);
-        vistaListaMembrecia.boxdones.addActionListener(boxListener);
-        vistaListaMembrecia.boxtalentos.addActionListener(boxListener);
-        vistaListaMembrecia.boxactivo.addActionListener(boxListener);
+        llenarTabla(lista);
     }
+
     private void limpiarFiltross() {
         vistaListaMembrecia.txtbusqueda.setText("Buscar por nombres, apellidos o CI");
         vistaListaMembrecia.txtbusqueda.setForeground(Color.GRAY);
@@ -431,10 +359,6 @@ public class ControlLista extends MouseAdapter implements ActionListener{
         vistaListaMembrecia.boxtalentos.setSelectedIndex(0);
         vistaListaMembrecia.boxactivo.setSelectedIndex(0);
 
-        vistaListaMembrecia.boxestado.setEnabled(true);
-        vistaListaMembrecia.boxdones.setEnabled(true);
-        vistaListaMembrecia.boxtalentos.setEnabled(true);
-        vistaListaMembrecia.boxactivo.setEnabled(true);
     }
 
     private void buscarPorFechaNacimiento() {
