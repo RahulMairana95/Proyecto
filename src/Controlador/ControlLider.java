@@ -134,6 +134,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         }else if(vistaLider.botoncancelar==ae.getSource()){
             try {
                 limpiarfield();
+                limpiarCamposMiembro();
                 limpiartabla(vistaLider.tablalider);
                 mostrarlista();
                 inhabilitar();

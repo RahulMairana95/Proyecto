@@ -55,8 +55,9 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         tablausuario = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
-        boxlider = new javax.swing.JComboBox<>();
         botonrestablecer = new javax.swing.JButton();
+        txtnomlider = new javax.swing.JTextField();
+        botonlider = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -98,7 +99,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
         });
 
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew4.png"))); // NOI18N
-        btnagregar.setText("AGREGAR");
+        btnagregar.setText("GUARDAR");
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
@@ -164,23 +165,11 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
             }
         });
 
-        boxlider.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                boxliderPopupMenuWillBecomeVisible(evt);
-            }
-        });
-        boxlider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxliderActionPerformed(evt);
-            }
-        });
-
         botonrestablecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconrestablecer.png"))); // NOI18N
         botonrestablecer.setText("RESTABLECER CONTRASEÑA");
+
+        botonlider.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ICONLUPABLUE.png"))); // NOI18N
+        botonlider.setText("BUSCAR CI");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -200,46 +189,48 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(boxlider, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btneliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnmodificar)
                                 .addGap(72, 72, 72)
                                 .addComponent(botonrestablecer))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtnomlider, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonlider)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 6, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel11)
                     .addComponent(boxusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(txtnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnomlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonlider))
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,7 +240,7 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
                     .addComponent(btneliminar)
                     .addComponent(btnmodificar)
                     .addComponent(botonrestablecer))
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,44 +276,6 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnagregarActionPerformed
-
-    private void boxliderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxliderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_boxliderActionPerformed
-
-    private void boxliderPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_boxliderPopupMenuWillBecomeVisible
-        /*String tmp=(String) boxlider.getSelectedItem();
-        String [] aux=tmp.split("-");
-        String idmen=aux[0];
-        
-        String sqll="select * from lider where idlider=?";
-        
-        try {
-            con=consql.getConnection();
-            pres=con.prepareStatement(sqll);
-            pres.setString(1, idmen);
-            rs=pres.executeQuery();
-            if (rs.next()) {
-                /*txtnombre.setText(rs.getString("nombre"));
-                txtapellidop.setText(rs.getString("apellidop"));
-                txtapellidom.setText(rs.getString("apellidom"));
-
-                System.out.println("LÍDER: " + rs.getString("nombre"));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar datos: " + e.getMessage());
-        }finally {
-        // Cerrar conexiones para evitar fugas de memoria
-        try {
-            if (rs != null) rs.close();
-            if (pres != null) pres.close();
-            if (con != null) con.close();
-        } catch (SQLException ex) {
-            System.err.println("Error al cerrar conexiones: " + ex.getMessage());
-        }*/
-    //}
-        
-    }//GEN-LAST:event_boxliderPopupMenuWillBecomeVisible
 
     private void boxusuariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_boxusuariosKeyPressed
         if(evt.getExtendedKeyCode() == KeyEvent.VK_DOWN){
@@ -396,8 +349,8 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton botonlider;
     public javax.swing.JButton botonrestablecer;
-    public javax.swing.JComboBox<Lideriglesia> boxlider;
     public javax.swing.JComboBox<String> boxusuarios;
     public javax.swing.JButton btnagregar;
     public javax.swing.JButton btncancelar;
@@ -413,5 +366,6 @@ public class VistaRegistro extends javax.swing.JInternalFrame {
     public javax.swing.JTable tablausuario;
     public javax.swing.JTextField txtcontraseña;
     public javax.swing.JTextField txtnombreusuario;
+    public javax.swing.JTextField txtnomlider;
     // End of variables declaration//GEN-END:variables
 }

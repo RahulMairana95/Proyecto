@@ -44,16 +44,19 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     List<Membrecia> lislider=new ArrayList<>();
     
+    private int idMembreciaSeleccionado = 0;
+    
     ExportarEnExcel excel;
     
     public ControlMin(VistaLiderMin vl, MinDAO md){
         this.vistaLiderMin=vl;
         this.mdao=md;
+        this.memDAO= new MembreciaDAO();
         mostrarlista();
         boxministerio();
         boxcargo();
         inhabilitar();
-        mostrarNombre();
+        //mostrarNombre();
         ajustarAnchoColumnas(vistaLiderMin.tablamin);
         
         this.vistaLiderMin.botonagregar.addActionListener(this);
@@ -66,6 +69,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         //BOTONES BUSCAR Y LISTAR
         this.vistaLiderMin.botonbuscar.addActionListener(this);
         this.vistaLiderMin.botonlistar.addActionListener(this);
+        this.vistaLiderMin.botonci.addActionListener(this);
         
         this.vistaLiderMin.tablamin.addMouseListener(this);
         
@@ -126,6 +130,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         }else if(vistaLiderMin.botoncancelar==ae.getSource()){
             try {
                 limpiarfield();
+                limpiarCamposMiembro();
                 limpiartabla(vistaLiderMin.tablamin);
                 mostrarlista();
                 inhabilitar();
@@ -168,6 +173,13 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }catch (Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
             }
+        }else if(vistaLiderMin.botonci==ae.getSource()){
+            try{
+                buscarMiembroPorCI();
+                vistaLiderMin.txtbuscarmiembros.setText("");
+            }catch (Exception e){
+                //JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
+            }
         }
     }
     @Override
@@ -206,7 +218,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
         }
     }
-    public void mostrarNombre(){
+    /*public void mostrarNombre(){
         MembreciaDAO lldao=new MembreciaDAO();
         //List<Lideriglesia> lislider=new ArrayList<>();
         lislider=lldao.listarMembrecia();
@@ -216,7 +228,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             
         }    
           
-    }
+    }*/
     //Cargar boxcargoMinisterio
     public void boxministerio(){
         vistaLiderMin.boxministerio.removeAllItems();
@@ -280,16 +292,17 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         if(vistaLiderMin.boxministerio.getSelectedItem().toString().trim().isEmpty()||
            vistaLiderMin.boxcargo.getSelectedItem().toString().trim().isEmpty()||
            vistaLiderMin.fechainicio.getDate() == null||
-           vistaLiderMin.fechafin.getDate() == null){
+           vistaLiderMin.fechafin.getDate() == null ||
+           idMembreciaSeleccionado == 0){
             
           JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");  
         }else{
             
-            String tmp=(String) vistaLiderMin.boxnombre.getSelectedItem();
+            /*String tmp=(String) vistaLiderMin.boxnombre.getSelectedItem();
             String [] aux=tmp.split(" ");
-            String idmen=aux[0];
+            String idmen=aux[0];*/
             
-            minis.setIdmembrecia(Integer.parseInt(idmen));
+            minis.setIdmembrecia(idMembreciaSeleccionado);
             //System.err.println(idmen+"miembro num");
             ///////
             minis.setMinisterio((String)vistaLiderMin.boxministerio.getSelectedItem());
@@ -497,9 +510,9 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoneliminar.setEnabled(false);
         vistaLiderMin.botoneditar.setEnabled(false);
         vistaLiderMin.botonreporte.setEnabled(false);
-        //vistaLiderMin.tablamin.setEnabled(false);
+        vistaLiderMin.botonci.setEnabled(false);
         
-        vistaLiderMin.boxnombre.setEnabled(false);
+        vistaLiderMin.txtbuscarmiembros.setEnabled(false);
         vistaLiderMin.txtnombre.setEnabled(false);
         vistaLiderMin.txtpaterno.setEnabled(false);
         vistaLiderMin.txtmaterno.setEnabled(false);
@@ -513,12 +526,12 @@ public class ControlMin extends MouseAdapter implements ActionListener{
     public void habilitar(){
         vistaLiderMin.botonagregar.setEnabled(true);
         vistaLiderMin.botoncancelar.setEnabled(true);
-        //vistaLiderMin.botoneliminar.setEnabled(true);
+        vistaLiderMin.botonci.setEnabled(true);
         //vistaLiderMin.botoneditar.setEnabled(true);
         //
         //vistaLiderMin.tablamin.setEnabled(true);
         
-        vistaLiderMin.boxnombre.setEnabled(true);
+        vistaLiderMin.txtbuscarmiembros.setEnabled(true);
         vistaLiderMin.txtnombre.setEnabled(true);
         vistaLiderMin.txtpaterno.setEnabled(true);
         vistaLiderMin.txtmaterno.setEnabled(true);
@@ -534,7 +547,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.botoneditar.setEnabled(true);
         vistaLiderMin.botonreporte.setEnabled(true);
         vistaLiderMin.botoncancelar.setEnabled(true);
-        vistaLiderMin.boxnombre.setEnabled(true);
+        //vistaLiderMin.boxnombre.setEnabled(true);
         vistaLiderMin.txtnombre.setEnabled(true);
         vistaLiderMin.txtpaterno.setEnabled(true);
         vistaLiderMin.txtmaterno.setEnabled(true);
@@ -573,6 +586,39 @@ public class ControlMin extends MouseAdapter implements ActionListener{
             }
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
+    }
+    public void buscarMiembroPorCI() {
+        String ci = vistaLiderMin.txtbuscarmiembros.getText().trim();
+        System.out.println("👉 CI capturado desde la vista: [" + ci + "]");
+        System.out.println("👉 menAO en buscarMiembroPorCI: " + memDAO);
+        if (!ci.isEmpty()) {
+            Membrecia mem = memDAO.buscarMembreciaPorCI(ci);
+            if (mem != null) {
+                idMembreciaSeleccionado = mem.getIdmembrecia();
+
+                // Llenar los campos en la vista
+                vistaLiderMin.txtnombre.setText(mem.getNombre());
+                System.out.println("👉 Nombre seteado: " + vistaLiderMin.txtnombre.getText());
+                vistaLiderMin.txtpaterno.setText(mem.getApellidop());
+                vistaLiderMin.txtmaterno.setText(mem.getApellidom());
+                vistaLiderMin.txtdocumento.setText(mem.getNumdocumento());
+                vistaLiderMin.txttelefono.setText(String.valueOf(mem.getTelefono()));
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún miembro con ese CI");
+                limpiarCamposMiembro();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de carnet");
+        }
+    }
+    private void limpiarCamposMiembro() {
+        idMembreciaSeleccionado = 0;
+        vistaLiderMin.txtbuscarmiembros.setText("");
+        vistaLiderMin.txtnombre.setText("");
+        vistaLiderMin.txtpaterno.setText("");
+        vistaLiderMin.txtmaterno.setText("");
+        vistaLiderMin.txtdocumento.setText("");
+        vistaLiderMin.txttelefono.setText("");
     }
 
 }

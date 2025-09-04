@@ -343,7 +343,33 @@ public class LiderDAO {
 
         return resultados;
     }
-    
+    public Lideriglesia obtenerLiderPorCI(String ci) {
+        String sql = "SELECT l.idlider, m.nombre, m.apellidop, m.apellidom, m.numdocumento " +
+                     "FROM lider l " +
+                     "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                     "WHERE m.numdocumento = ?";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, ci);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Lideriglesia lider = new Lideriglesia();
+                    lider.setIdlider(rs.getInt("idlider"));
+                    lider.setNombre(rs.getString("nombre"));
+                    lider.setApellidop(rs.getString("apellidop"));
+                    lider.setApellidom(rs.getString("apellidom"));
+                    lider.setNumdocumento(rs.getString("numdocumento"));
+                    return lider;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // si no se encuentra
+    }
+
 
 
 

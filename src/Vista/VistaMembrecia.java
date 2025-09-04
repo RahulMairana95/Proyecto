@@ -212,7 +212,7 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
         botonnuevo.setText("NUEVO");
 
         botonagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon registro.png"))); // NOI18N
-        botonagregar.setText("REGISTRAR");
+        botonagregar.setText("GUARDAR");
         botonagregar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 botonagregarKeyPressed(evt);
@@ -453,9 +453,9 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(botonnuevo)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonagregar)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botoncancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botonmodificar)

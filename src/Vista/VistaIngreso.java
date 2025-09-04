@@ -88,7 +88,7 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         botonnuevo.setText("NUEVO");
 
         botonregistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew4.png"))); // NOI18N
-        botonregistrar.setText("REGISTRAR");
+        botonregistrar.setText("GUARDAR");
 
         botoncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconcance.png"))); // NOI18N
         botoncancelar.setText("CANCELAR");
@@ -169,7 +169,7 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
                         .addComponent(botonregistrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botoncancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
                         .addComponent(botonmodificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botoneliminar)

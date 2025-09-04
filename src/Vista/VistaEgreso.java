@@ -126,7 +126,12 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         botonnuevo.setText("NUEVO");
 
         botonagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew4.png"))); // NOI18N
-        botonagregar.setText("REGISTRAR");
+        botonagregar.setText("GUARDAR");
+        botonagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonagregarActionPerformed(evt);
+            }
+        });
 
         botoncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconcance.png"))); // NOI18N
         botoncancelar.setText("CANCELAR");
@@ -270,6 +275,10 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
     private void botonexportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonexportarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonexportarActionPerformed
+
+    private void botonagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonagregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonagregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

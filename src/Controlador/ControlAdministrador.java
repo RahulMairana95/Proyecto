@@ -35,18 +35,23 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
     Administrador adminis=new Administrador();
     DefaultTableModel tablamodel=new DefaultTableModel();
     
+    LiderDAO ldao;
+    
     List<Administrador> lista;
     int id;
     
+    private int idLiderSeleccionado = 0;
+
     List<Lideriglesia> lisusua=new ArrayList<>();
     
     public ControlAdministrador(VistaRegistro vr, AdministradorDAO adao){
         System.out.println("listando admin");
         this.vistaAdministrador=vr;
         this.adminDAO=adao;
+        this.ldao=new LiderDAO();
         mostrar();
         cargarComboTipo();
-        cargarComboLider();
+        //cargarComboLider();
         inhabilitar();
         ajustarAnchoColumnas(vistaAdministrador.tablausuario);
         //mostrarUsuarios();
@@ -58,6 +63,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         this.vistaAdministrador.btneliminar.addActionListener(this);
         this.vistaAdministrador.btncancelar.addActionListener(this);
         this.vistaAdministrador.btnnuevo.addActionListener(this);
+        this.vistaAdministrador.botonlider.addActionListener(this);
         
         this.vistaAdministrador.botonrestablecer.addActionListener(this);
 
@@ -112,6 +118,11 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             }
         }else if(vistaAdministrador.botonrestablecer == ae.getSource()){
             restablecerContraseña();
+        }else if(vistaAdministrador.botonlider==ae.getSource()){
+            try {
+                buscarLiderPorCI();
+            } catch (Exception e) {
+            }
         }
     }
      @Override
@@ -128,8 +139,9 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             String roles=vistaAdministrador.tablausuario.getValueAt(fila, 1).toString();
             String nomusuario=vistaAdministrador.tablausuario.getValueAt(fila, 2).toString();
             String claveusuario=vistaAdministrador.tablausuario.getValueAt(fila, 3).toString();
+            String nombreCompleto = vistaAdministrador.tablausuario.getValueAt(fila, 0).toString();
             
-            int idLider = lista.get(fila).getIdlider();
+            idLiderSeleccionado= lista.get(fila).getIdlider();
             
             try {
                 vistaAdministrador.boxusuarios.setSelectedItem(roles);
@@ -137,8 +149,10 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 vistaAdministrador.txtnombreusuario.setText(nomusuario);
                 vistaAdministrador.txtcontraseña.setText(claveusuario);
                 
-                cargarComboLider();
-                seleccionarLider(vistaAdministrador.boxlider, idLider);
+                vistaAdministrador.txtnomlider.setText(nombreCompleto);
+                
+                /*cargarComboLider();
+                seleccionarLider(vistaAdministrador.boxlider, idLider);*/
             } catch (Exception error) {
                 error.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + error.getMessage());
@@ -171,7 +185,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             vistaAdministrador.tablausuario.setModel(tablamodel);
     }
     ///////SELECCIONAR LIUDER
-    private void seleccionarLider(JComboBox<Lideriglesia> combo, int idLider) {
+    /*private void seleccionarLider(JComboBox<Lideriglesia> combo, int idLider) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             Lideriglesia l = combo.getItemAt(i);
             if (l.getIdlider() == idLider) {
@@ -179,9 +193,9 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 return;
             }
         }
-    }
+    }*/
     /////////CARGAR COMO LIDER
-    public void cargarComboLider() {
+    /*public void cargarComboLider() {
         LiderDAO dao = new LiderDAO();
         List<Lideriglesia> lista = dao.mostrarlider();
         System.out.println("Líderes encontrados: " + lista.size());
@@ -200,7 +214,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         for (Lideriglesia li : lista) {
             vistaAdministrador.boxlider.addItem(li);
         }
-    }
+    }*/
     ////////CARGAR COMBO TIPO
     public void cargarComboTipo() {
         vistaAdministrador.boxusuarios.removeAllItems(); // Limpia el combo por si ya tenía algo
@@ -212,11 +226,17 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
     }
 
     public void registrarAdministrador() {
+        if (idLiderSeleccionado <= 0) {
+            JOptionPane.showMessageDialog(null, "Debe buscar y seleccionar un líder válido primero.");
+            return;
+        }
         Administrador admin = new Administrador();
 
         // Obtener líder
-        Lideriglesia lider = (Lideriglesia) vistaAdministrador.boxlider.getSelectedItem();
-        admin.setIdlider(lider.getIdlider());
+        /*Lideriglesia lider = (Lideriglesia) vistaAdministrador.boxlider.getSelectedItem();
+        admin.setIdlider(lider.getIdlider());*/
+       
+        admin.setIdlider(idLiderSeleccionado);
 
         // Obtener tipo de usuario como texto
         String tipoUsuario = (String) vistaAdministrador.boxusuarios.getSelectedItem();
@@ -240,13 +260,18 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             JOptionPane.showMessageDialog(null, "Seleccione una fila para modificar");
             return;
         }
+        if (idLiderSeleccionado <= 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un líder válido");
+            return;
+        }
 
         try {
             // 1. Obtener datos de la vista
             String rol = vistaAdministrador.boxusuarios.getSelectedItem().toString();
             String nombreUsuario = vistaAdministrador.txtnombreusuario.getText().trim();
             String contraseña = vistaAdministrador.txtcontraseña.getText().trim();
-            Lideriglesia lider = (Lideriglesia) vistaAdministrador.boxlider.getSelectedItem(); // suponiendo que tienes un JComboBox con líderes
+            String ci = vistaAdministrador.txtnomlider.getText().trim(); 
+            //Lideriglesia lider = (Lideriglesia) vistaAdministrador.boxlider.getSelectedItem(); // suponiendo que tienes un JComboBox con líderes
 
             // Validación básica
             if (nombreUsuario.isEmpty() || contraseña.isEmpty()) {
@@ -254,15 +279,15 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
                 return;
             }
 
-            if (lider == null) {
+            /*if (lider == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un líder");
                 return;
-            }
+            }*/
 
             // 2. Crear objeto Administrador con los datos
             Administrador admin = new Administrador();
             admin.setIdadmin(id); // este ID debe haberse guardado en mouseClicked
-            admin.setIdlider(lider.getIdlider());
+            admin.setIdlider(idLiderSeleccionado);
             admin.setUsuario(rol);
             admin.setNombreusuario(nombreUsuario);
             admin.setContraseña(contraseña);
@@ -329,6 +354,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             vistaAdministrador.boxusuarios.setSelectedItem("");
             vistaAdministrador.txtnombreusuario.setText("");
             vistaAdministrador.txtcontraseña.setText("");
+            vistaAdministrador.txtnomlider.setText("");
         
     }
     /*public void mostrarUsuarios(){
@@ -365,7 +391,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.btnmodificar.setEnabled(false);
         vistaAdministrador.txtnombreusuario.setEnabled(false);
         vistaAdministrador.txtcontraseña.setEnabled(false);
-        vistaAdministrador.boxlider.setEnabled(false);
+        vistaAdministrador.txtnomlider.setEnabled(false);
         vistaAdministrador.boxusuarios.setEnabled(false);
         vistaAdministrador.botonrestablecer.setEnabled(false);
         //vistaAdministrador.tablausuario.setEnabled(false);
@@ -382,7 +408,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.txtapellidom.setEnabled(true);*/
         vistaAdministrador.txtnombreusuario.setEnabled(true);
         vistaAdministrador.txtcontraseña.setEnabled(true);
-        vistaAdministrador.boxlider.setEnabled(true);
+        vistaAdministrador.txtnomlider.setEnabled(true);
         vistaAdministrador.boxusuarios.setEnabled(true);
   
     }
@@ -400,7 +426,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.txtapellidom.setEnabled(true);*/
         vistaAdministrador.txtnombreusuario.setEnabled(true);
         vistaAdministrador.txtcontraseña.setEnabled(false);
-        vistaAdministrador.boxlider.setEnabled(true);
+        vistaAdministrador.txtnomlider.setEnabled(true);
         vistaAdministrador.boxusuarios.setEnabled(true);
     }
     public void ajustarAnchoColumnas(JTable tabla) {
@@ -438,6 +464,27 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             JOptionPane.showMessageDialog(null, "Error al actualizar la contraseña.");
         }
     }
+    public void buscarLiderPorCI() {
+        String ci = vistaAdministrador.txtnomlider.getText().trim();
+
+        if (ci.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de carnet");
+            return;
+        }
+
+        Lideriglesia lider = ldao.obtenerLiderPorCI(ci);
+        if (lider != null) {
+            idLiderSeleccionado = lider.getIdlider(); // 🔹 guardar ID interno
+            vistaAdministrador.txtnomlider.setText(
+                lider.getNombre() + " " + lider.getApellidop() + " " + lider.getApellidom()
+            ); // 🔹 mostrar nombre completo
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún líder con ese CI");
+            idLiderSeleccionado = 0;
+            vistaAdministrador.txtnomlider.setText("");
+        }
+    }
+
 
     
 }
