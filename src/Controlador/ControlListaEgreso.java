@@ -40,6 +40,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
     //ExportarEnExcel excel;
     ExportarIngresosEgresos excel;
     
+    
     public ControlListaEgreso(VistaListaEgresos vle, EgresoDAO dAO){
         this.vistaListaEgresos = vle;
         this.edao = dAO;
@@ -133,7 +134,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
             };
             modelo.addRow(fila);
         }
-        calcularTotalIngresos();
+        calcularTotalEgresos();
     }
     public void cargarComboTipo() {
         vistaListaEgresos.boxtiposelect.removeAllItems(); // Limpia el combo por si ya tenía algo
@@ -191,7 +192,7 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
                 e.getNombreLider()
             });
         }
-        calcularTotalIngresos();
+        calcularTotalEgresos();
     }
     
     private void inicializarTabla() {
@@ -228,24 +229,27 @@ public class ControlListaEgreso extends MouseAdapter implements ActionListener{
         }
     }
     
-    private void calcularTotalIngresos() {
+    public double calcularTotalEgresos() {
         double total = 0.0;
         DefaultTableModel modelo = (DefaultTableModel) vistaListaEgresos.tablalistaegreso.getModel();
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Object valor = modelo.getValueAt(i, 2); // columna 2 es "Monto"
-            if (valor instanceof Number) {
-                total += ((Number) valor).doubleValue();
-            } else {
-                try {
-                    total += Double.parseDouble(valor.toString());
-                } catch (NumberFormatException e) {
-                    // Ignorar valores inválidos
+            if(valor != null){
+                if (valor instanceof Number) {
+                    total += ((Number) valor).doubleValue();
+                } else {
+                    try {
+                        total += Double.parseDouble(valor.toString().trim());
+                    } catch (NumberFormatException e) {
+                        // Ignorar valores inválidos
+                    }
                 }
             }
         }
 
         vistaListaEgresos.txtcalcular.setText("Total: Bs. " + String.format("%.2f", total));
+        return total;
     }
 
 }

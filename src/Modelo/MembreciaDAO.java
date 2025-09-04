@@ -712,6 +712,36 @@ public class MembreciaDAO {
         return lista;
     }
 
+    public Membrecia buscarMembreciaPorCI(String ci) {
+        Membrecia mem = null;
+        String sql = "SELECT idmembrecia, nombre, apellidop, apellidom, numdocumento, telefono "
+                   + "FROM membrecia WHERE numdocumento = ?";
+        try (Connection con = Conexion.getConnection();   // 👈 tu clase de conexión aquí
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, ci);
+            System.out.println("👉 Ejecutando SQL con CI: [" + ci + "]");
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    System.out.println("✅ Miembro encontrado en BD: " + rs.getString("nombre"));
+                    mem = new Membrecia();
+                    mem.setIdmembrecia(rs.getInt("idmembrecia"));
+                    mem.setNombre(rs.getString("nombre"));
+                    mem.setApellidop(rs.getString("apellidop"));
+                    mem.setApellidom(rs.getString("apellidom"));
+                    mem.setNumdocumento(rs.getString("numdocumento"));
+                    mem.setTelefono(rs.getInt("telefono"));
+                } else {
+                    System.out.println("❌ No se encontró ningún miembro con CI: " + ci);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mem;
+    }
+
     
    
 }

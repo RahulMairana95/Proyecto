@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,9 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
     int id;
     List<Ingreso> lista;
     
+    VistaListaEgresos vistaegresos = new VistaListaEgresos();
+    EgresoDAO edao = new EgresoDAO();
+    ControlListaEgreso egre;
     
     //ExportarEnExcel excel;
     ExportarIngresosEgresos excel;
@@ -45,6 +49,8 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
     public ControlListaIngresos(VistaListaIngresos vli, IngresoDAO dAO){
         this.vistaListaIngresos = vli;
         this.idao = dAO;
+        
+        this.egre = new ControlListaEgreso(this.vistaegresos, this.edao);
         
         //mostrarLista();
         listarIngresosDelUltimoMes();
@@ -139,6 +145,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         }
         //System.err.println("listarIngreso3");
         calcularTotalIngresos();
+        calcularSaldoActual();
     }
     
     public void cargarComboTipo() {
@@ -193,6 +200,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
             });
         }
         calcularTotalIngresos();
+        calcularSaldoActual();
         //System.err.println("listar Tabla3");
     }
     
@@ -224,24 +232,37 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         }
     }
     
-    private void calcularTotalIngresos() {
+    private double calcularTotalIngresos() {
         double total = 0.0;
         DefaultTableModel modelo = (DefaultTableModel) vistaListaIngresos.tablalistaingreso.getModel();
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Object valor = modelo.getValueAt(i, 2); // columna 2 es "Monto"
-            if (valor instanceof Number) {
-                total += ((Number) valor).doubleValue();
-            } else {
-                try {
-                    total += Double.parseDouble(valor.toString());
-                } catch (NumberFormatException e) {
-                    // Ignorar valores inválidos
+            if (valor != null){
+                if (valor instanceof Number) {
+                    total += ((Number) valor).doubleValue();
+                } else {
+                    try {
+                        total += Double.parseDouble(valor.toString().trim());
+                    } catch (NumberFormatException e) {
+                        // Ignorar valores inválidos
+                    }
                 }
             }
         }
-
         vistaListaIngresos.txtcalcular.setText("Total: Bs. " + String.format("%.2f", total));
+        /*DecimalFormat df = new DecimalFormat("#,##0.00");
+        vistaListaIngresos.txtcalcular.setText("Total: Bs. " + df.format(total));*/
+        return total;
+        
     }
-
+    private void calcularSaldoActual(){
+        double totalIngreso = calcularTotalIngresos();
+        
+        double totalegreso = this.egre.calcularTotalEgresos();
+        double saldo = totalIngreso - totalegreso;
+        
+        vistaListaIngresos.txtsaldo.setText("Saldo: Bs. " + String.format("%.2f", saldo));
+    }
+    
 }

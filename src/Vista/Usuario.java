@@ -83,7 +83,6 @@ public class Usuario extends javax.swing.JFrame {
         });
 
         txtcuenta.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtcuenta.setText("admin");
         txtcuenta.setAutoscrolls(false);
         txtcuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtcuenta.setFocusTraversalPolicyProvider(true);

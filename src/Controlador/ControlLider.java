@@ -33,7 +33,8 @@ import javax.swing.table.TableCellRenderer;
  * @author RAHUL
  */
 public class ControlLider extends MouseAdapter implements ActionListener{
-    VistaLider vistaLider=new VistaLider();
+    //VistaLider vistaLider=new VistaLider();
+    VistaLider vistaLider;
     LiderDAO ldao;
     MembreciaDAO menAO;
     Lideriglesia lideriglesia=new Lideriglesia();
@@ -48,14 +49,17 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     ExcelExpo exp;
     ExportarEnExcel excel;
     
+    private int idMembreciaSeleccionado = 0;
+    
     public ControlLider(VistaLider vl, LiderDAO ld){
         this.vistaLider=vl;
         this.ldao=ld;
+        this.menAO= new MembreciaDAO();
         //System.out.println("liderando");
         mostrarlista();
         boxcargo();
         inhabilitar();
-        mostrarNombre();
+        //mostrarNombre();
         ajustarAnchoColumnas(vistaLider.tablalider);
         //listarnombres();
         
@@ -64,6 +68,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         this.vistaLider.botoncancelar.addActionListener(this);
         this.vistaLider.botoneliminar.addActionListener(this);
         this.vistaLider.botonnuevo.addActionListener(this);
+        this.vistaLider.botonbuscarmiembros.addActionListener(this);
         
         this.vistaLider.botonreporte.addActionListener(this);
         //BOTONES BUSCAR Y LISTAR
@@ -171,6 +176,13 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             }catch (Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
             }
+        }else if(vistaLider.botonbuscarmiembros==ae.getSource()){
+            try{
+                buscarMiembroPorCI();
+                vistaLider.textmiembro.setText("");
+            }catch (Exception e){
+                //JOptionPane.showMessageDialog(null, "ERROR AL EXPORTAR");
+            }
         }
     }
     
@@ -199,7 +211,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 vistaLider.txtpaterno.setText(apep);
                 vistaLider.txtmaterno.setText(apem);
                 vistaLider.txtdocumento.setText(ci);
-                vistaLider.txtreferencia.setText(tel);
+                vistaLider.txttelefono.setText(tel);
                 
                 vistaLider.boxcargo.setSelectedItem(cargo);
                 
@@ -209,7 +221,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             }
         }
     }
-    public void mostrarNombre(){
+    /*public void mostrarNombre(){
         MembreciaDAO lldao=new MembreciaDAO();
         //List<Lideriglesia> lislider=new ArrayList<>();
         lislider=lldao.listarMembrecia();
@@ -219,7 +231,7 @@ public class ControlLider extends MouseAdapter implements ActionListener{
             
         }    
           
-    }
+    }*/
     ///Cargar boxcargo
     public void boxcargo(){
         vistaLider.boxcargo.removeAllItems();
@@ -275,15 +287,16 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     public void agregarNuevos() {
         if (vistaLider.boxcargo.getSelectedItem().toString().trim().isEmpty() ||
             vistaLider.fechainicio.getDate() == null ||  // Verificar si la fecha está seleccionada
-            vistaLider.fechafin.getDate() == null) {    // Verificar si la fecha está seleccionada
+            vistaLider.fechafin.getDate() == null ||
+            idMembreciaSeleccionado == 0) {    // Verificar si la fecha está seleccionada
 
             JOptionPane.showMessageDialog(null, "DEBE LLENAR TODOS LOS CAMPOS");
         } else {
-            String tmp = (String) vistaLider.boxnombre.getSelectedItem();
+            /*String tmp = (String) vistaLider.boxnombre.getSelectedItem();
             String[] aux = tmp.split(" ");
-            String idmen = aux[0];
+            String idmen = aux[0];*/
 
-            lideriglesia.setIdmembrecia(Integer.parseInt(idmen));
+            lideriglesia.setIdmembrecia(idMembreciaSeleccionado);
 
             // Datos de la Membresía (puedes descomentar si es necesario)
             // lideriglesia.setNombre(vistaLider.txtnombre.getText());
@@ -475,12 +488,21 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.txtpaterno.setText("");
         vistaLider.txtmaterno.setText("");
         vistaLider.txtdocumento.setText("");
-        vistaLider.txtreferencia.setText("");
+        vistaLider.txttelefono.setText("");
         vistaLider.boxcargo.setSelectedItem("");
         
         Date fechaactual=new Date(Calendar.getInstance().getTime().getTime());
         vistaLider.fechainicio.setDate(fechaactual);
         vistaLider.fechafin.setDate(fechaactual);
+    }
+    private void limpiarCamposMiembro() {
+        idMembreciaSeleccionado = 0;
+        vistaLider.textmiembro.setText("");
+        vistaLider.txtnombre.setText("");
+        vistaLider.txtpaterno.setText("");
+        vistaLider.txtmaterno.setText("");
+        vistaLider.txtdocumento.setText("");
+        vistaLider.txttelefono.setText("");
     }
     public void exportars(){
         try {
@@ -498,14 +520,14 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botoneliminar.setEnabled(false);
         vistaLider.botoneditar.setEnabled(false);
         vistaLider.botonreporte.setEnabled(false);
-        //vistaLider.tablalider.setEnabled(false);
+        vistaLider.botonbuscarmiembros.setEnabled(false);
         
-        vistaLider.boxnombre.setEnabled(false);
+        vistaLider.textmiembro.setEnabled(false);
         vistaLider.txtnombre.setEnabled(false);
         vistaLider.txtmaterno.setEnabled(false);
         vistaLider.txtpaterno.setEnabled(false);
         vistaLider.txtdocumento.setEnabled(false);
-        vistaLider.txtreferencia.setEnabled(false);
+        vistaLider.txttelefono.setEnabled(false);
         vistaLider.boxcargo.setEnabled(false);
         vistaLider.fechafin.setEnabled(false);
         vistaLider.fechainicio.setEnabled(false);
@@ -513,17 +535,17 @@ public class ControlLider extends MouseAdapter implements ActionListener{
     public void habilitar(){
         vistaLider.botonagregar.setEnabled(true);
         vistaLider.botoncancelar.setEnabled(true);
-        //vistaLider.botoneliminar.setEnabled(true);
+        vistaLider.botonbuscarmiembros.setEnabled(true);
         //vistaLider.botoneditar.setEnabled(true);
         //vistaLider.botonreporte.setEnabled(true);
         vistaLider.tablalider.setEnabled(true);
         
-        vistaLider.boxnombre.setEnabled(true);
+        vistaLider.textmiembro.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
         vistaLider.txtpaterno.setEnabled(true);
         vistaLider.txtmaterno.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
-        vistaLider.txtreferencia.setEnabled(true);
+        vistaLider.txttelefono.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);
         vistaLider.fechafin.setEnabled(true);
         vistaLider.fechainicio.setEnabled(true);
@@ -536,12 +558,12 @@ public class ControlLider extends MouseAdapter implements ActionListener{
         vistaLider.botonreporte.setEnabled(true);
         //vistaLider.tablalider.setEnabled(true);
         
-        vistaLider.boxnombre.setEnabled(true);
+        //vistaLider.textmiembro.setEnabled(true);
         vistaLider.txtnombre.setEnabled(true);
         vistaLider.txtpaterno.setEnabled(true);
         vistaLider.txtmaterno.setEnabled(true);
         vistaLider.txtdocumento.setEnabled(true);
-        vistaLider.txtreferencia.setEnabled(true);
+        vistaLider.txttelefono.setEnabled(true);
         vistaLider.boxcargo.setEnabled(true);
         vistaLider.fechafin.setEnabled(true);
         vistaLider.fechainicio.setEnabled(true);
@@ -582,6 +604,31 @@ public class ControlLider extends MouseAdapter implements ActionListener{
                 ancho = Math.max(comp.getPreferredSize().width + 10, ancho);
             }
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
+        }
+    }
+    
+    public void buscarMiembroPorCI() {
+        String ci = vistaLider.textmiembro.getText().trim();
+        System.out.println("👉 CI capturado desde la vista: [" + ci + "]");
+        System.out.println("👉 menAO en buscarMiembroPorCI: " + menAO);
+        if (!ci.isEmpty()) {
+            Membrecia mem = menAO.buscarMembreciaPorCI(ci);
+            if (mem != null) {
+                idMembreciaSeleccionado = mem.getIdmembrecia();
+
+                // Llenar los campos en la vista
+                vistaLider.txtnombre.setText(mem.getNombre());
+                System.out.println("👉 Nombre seteado: " + vistaLider.txtnombre.getText());
+                vistaLider.txtpaterno.setText(mem.getApellidop());
+                vistaLider.txtmaterno.setText(mem.getApellidom());
+                vistaLider.txtdocumento.setText(mem.getNumdocumento());
+                vistaLider.txttelefono.setText(String.valueOf(mem.getTelefono()));
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún miembro con ese CI");
+                limpiarCamposMiembro();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de carnet");
         }
     }
 }
