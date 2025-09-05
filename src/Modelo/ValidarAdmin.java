@@ -48,6 +48,7 @@ public class ValidarAdmin {
                 administrador.setUsuario("SUPERADMIN");
                 administrador.setNombreusuario("superadmin");
                 administrador.setContraseña(hashSuperAdmin);
+                administrador.setNombrelider("SUPERADMIN");
                 return administrador;
 
             } else {
@@ -59,8 +60,13 @@ public class ValidarAdmin {
         }
 
         // Validación regular desde la base de datos
-        String sql = "SELECT * FROM administrador WHERE nombreusuario = ?";
-        Administrador administrador = null;
+        String sql = "SELECT a.idadmin, a.idlider, a.usuario, a.nombreusuario, a.contraseña, " +
+                 "CONCAT(m.nombre, ' ', m.apellidop, ' ', m.apellidom) AS nombre_lider " +
+                 "FROM administrador a " +
+                 "INNER JOIN lider l ON a.idlider = l.idlider " +
+                 "INNER JOIN membrecia m ON l.idmembrecia = m.idmembrecia " +
+                 "WHERE a.nombreusuario = ?";
+         Administrador administrador = null;
 
         try (Connection con = conexion.getConnection();
              PreparedStatement pres = con.prepareStatement(sql)) {
@@ -78,6 +84,7 @@ public class ValidarAdmin {
                         administrador.setUsuario(result.getString("usuario"));
                         administrador.setNombreusuario(result.getString("nombreusuario"));
                         administrador.setContraseña(contraseñaBD);
+                        administrador.setNombrelider(result.getString("nombre_lider"));
                     } else {
                         System.out.println("❌ Contraseña incorrecta.");
                     }

@@ -58,6 +58,9 @@ public class ControlCuenta implements ActionListener {
             admin = validarAdmin.validarAdmin(nombre, contra);
 
             if (admin != null /*&& nombre.equals(admin.getNombreusuario()) && contra.equals(admin.getContraseña())*/) {
+                
+                Sesion.administradorActual = admin;
+                
                 VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
                 VentanaPrincipalIglesia ventanaPrincipalIglesia = new VentanaPrincipalIglesia(ventanaPrincipal, admin);
                 iniciar.dispose();

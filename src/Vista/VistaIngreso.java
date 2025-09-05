@@ -48,7 +48,6 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtdescripcion = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        boxlider = new javax.swing.JComboBox<>();
         botonnuevo = new javax.swing.JButton();
         botonregistrar = new javax.swing.JButton();
         botoncancelar = new javax.swing.JButton();
@@ -57,6 +56,7 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         botonexportar = new javax.swing.JButton();
         botoneliminar = new javax.swing.JButton();
         botonmodificar = new javax.swing.JButton();
+        txtlider = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -127,6 +127,8 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         botonmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconeditar.png"))); // NOI18N
         botonmodificar.setText("MODIFICAR");
 
+        txtlider.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,11 +147,11 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxlider, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(boxmiembro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boxingreso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                            .addComponent(dateingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(txtlider))
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -211,11 +213,11 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(boxmiembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(boxlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(10, 10, 10))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,7 +255,6 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
     public javax.swing.JButton botonnuevo;
     public javax.swing.JButton botonregistrar;
     public javax.swing.JComboBox<String> boxingreso;
-    public javax.swing.JComboBox<Lideriglesia> boxlider;
     public javax.swing.JComboBox<Membrecia> boxmiembro;
     public com.toedter.calendar.JDateChooser dateingreso;
     private javax.swing.JLabel jLabel1;
@@ -269,6 +270,7 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
     public javax.swing.JTable tablaingreso;
     public javax.swing.JTextField txtbuscar;
     public javax.swing.JTextArea txtdescripcion;
+    public javax.swing.JTextField txtlider;
     public javax.swing.JTextField txtmonto;
     // End of variables declaration//GEN-END:variables
 }

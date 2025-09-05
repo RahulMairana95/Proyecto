@@ -48,11 +48,18 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
     
     public ControlIngreso(VistaIngreso vi, IngresoDAO idao){
         this.vistaIngreso=vi;
+        //vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+        if (Sesion.administradorActual != null) {
+            System.out.println("Líder actual: " + Sesion.administradorActual.getNombrelider());
+            vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+        } else {
+            System.out.println("⚠️ administradorActual es NULL");
+        }
         this.ingresoDAO=idao;
         mostrarLista();
         cargarComboMembresia();
         //agregarListenerComboMiembro();
-        cargarComboLider();
+        //cargarComboLider();
         cargarComboTipoIngreso();
         inhabilitar();
         ajustarAnchoColumnas(vistaIngreso.tablaingreso);
@@ -229,10 +236,10 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
                 // 4. Seleccionar miembro por ID
                 seleccionar(vistaIngreso.boxmiembro, idMiembro);
                 
-                cargarComboLider();
+                /*cargarComboLider();
                 System.out.println("Items en boxlider: " + vistaIngreso.boxlider.getItemCount());
                 // 5. (Opcional) seleccionar líder si tienes comboLider cargado por ID
-                seleccionarLider(vistaIngreso.boxlider, idLider); // solo si es necesario
+                seleccionarLider(vistaIngreso.boxlider, idLider); // solo si es necesario*/
 
             } catch (Exception er) {
                 er.printStackTrace();
@@ -256,19 +263,6 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             System.out.println("No se encontró el miembro con ID " + idMembrecia);
         }
     }
-
-
-    private void seleccionarLider(JComboBox<Lideriglesia> combo, int idLider) {
-        for (int i = 0; i < combo.getItemCount(); i++) {
-            Lideriglesia l = combo.getItemAt(i);
-            if (l.getIdlider() == idLider) {
-                combo.setSelectedIndex(i);
-                return;
-            }
-        }
-    }
-
-
 
     
     public void mostrarLista() {
@@ -296,6 +290,11 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             System.out.println("No hay datos para mostrar.");
         }
             vistaIngreso.tablaingreso.setModel(tablamodel);
+            
+            //vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+            if (Sesion.administradorActual != null) {
+                vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+            }
     }
     ///////CARGAR COMBO MEMBRECIA
     public void cargarComboMembresia() {
@@ -319,27 +318,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             vistaIngreso.boxmiembro.addItem(m); // 👈 agregar el objeto
         }
     }
-    /////////CARGAR COMO LIDER
-    public void cargarComboLider() {
-        LiderDAO dao = new LiderDAO();
-        List<Lideriglesia> lista = dao.mostrarlider();
-        System.out.println("Líderes encontrados: " + lista.size());
-
-
-        vistaIngreso.boxlider.removeAllItems(); // Limpia el combo
-
-        // Agrega un líder por defecto para forzar la selección
-        Lideriglesia liderPorDefecto = new Lideriglesia();
-        liderPorDefecto.setIdlider(0);
-        liderPorDefecto.setNombre("Selecciona un nombre");
-        liderPorDefecto.setApellidop("");
-        liderPorDefecto.setApellidom("");
-        vistaIngreso.boxlider.addItem(liderPorDefecto);
-
-        for (Lideriglesia l : lista) {
-            vistaIngreso.boxlider.addItem(l);
-        }
-    }
+    
     ////////CARGAR COMBO TIPO
     public void cargarComboTipoIngreso() {
         vistaIngreso.boxingreso.removeAllItems(); // Limpia el combo por si ya tenía algo
@@ -351,96 +330,78 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.boxingreso.addItem("Donación");
         vistaIngreso.boxingreso.addItem("Otro");
     }
-
-    ///REGISTRAR NUEVO INGRESO
     public void agregarIngreso() {
         // Validar campos obligatorios
         String tipoIngreso = vistaIngreso.boxingreso.getSelectedItem().toString();
 
-        // Validación de campos
         if (vistaIngreso.dateingreso.getDate() == null ||
             vistaIngreso.txtdescripcion.getText().trim().isEmpty() ||
             vistaIngreso.txtmonto.getText().trim().isEmpty() ||
             vistaIngreso.boxingreso.getSelectedIndex() == 0 ||
-            vistaIngreso.boxlider.getSelectedIndex() == 0 ||
             (tipoIngreso.equalsIgnoreCase("Diezmo") && vistaIngreso.boxmiembro.getSelectedIndex() == 0)) {
 
-            JOptionPane.showMessageDialog(null, "⚠️ Complete todos los campos obligatorios.");
+            JOptionPane.showMessageDialog(null, "Complete todos los campos obligatorios.");
             return; // Detiene el proceso si hay campos vacíos
         }
-        
-        // Si pasa la validación, creamos el objeto Ingreso
+
+        // Crear objeto Ingreso
         Ingreso nuevoIngreso = new Ingreso();
-        //System.out.println("BUSCANDO ERROR 100");
-        // Asignar los valores a nuevoIngreso
-        //nuevoIngreso.setFecha((Date) vistaIngreso.dateingreso.getDate());
-        java.util.Date utilDate = vistaIngreso.dateingreso.getDate(); // Obtener la fecha como java.util.Date
+
+        // Fecha
+        java.util.Date utilDate = vistaIngreso.dateingreso.getDate();
         if (utilDate != null) {
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Convertir a java.sql.Date
-            nuevoIngreso.setFecha(sqlDate); // Asignar la fecha correctamente
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            nuevoIngreso.setFecha(sqlDate);
         } else {
-            // Si no hay fecha seleccionada, manejar el caso (por ejemplo, mostrar un mensaje de error)
-            JOptionPane.showMessageDialog(null, "⚠️ Seleccione una fecha.");
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha.");
             return;
         }
-        //java.sql.Date fechaDesde = new java.sql.Date(utilDate.getTime());
 
-        // Verifica que esto no sea null
+        // Otros datos
         nuevoIngreso.setDescripcion(vistaIngreso.txtdescripcion.getText());
-        
         nuevoIngreso.setMonto(Double.parseDouble(vistaIngreso.txtmonto.getText()));
-        
         nuevoIngreso.setTipo_ingreso(tipoIngreso);
-        
-        // Verifica que el ID de Miembro y Líder estén correctos
+
+        // Miembro
         Membrecia miembroSeleccionado = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
-        //System.out.println("BUSCANDO ERROR 600 " + miembroSeleccionado);
-        Lideriglesia liderSeleccionado = (Lideriglesia) vistaIngreso.boxlider.getSelectedItem();
-        //System.out.println("BUSCANDO ERROR 700");
-        // Asegúrate de que los objetos no sean nulos antes de asignar
-        if (miembroSeleccionado != null && liderSeleccionado != null) {
-            nuevoIngreso.setIdmembrecia(miembroSeleccionado.getIdmembrecia()); // Miembro
-            nuevoIngreso.setIdlider(liderSeleccionado.getIdlider()); // Líder
-            
-            if(miembroSeleccionado.getNombre().equalsIgnoreCase("Sin nombre")){
+        if (miembroSeleccionado != null) {
+            nuevoIngreso.setIdmembrecia(miembroSeleccionado.getIdmembrecia());
+
+            if (miembroSeleccionado.getNombre().equalsIgnoreCase("Sin nombre")) {
                 nuevoIngreso.setNombreMiembro("--");
-                
-            } else{
+            } else {
                 nuevoIngreso.setNombreMiembro(
-                miembroSeleccionado.getNombre() + " " +
-                        miembroSeleccionado.getApellidop() + " " +
-                        miembroSeleccionado.getApellidom());
+                    miembroSeleccionado.getNombre() + " " +
+                    miembroSeleccionado.getApellidop() + " " +
+                    miembroSeleccionado.getApellidom()
+                );
             }
-            // Asignar nombre del líder
-            nuevoIngreso.setNombreLider(
-                liderSeleccionado.getNombre() + " " +
-                liderSeleccionado.getApellidop() + " " +
-                liderSeleccionado.getApellidom()
-            );
         } else {
-            JOptionPane.showMessageDialog(null, "⚠️ Miembro o Líder no seleccionado.");
+            JOptionPane.showMessageDialog(null, "Seleccione un miembro.");
             return;
         }
 
-        // Debugging: imprimir los valores antes de intentar insertar
-       /* System.out.println("Fecha: " + nuevoIngreso.getFecha());
-        System.out.println("Descripción: " + nuevoIngreso.getDescripcion());
-        System.out.println("Monto: " + nuevoIngreso.getMonto());
-        System.out.println("Tipo de ingreso: " + nuevoIngreso.getTipo_ingreso());
-        System.out.println("ID Miembro: " + nuevoIngreso.getIdmembrecia());
-        System.out.println("ID Líder: " + nuevoIngreso.getIdlider());*/
+        // 🔹 Asignar el líder desde la sesión (usuario logeado)
+        if (Sesion.administradorActual != null) {
+            nuevoIngreso.setIdlider(Sesion.administradorActual.getIdlider());
+            nuevoIngreso.setNombreLider(Sesion.administradorActual.getNombrelider());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay un usuario logeado.");
+            return;
+        }
 
-        // Paso 2: Registrar el ingreso en la base de datos
+        // Registrar en la BD
         IngresoDAO ingresoDAO = new IngresoDAO();
         boolean resultado = ingresoDAO.registrarIngreso(nuevoIngreso);
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Ingreso registrado exitosamente.");
         } else {
-            JOptionPane.showMessageDialog(null, "⚠️ Error al registrar el ingreso.");
+            JOptionPane.showMessageDialog(null, "Error al registrar el ingreso.");
         }
     }
-    
+
+
     /////////MODIFICAR REGISTRO
     public void modificarIngreso() {
         if (id == 0) {
@@ -456,10 +417,10 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             String descripcion = vistaIngreso.txtdescripcion.getText();
 
             Membrecia miembro = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
-            Lideriglesia lider = (Lideriglesia) vistaIngreso.boxlider.getSelectedItem();
+            //Lideriglesia lider = (Lideriglesia) vistaIngreso.boxlider.getSelectedItem();
 
-            if (miembro == null || lider == null) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un miembro y un líder");
+            if (miembro == null) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un miembro");
                 return;
             }
 
@@ -471,8 +432,15 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             ingreso.setMonto(monto);
             ingreso.setDescripcion(descripcion);
             ingreso.setIdmembrecia(miembro.getIdmembrecia());
-            ingreso.setIdlider(lider.getIdlider());
-
+            //ingreso.setIdlider(lider.getIdlider());
+            // 🔹 Asignar líder desde sesión en vez de boxlider
+            if (Sesion.administradorActual != null) {
+                ingreso.setIdlider(Sesion.administradorActual.getIdlider());
+                ingreso.setNombreLider(Sesion.administradorActual.getNombrelider());
+            } else {
+                JOptionPane.showMessageDialog(null, " No hay un usuario logeado.");
+                return;
+            }
             // 3. Llamar al DAO para modificar
             IngresoDAO dao = new IngresoDAO();
             boolean modificado = dao.modificarlista(ingreso);
@@ -568,7 +536,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.txtmonto.setText("");
         vistaIngreso.boxingreso.setSelectedIndex(0);
         vistaIngreso.boxmiembro.setSelectedIndex(0);
-        vistaIngreso.boxlider.setSelectedIndex(0);
+        //vistaIngreso.boxlider.setSelectedIndex(0);
     }
 
     public void limpiartabla(JTable tabla){
@@ -611,7 +579,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.txtmonto.setEnabled(false);
         
         vistaIngreso.boxingreso.setEnabled(false);
-        vistaIngreso.boxlider.setEnabled(false);
+        //vistaIngreso.boxlider.setEnabled(false);
         vistaIngreso.boxmiembro.setEnabled(false);
     }
     public void habilitar(){/// inhabilita los campos
@@ -630,7 +598,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.txtmonto.setEnabled(true);
         
         vistaIngreso.boxingreso.setEnabled(true);
-        vistaIngreso.boxlider.setEnabled(true);
+        //vistaIngreso.boxlider.setEnabled(true);
         vistaIngreso.boxmiembro.setEnabled(true);
     }
     public void clic(){
@@ -649,7 +617,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.txtmonto.setEnabled(true);
         
         vistaIngreso.boxingreso.setEnabled(true);
-        vistaIngreso.boxlider.setEnabled(true);
+        //vistaIngreso.boxlider.setEnabled(true);
         vistaIngreso.boxmiembro.setEnabled(true);
     }
     public void ajustarAnchoColumnas(JTable tabla) {
