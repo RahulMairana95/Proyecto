@@ -355,6 +355,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             vistaAdministrador.txtnombreusuario.setText("");
             vistaAdministrador.txtcontraseña.setText("");
             vistaAdministrador.txtnomlider.setText("");
+            vistaAdministrador.txtnumci.setText("");
         
     }
     /*public void mostrarUsuarios(){
@@ -394,18 +395,19 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.txtnomlider.setEnabled(false);
         vistaAdministrador.boxusuarios.setEnabled(false);
         vistaAdministrador.botonrestablecer.setEnabled(false);
-        //vistaAdministrador.tablausuario.setEnabled(false);
+        vistaAdministrador.txtnumci.setEnabled(false);
+        vistaAdministrador.botonlider.setEnabled(false);
     }
     public void habilitar(){
         vistaAdministrador.btnagregar.setEnabled(true);
         vistaAdministrador.btncancelar.setEnabled(true);
-        //vistaAdministrador.btneliminar.setEnabled(true);
+        vistaAdministrador.botonlider.setEnabled(true);
         //vistaAdministrador.btnmodificar.setEnabled(true);
         
         /*vistaAdministrador.txtnombre.setEnabled(true);
         //vistaRegistro.txtnombre.setEnabled(true);
-        vistaAdministrador.txtapellidop.setEnabled(true);
-        vistaAdministrador.txtapellidom.setEnabled(true);*/
+        vistaAdministrador.txtapellidop.setEnabled(true);*/
+        vistaAdministrador.txtnumci.setEnabled(true);
         vistaAdministrador.txtnombreusuario.setEnabled(true);
         vistaAdministrador.txtcontraseña.setEnabled(true);
         vistaAdministrador.txtnomlider.setEnabled(true);
@@ -419,6 +421,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         vistaAdministrador.btnmodificar.setEnabled(true);
         vistaAdministrador.botonrestablecer.setEnabled(true);
         vistaAdministrador.btnagregar.setEnabled(false);
+        vistaAdministrador.botonlider.setEnabled(false);
         
         /*vistaAdministrador.txtnombre.setEnabled(true);
         //vistaRegistro.txtnombre.setEnabled(true);
@@ -465,7 +468,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         }
     }
     public void buscarLiderPorCI() {
-        String ci = vistaAdministrador.txtnomlider.getText().trim();
+        String ci = vistaAdministrador.txtnumci.getText().trim();
 
         if (ci.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un número de carnet");
@@ -481,7 +484,7 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró ningún líder con ese CI");
             idLiderSeleccionado = 0;
-            vistaAdministrador.txtnomlider.setText("");
+            vistaAdministrador.txtnumci.setText("");
         }
     }
 
