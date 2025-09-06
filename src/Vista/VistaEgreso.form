@@ -62,16 +62,16 @@
                               <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="datefecha" min="-2" pref="138" max="-2" attributes="0"/>
                               <Component id="boxtipo" min="-2" pref="151" max="-2" attributes="0"/>
                               <Component id="txtmonto" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="196" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="196" max="32767" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="boxpago" alignment="0" pref="146" max="32767" attributes="0"/>
                                   <Component id="boxmotivo" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="boxautorizar" min="-2" pref="188" max="-2" attributes="0"/>
+                              <Component id="txtlider" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
@@ -140,7 +140,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="boxautorizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtlider" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jScrollPane2" alignment="1" min="-2" pref="333" max="-2" attributes="0"/>
@@ -294,17 +294,6 @@
             <Property name="text" type="java.lang.String" value="Autorizado por:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="boxautorizar">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Lideriglesia&gt;"/>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -441,6 +430,14 @@
               <Image iconType="3" name="/Imagenes/iconeditar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtlider">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

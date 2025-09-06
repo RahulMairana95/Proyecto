@@ -100,26 +100,6 @@ public class AdministradorDAO {
         }
     }
 
-    /*public boolean editarAdministrador(Administrador a) {
-        String sql = "UPDATE administrador SET idlider = ?, usuario = ?, nombreusuario = ?, contraseña = ? WHERE idadmin = ?";
-
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, a.getIdlider());
-            ps.setString(2, a.getUsuario());
-            ps.setString(3, a.getNombreusuario());
-            ps.setString(4, a.getContraseña());
-            ps.setInt(5, a.getIdadmin()); // Asegúrate de que el objeto tenga este campo
-
-            int rows = ps.executeUpdate();
-            return rows > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
     public boolean editarAdministrador(Administrador a) {
         String sql = "UPDATE administrador SET idlider = ?, usuario = ?, nombreusuario = ?, contraseña = ? WHERE idadmin = ?";
 

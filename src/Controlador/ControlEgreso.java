@@ -45,11 +45,18 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
     
     public ControlEgreso(VistaEgreso ve, EgresoDAO edao){
         this.vistaEgreso=ve;
+        //vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+        if (Sesion.administradorActual != null) {
+            System.out.println("Líder actual: " + Sesion.administradorActual.getNombrelider());
+            vistaEgreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+        } else {
+            System.out.println("⚠️ administradorActual es NULL");
+        }
         this.egresoDAO=edao;
         
         /////////////LLAMANDO ACCIONES
         mostrarLista();
-        cargarComboLider();
+        //cargarComboLider();
         cargarComboTipo();
         cargarComboMotivo();
         cargarComboMetodo();
@@ -214,10 +221,10 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
                 vistaEgreso.boxpago.setSelectedItem(met);
 
                 
-                cargarComboLider();
+                /*cargarComboLider();
                 System.out.println("Items en boxlider: " + vistaEgreso.boxautorizar.getItemCount());
                 // 5. (Opcional) seleccionar líder si tienes comboLider cargado por ID
-                seleccionarLider(vistaEgreso.boxautorizar, idLider); // solo si es necesario
+                seleccionarLider(vistaEgreso.boxautorizar, idLider); // solo si es necesario*/
 
             } catch (Exception er) {
                 er.printStackTrace();
@@ -262,9 +269,13 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             System.out.println("No hay datos para mostrar.");
         }
             vistaEgreso.tablaegreso.setModel(tablamodel);
+            
+            if (Sesion.administradorActual != null) {
+                vistaEgreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
+            }
     }
     
-    /////////CARGAR COMO LIDER
+    /*////////CARGAR COMO LIDER
     public void cargarComboLider() {
         LiderDAO dao = new LiderDAO();
         List<Lideriglesia> lista = dao.mostrarlider();
@@ -284,7 +295,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         for (Lideriglesia li : lista) {
             vistaEgreso.boxautorizar.addItem(li);
         }
-    }
+    }*/
     ////////CARGAR COMBO TIPO
     public void cargarComboTipo() {
         vistaEgreso.boxtipo.removeAllItems(); // Limpia el combo por si ya tenía algo
@@ -329,8 +340,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             vistaEgreso.txtmonto.getText().trim().isEmpty() ||
             vistaEgreso.boxtipo.getSelectedIndex() == 0 ||
             vistaEgreso.boxmotivo.getSelectedIndex() == 0 ||
-            vistaEgreso.boxpago.getSelectedIndex() == 0 ||
-            vistaEgreso.boxautorizar.getSelectedIndex() == 0) {
+            vistaEgreso.boxpago.getSelectedIndex() == 0) {
 
             JOptionPane.showMessageDialog(null, "⚠️ Complete todos los campos obligatorios.");
             return;
@@ -369,15 +379,22 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         nuevoEgreso.setMetodo_de_pago(vistaEgreso.boxpago.getSelectedItem().toString());
         nuevoEgreso.setMotivo(vistaEgreso.boxmotivo.getSelectedItem().toString());
 
-        // Asignar líder autorizado
+        /*/ Asignar líder autorizado
         Lideriglesia liderSeleccionado = (Lideriglesia) vistaEgreso.boxautorizar.getSelectedItem();
         if (liderSeleccionado != null) {
             nuevoEgreso.setIdlider(liderSeleccionado.getIdlider());
         } else {
             JOptionPane.showMessageDialog(null, "⚠️ Líder no seleccionado.");
             return;
+        }*/
+        // 🔹 Asignar el líder desde la sesión (usuario logeado)
+        if (Sesion.administradorActual != null) {
+            nuevoEgreso.setIdlider(Sesion.administradorActual.getIdlider());
+            nuevoEgreso.setNombreLider(Sesion.administradorActual.getNombrelider());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay un usuario logeado.");
+            return;
         }
-
         // Registrar en la base de datos
         EgresoDAO egresoDAO = new EgresoDAO();
         boolean resultado = egresoDAO.registrarEgreso(nuevoEgreso);
@@ -404,12 +421,12 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             String mot = vistaEgreso.boxmotivo.getSelectedItem().toString();
             String met = vistaEgreso.boxpago.getSelectedItem().toString();
 
-            Lideriglesia lider = (Lideriglesia) vistaEgreso.boxautorizar.getSelectedItem();
+            /*Lideriglesia lider = (Lideriglesia) vistaEgreso.boxautorizar.getSelectedItem();
 
             if (lider == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un líder para autorizar");
                 return;
-            }
+            }*/
 
             // 2. Crear objeto Ingreso con datos actualizados
             Egreso egreso = new Egreso();
@@ -420,8 +437,14 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
             egreso.setDescripcion(descripcion);
             egreso.setMotivo(mot);
             egreso.setMetodo_de_pago(met);
-            egreso.setIdlider(lider.getIdlider());
-
+            //egreso.setIdlider(lider.getIdlider());
+            if (Sesion.administradorActual != null) {
+                egreso.setIdlider(Sesion.administradorActual.getIdlider());
+                egreso.setNombreLider(Sesion.administradorActual.getNombrelider());
+            } else {
+                JOptionPane.showMessageDialog(null, " No hay un usuario logeado.");
+                return;
+            }
             // 3. Llamar al DAO para modificar
             EgresoDAO dao = new EgresoDAO();
             boolean modificado = dao.modificarlista(egreso);
@@ -535,7 +558,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.boxtipo.setSelectedIndex(0);
         vistaEgreso.boxmotivo.setSelectedIndex(0);
         vistaEgreso.boxpago.setSelectedIndex(0);
-        vistaEgreso.boxautorizar.setSelectedIndex(0);
+        //vistaEgreso.boxautorizar.setSelectedIndex(0);
     }
     
     public void limpiartabla(JTable tabla){
@@ -565,7 +588,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.txtmonto.setEnabled(false);
         
         vistaEgreso.boxtipo.setEnabled(false);
-        vistaEgreso.boxautorizar.setEnabled(false);
+        vistaEgreso.txtlider.setEnabled(false);
         vistaEgreso.boxmotivo.setEnabled(false);
         vistaEgreso.boxpago.setEnabled(false);
     }
@@ -586,7 +609,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.txtmonto.setEnabled(true);
         
         vistaEgreso.boxtipo.setEnabled(true);
-        vistaEgreso.boxautorizar.setEnabled(true);
+        vistaEgreso.txtlider.setEnabled(true);
         vistaEgreso.boxmotivo.setEnabled(true);
         vistaEgreso.boxpago.setEnabled(true);
     }
@@ -606,7 +629,7 @@ public class ControlEgreso extends MouseAdapter implements ActionListener{
         vistaEgreso.txtmonto.setEnabled(true);
         
         vistaEgreso.boxtipo.setEnabled(true);
-        vistaEgreso.boxautorizar.setEnabled(true);
+        vistaEgreso.txtlider.setEnabled(true);
         vistaEgreso.boxmotivo.setEnabled(true);
         vistaEgreso.boxpago.setEnabled(true);
     }

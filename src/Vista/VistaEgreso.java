@@ -48,7 +48,6 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         boxpago = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        boxautorizar = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaegreso = new javax.swing.JTable();
         botonnuevo = new javax.swing.JButton();
@@ -57,6 +56,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         botonexportar = new javax.swing.JButton();
         botonelminar = new javax.swing.JButton();
         botoneditar = new javax.swing.JButton();
+        txtlider = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -150,6 +150,8 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         botoneditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconeditar.png"))); // NOI18N
         botoneditar.setText("MODIFICAR");
 
+        txtlider.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,15 +179,15 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(datefecha, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boxtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(boxpago, javax.swing.GroupLayout.Alignment.LEADING, 0, 146, Short.MAX_VALUE)
                                 .addComponent(boxmotivo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(boxautorizar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtlider))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -241,7 +243,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(boxautorizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,7 +292,6 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
     public javax.swing.JButton botonexportar;
     public javax.swing.JButton botonlistar;
     public javax.swing.JButton botonnuevo;
-    public javax.swing.JComboBox<Lideriglesia> boxautorizar;
     public javax.swing.JComboBox<String> boxmotivo;
     public javax.swing.JComboBox<String> boxpago;
     public javax.swing.JComboBox<String> boxtipo;
@@ -309,6 +310,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
     public javax.swing.JTable tablaegreso;
     public javax.swing.JTextField txtbuscar;
     public javax.swing.JTextArea txtdescripcion;
+    public javax.swing.JTextField txtlider;
     public javax.swing.JTextField txtmonto;
     // End of variables declaration//GEN-END:variables
 }
