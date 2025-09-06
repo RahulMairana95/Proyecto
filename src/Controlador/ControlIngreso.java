@@ -43,6 +43,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
     List<Membrecia> lislider=new ArrayList<>();
     DefaultTableModel tablamodel=new DefaultTableModel();
     
+    private int idMembreciaSeleccionado = 0;
+    
     ExportarEnExcel excel;
     //SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
     
@@ -56,8 +58,9 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             System.out.println("⚠️ administradorActual es NULL");
         }
         this.ingresoDAO=idao;
+        membreciaDAO = new MembreciaDAO();
         mostrarLista();
-        cargarComboMembresia();
+        //cargarComboMembresia();
         //agregarListenerComboMiembro();
         //cargarComboLider();
         cargarComboTipoIngreso();
@@ -85,6 +88,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         this.vistaIngreso.botonexportar.addActionListener(this);
         this.vistaIngreso.botonbuscar.addActionListener(this);
         this.vistaIngreso.botonlistar.addActionListener(this);
+        this.vistaIngreso.botonci.addActionListener(this);
         
         
         //EVENTO DE MOUSE EN LA TABLA
@@ -198,6 +202,11 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al exportar en Excel");
             }
+        }else if(vistaIngreso.botonci==ae.getSource()){
+            try {
+                buscarLiderPorCI();
+            }catch(Exception e){
+            }
         }
     }
 
@@ -216,9 +225,10 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             String tipo = vistaIngreso.tablaingreso.getValueAt(fila, 1).toString();
             String monto = vistaIngreso.tablaingreso.getValueAt(fila, 2).toString();
             String des = vistaIngreso.tablaingreso.getValueAt(fila, 3).toString();
+            String nombreCompleto = vistaIngreso.tablaingreso.getValueAt(fila, 4).toString();
 
-            int idMiembro = lista.get(fila).getIdmembrecia();
-            int idLider = lista.get(fila).getIdlider();
+            idMembreciaSeleccionado = lista.get(fila).getIdmembrecia();
+            //int idLider = lista.get(fila).getIdlider();
 
             try {
                 // 1. Fecha
@@ -229,12 +239,14 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
                 vistaIngreso.boxingreso.setSelectedItem(tipo);
                 vistaIngreso.txtmonto.setText(monto);
                 vistaIngreso.txtdescripcion.setText(des);
+                
+                vistaIngreso.txtmiembro.setText(nombreCompleto);
 
-                // 3. Recargar combos por si acaso
+                /*// 3. Recargar combos por si acaso
                 cargarComboMembresia(); // 👈 asegúrate que el combo está lleno
                 System.out.println("Items en boxmiembro: " + vistaIngreso.boxmiembro.getItemCount());
                 // 4. Seleccionar miembro por ID
-                seleccionar(vistaIngreso.boxmiembro, idMiembro);
+                seleccionar(vistaIngreso.boxmiembro, idMiembro);*/
                 
                 /*cargarComboLider();
                 System.out.println("Items en boxlider: " + vistaIngreso.boxlider.getItemCount());
@@ -296,7 +308,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
                 vistaIngreso.txtlider.setText(Sesion.administradorActual.getNombrelider());
             }
     }
-    ///////CARGAR COMBO MEMBRECIA
+    /*///////CARGAR COMBO MEMBRECIA
     public void cargarComboMembresia() {
         MembreciaDAO lldao = new MembreciaDAO();
         List<Membrecia> lista = lldao.listarMembrecia();
@@ -317,7 +329,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             System.out.println("Agregando miembro: " + m.getNombre());
             vistaIngreso.boxmiembro.addItem(m); // 👈 agregar el objeto
         }
-    }
+    }*/
     
     ////////CARGAR COMBO TIPO
     public void cargarComboTipoIngreso() {
@@ -333,19 +345,26 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
     public void agregarIngreso() {
         // Validar campos obligatorios
         String tipoIngreso = vistaIngreso.boxingreso.getSelectedItem().toString();
+        String miembroTexto = vistaIngreso.txtmiembro.getText().trim();
 
         if (vistaIngreso.dateingreso.getDate() == null ||
             vistaIngreso.txtdescripcion.getText().trim().isEmpty() ||
             vistaIngreso.txtmonto.getText().trim().isEmpty() ||
-            vistaIngreso.boxingreso.getSelectedIndex() == 0 ||
-            (tipoIngreso.equalsIgnoreCase("Diezmo") && vistaIngreso.boxmiembro.getSelectedIndex() == 0)) {
+            vistaIngreso.boxingreso.getSelectedIndex() == 0 ) {
+            //(tipoIngreso.equalsIgnoreCase("Diezmo") && vistaIngreso.boxmiembro.getSelectedIndex() == 0)) {
 
             JOptionPane.showMessageDialog(null, "Complete todos los campos obligatorios.");
             return; // Detiene el proceso si hay campos vacíos
         }
-
+        // Validación especial para miembro
+        if (tipoIngreso.equalsIgnoreCase("Diezmo") && miembroTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un miembro para el Diezmo.");
+            return;
+        }
         // Crear objeto Ingreso
         Ingreso nuevoIngreso = new Ingreso();
+        
+        nuevoIngreso.setIdmembrecia(idMembreciaSeleccionado);
 
         // Fecha
         java.util.Date utilDate = vistaIngreso.dateingreso.getDate();
@@ -362,7 +381,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         nuevoIngreso.setMonto(Double.parseDouble(vistaIngreso.txtmonto.getText()));
         nuevoIngreso.setTipo_ingreso(tipoIngreso);
 
-        // Miembro
+        /*/ Miembro
         Membrecia miembroSeleccionado = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
         if (miembroSeleccionado != null) {
             nuevoIngreso.setIdmembrecia(miembroSeleccionado.getIdmembrecia());
@@ -379,7 +398,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un miembro.");
             return;
-        }
+        }*/
 
         // 🔹 Asignar el líder desde la sesión (usuario logeado)
         if (Sesion.administradorActual != null) {
@@ -416,13 +435,13 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             double monto = Double.parseDouble(vistaIngreso.txtmonto.getText());
             String descripcion = vistaIngreso.txtdescripcion.getText();
 
-            Membrecia miembro = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
+            /*Membrecia miembro = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
             //Lideriglesia lider = (Lideriglesia) vistaIngreso.boxlider.getSelectedItem();
 
             if (miembro == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un miembro");
                 return;
-            }
+            }*/
 
             // 2. Crear objeto Ingreso con datos actualizados
             Ingreso ingreso = new Ingreso();
@@ -431,7 +450,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             ingreso.setTipo_ingreso(tipo);
             ingreso.setMonto(monto);
             ingreso.setDescripcion(descripcion);
-            ingreso.setIdmembrecia(miembro.getIdmembrecia());
+            ingreso.setIdmembrecia(idMembreciaSeleccionado);
             //ingreso.setIdlider(lider.getIdlider());
             // 🔹 Asignar líder desde sesión en vez de boxlider
             if (Sesion.administradorActual != null) {
@@ -531,11 +550,14 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
 
     
     public void limpiarCampos() {
+        idMembreciaSeleccionado = 0;
         //vistaIngreso.dateingreso.setDate(null);
         vistaIngreso.txtdescripcion.setText("");
         vistaIngreso.txtmonto.setText("");
         vistaIngreso.boxingreso.setSelectedIndex(0);
-        vistaIngreso.boxmiembro.setSelectedIndex(0);
+        vistaIngreso.txtbuscarci.setText("");
+        vistaIngreso.txtmiembro.setText("");
+        //vistaIngreso.boxmiembro.setSelectedIndex(0);
         //vistaIngreso.boxlider.setSelectedIndex(0);
     }
 
@@ -570,7 +592,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.botonexportar.setEnabled(false);
         //vistaIngreso.botonlistar.setEnabled(false);
         vistaIngreso.botonmodificar.setEnabled(false);
-        //vistaIngreso.botonbuscar.setEnabled(false);
+        vistaIngreso.botonci.setEnabled(false);
         
         vistaIngreso.dateingreso.setEnabled(false);
         
@@ -580,7 +602,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         
         vistaIngreso.boxingreso.setEnabled(false);
         //vistaIngreso.boxlider.setEnabled(false);
-        vistaIngreso.boxmiembro.setEnabled(false);
+        vistaIngreso.txtbuscarci.setEnabled(false);
+        vistaIngreso.txtmiembro.setEnabled(false);
     }
     public void habilitar(){/// inhabilita los campos
         vistaIngreso.botonregistrar.setEnabled(true);
@@ -589,7 +612,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         //vistaIngreso.botonexportar.setEnabled(true);
         //vistaIngreso.botonlistar.setEnabled(true);
         //vistaIngreso.botonmodificar.setEnabled(true);
-        //vistaIngreso.botonbuscar.setEnabled(true);
+        vistaIngreso.botonci.setEnabled(true);
         
         vistaIngreso.dateingreso.setEnabled(true);
         
@@ -599,7 +622,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         
         vistaIngreso.boxingreso.setEnabled(true);
         //vistaIngreso.boxlider.setEnabled(true);
-        vistaIngreso.boxmiembro.setEnabled(true);
+        vistaIngreso.txtbuscarci.setEnabled(true);
+        vistaIngreso.txtmiembro.setEnabled(true);
     }
     public void clic(){
         //vistaIngreso.botonregistrar.setEnabled(true);
@@ -608,7 +632,7 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.botonexportar.setEnabled(true);
         //vistaIngreso.botonlistar.setEnabled(true);
         vistaIngreso.botonmodificar.setEnabled(true);
-        //vistaIngreso.botonbuscar.setEnabled(true);
+        vistaIngreso.botonci.setEnabled(true);
         
         vistaIngreso.dateingreso.setEnabled(true);
         
@@ -617,8 +641,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
         vistaIngreso.txtmonto.setEnabled(true);
         
         vistaIngreso.boxingreso.setEnabled(true);
-        //vistaIngreso.boxlider.setEnabled(true);
-        vistaIngreso.boxmiembro.setEnabled(true);
+        vistaIngreso.txtmiembro.setEnabled(true);
+        vistaIngreso.txtbuscarci.setEnabled(true);
     }
     public void ajustarAnchoColumnas(JTable tabla) {
         for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
@@ -631,7 +655,25 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             tabla.getColumnModel().getColumn(columna).setPreferredWidth(ancho);
         }
     }
-    
+    public void buscarLiderPorCI() {
+        String ci = vistaIngreso.txtbuscarci.getText().trim();
+
+        if (ci.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de carnet");
+            return;
+        }
+        Membrecia mem = membreciaDAO.buscarMembreciaPorCI(ci);
+        if (mem != null) {
+            idMembreciaSeleccionado = mem.getIdmembrecia();
+            vistaIngreso.txtmiembro.setText(
+                mem.getNombre() + " " + mem.getApellidop() + " " + mem.getApellidom()
+            ); // 🔹 mostrar nombre completo
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún líder con ese CI");
+            idMembreciaSeleccionado = 0;
+            vistaIngreso.txtbuscarci.setText("");
+        }
+    }
 
 
     
