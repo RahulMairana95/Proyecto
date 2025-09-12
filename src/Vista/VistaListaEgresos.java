@@ -99,7 +99,7 @@ public class VistaListaEgresos extends javax.swing.JInternalFrame {
         botonreporte.setText("REPORTE");
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistyellow.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
 
         botonexportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconexportar2.png"))); // NOI18N
         botonexportar.setText("EXPORTAR LISTA");
@@ -124,7 +124,7 @@ public class VistaListaEgresos extends javax.swing.JInternalFrame {
                 .addComponent(botonreporte)
                 .addGap(18, 18, 18)
                 .addComponent(botonlistar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(botonexportar))
         );
         jPanel2Layout.setVerticalGroup(

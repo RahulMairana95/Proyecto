@@ -158,7 +158,7 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
         txtnombre.setEditable(false);
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaazul.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
 
         jLabel4.setText("Ministerio:");
 
@@ -237,7 +237,7 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                                 .addComponent(botonci)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 171, Short.MAX_VALUE)
+                                .addGap(18, 140, Short.MAX_VALUE)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -12,6 +12,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -58,6 +60,7 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         inhabilitar();
         //mostrarNombre();
         ajustarAnchoColumnas(vistaLiderMin.tablamin);
+        soloNumeros(vistaLiderMin.txtbuscarmiembros);
         
         this.vistaLiderMin.botonagregar.addActionListener(this);
         this.vistaLiderMin.botonnuevo.addActionListener(this);
@@ -619,6 +622,21 @@ public class ControlMin extends MouseAdapter implements ActionListener{
         vistaLiderMin.txtmaterno.setText("");
         vistaLiderMin.txtdocumento.setText("");
         vistaLiderMin.txttelefono.setText("");
+    }
+    public void soloNumeros(JTextField textField) {
+        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+                    evt.consume(); // No permite letras ni símbolos
+                    JOptionPane.showMessageDialog(null, 
+                    "Solo se permiten números en este campo", 
+                    "Entrada no válida", 
+                    JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
     }
 
 }

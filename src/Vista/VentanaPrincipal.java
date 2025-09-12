@@ -159,7 +159,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(botonOansa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botoncdi)
-                        .addGap(0, 15, Short.MAX_VALUE))
+                        .addGap(0, 19, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,7 +172,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setForeground(new java.awt.Color(0, 51, 51));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu-button_icon-icons.com_72989 (2).png"))); // NOI18N
-        jMenu1.setText("MENÚ");
         jMenu1.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
 
         itemInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/log32.png"))); // NOI18N
@@ -184,7 +183,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         registros.setForeground(new java.awt.Color(0, 51, 51));
         registros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lightbrown_books_folders_12307 (1).png"))); // NOI18N
         registros.setText("REGISTROS");
-        registros.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        registros.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemmiembros.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemmiembros.setForeground(new java.awt.Color(0, 0, 51));
@@ -206,7 +205,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemministerio.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemministerio.setForeground(new java.awt.Color(0, 0, 51));
         itemministerio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconnew2.png"))); // NOI18N
-        itemministerio.setText("REGISTRAR LÍDER DEL MINISTERIO");
+        itemministerio.setText("REGISTRAR LÍDER DE MINISTERIO");
         registros.add(itemministerio);
 
         itemingresos.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
@@ -231,12 +230,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemMembrecia.setForeground(new java.awt.Color(0, 51, 51));
         itemMembrecia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/libraryfolder_books_binders_2688 (1).png"))); // NOI18N
         itemMembrecia.setText("MEMBRECÍA");
-        itemMembrecia.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        itemMembrecia.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemLista.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemLista.setForeground(new java.awt.Color(0, 0, 51));
         itemLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistama.png"))); // NOI18N
-        itemLista.setText("LISTA DE MIEMBROS BAUTIZADOS");
+        itemLista.setText("VER MIEMBROS BAUTIZADOS");
         itemMembrecia.add(itemLista);
 
         jMenuBar1.add(itemMembrecia);
@@ -244,12 +243,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         liderazgo.setForeground(new java.awt.Color(0, 51, 51));
         liderazgo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconliders.png"))); // NOI18N
         liderazgo.setText("LIDERAZGO");
-        liderazgo.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        liderazgo.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemIglesia.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemIglesia.setForeground(new java.awt.Color(0, 0, 51));
         itemIglesia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconLiderMarron.png"))); // NOI18N
-        itemIglesia.setText("LISTA DE LÍDERES DE LA IGLESIA");
+        itemIglesia.setText("VER LIDERAZGO DE LA IGLESIA");
         itemIglesia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemIglesiaActionPerformed(evt);
@@ -260,7 +259,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         iteMinis.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         iteMinis.setForeground(new java.awt.Color(0, 0, 51));
         iteMinis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconLiderBlue.png"))); // NOI18N
-        iteMinis.setText("LISTA DE LÍDERES DE MINISTERIOS");
+        iteMinis.setText("VER LÍDERES DE MINISTERIOS");
         iteMinis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iteMinisActionPerformed(evt);
@@ -273,7 +272,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         finanzas.setForeground(new java.awt.Color(0, 51, 51));
         finanzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4288584andbusinessfinancepersonalportfolioprofileresume-115772_115741 (1).png"))); // NOI18N
         finanzas.setText("FINANZAS");
-        finanzas.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        finanzas.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemreporteingresos.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemreporteingresos.setForeground(new java.awt.Color(0, 0, 51));
@@ -291,21 +290,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         usuarios.setForeground(new java.awt.Color(0, 51, 51));
         usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/users_clients_group_16774.png"))); // NOI18N
-        usuarios.setText("USUARIO");
-        usuarios.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        usuarios.setText("ADMINISTRADORES");
+        usuarios.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemRegistro.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemRegistro.setForeground(new java.awt.Color(0, 0, 51));
         itemRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ivonLocked.png"))); // NOI18N
-        itemRegistro.setText("REGISTRO DE USUARIOS");
+        itemRegistro.setText("REGISTRO DE ADMINISTRADORES");
         usuarios.add(itemRegistro);
 
         jMenuBar1.add(usuarios);
 
         jMenu2.setForeground(new java.awt.Color(0, 51, 51));
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database.png"))); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconcopia.png"))); // NOI18N
         jMenu2.setText("RESPALDO");
-        jMenu2.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
 
         itemrespaldo.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 12)); // NOI18N
         itemrespaldo.setForeground(new java.awt.Color(0, 0, 51));

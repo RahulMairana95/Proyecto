@@ -10,6 +10,7 @@ import Vista.*;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
@@ -22,6 +23,7 @@ import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -54,6 +56,8 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
         //cargarComboLider();
         inhabilitar();
         ajustarAnchoColumnas(vistaAdministrador.tablausuario);
+        
+        soloNumeros(vistaAdministrador.txtnumci);
         //mostrarUsuarios();
         
         //  --------------EVENTOS
@@ -487,7 +491,21 @@ public class ControlAdministrador extends MouseAdapter implements ActionListener
             vistaAdministrador.txtnumci.setText("");
         }
     }
-
+    public void soloNumeros(JTextField textField) {
+        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+                    evt.consume(); // No permite letras ni símbolos
+                    JOptionPane.showMessageDialog(null, 
+                    "Solo se permiten números en este campo", 
+                    "Entrada no válida", 
+                    JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+    }
 
     
 }

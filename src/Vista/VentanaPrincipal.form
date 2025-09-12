@@ -17,7 +17,6 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/menu-button_icon-icons.com_72989 (2).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MEN&#xda;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="30" style="1"/>
             </Property>
@@ -46,7 +45,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="REGISTROS"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -98,7 +97,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/iconnew2.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="REGISTRAR L&#xcd;DER DEL MINISTERIO"/>
+                <Property name="text" type="java.lang.String" value="REGISTRAR L&#xcd;DER DE MINISTERIO"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -153,7 +152,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="MEMBREC&#xcd;A"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -171,7 +170,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/iconlistama.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="LISTA DE MIEMBROS BAUTIZADOS"/>
+                <Property name="text" type="java.lang.String" value="VER MIEMBROS BAUTIZADOS"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -189,7 +188,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LIDERAZGO"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -204,7 +203,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/iconLiderMarron.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="LISTA DE L&#xcd;DERES DE LA IGLESIA"/>
+                <Property name="text" type="java.lang.String" value="VER LIDERAZGO DE LA IGLESIA"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemIglesiaActionPerformed"/>
@@ -224,7 +223,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/iconLiderBlue.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="LISTA DE L&#xcd;DERES DE MINISTERIOS"/>
+                <Property name="text" type="java.lang.String" value="VER L&#xcd;DERES DE MINISTERIOS"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="iteMinisActionPerformed"/>
@@ -245,7 +244,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="FINANZAS"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -293,9 +292,9 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/users_clients_group_16774.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="USUARIO"/>
+            <Property name="text" type="java.lang.String" value="ADMINISTRADORES"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -310,7 +309,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/ivonLocked.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="REGISTRO DE USUARIOS"/>
+                <Property name="text" type="java.lang.String" value="REGISTRO DE ADMINISTRADORES"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -324,11 +323,11 @@
               <Color blue="33" green="33" red="0" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/database.png"/>
+              <Image iconType="3" name="/Imagenes/iconcopia.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="RESPALDO"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="30" style="1"/>
+              <Font name="Dialog" size="27" style="1"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -459,7 +458,7 @@
                           <Component id="botonOansa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="botoncdi" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>

@@ -145,7 +145,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         }
         //System.err.println("listarIngreso3");
         calcularTotalIngresos();
-        calcularSaldoActual();
+        //calcularSaldoActual();
     }
     
     public void cargarComboTipo() {
@@ -200,7 +200,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
             });
         }
         calcularTotalIngresos();
-        calcularSaldoActual();
+        //calcularSaldoActual();
         //System.err.println("listar Tabla3");
     }
     
@@ -256,13 +256,13 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         return total;
         
     }
-    private void calcularSaldoActual(){
+    /*private void calcularSaldoActual(){
         double totalIngreso = calcularTotalIngresos();
         
         double totalegreso = this.egre.calcularTotalEgresos();
         double saldo = totalIngreso - totalegreso;
         
         vistaListaIngresos.txtsaldo.setText("Saldo: Bs. " + String.format("%.2f", saldo));
-    }
+    }*/
     
 }

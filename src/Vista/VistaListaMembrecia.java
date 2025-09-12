@@ -119,7 +119,7 @@ public class VistaListaMembrecia extends javax.swing.JInternalFrame {
         botonbuscar.setText("BUSCAR");
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaboton.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
         botonlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonlistarActionPerformed(evt);

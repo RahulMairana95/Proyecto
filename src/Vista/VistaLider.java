@@ -153,7 +153,7 @@ public class VistaLider extends javax.swing.JInternalFrame {
         txtnombre.setEditable(false);
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaazul.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
 
         txtmaterno.setEditable(false);
         txtmaterno.addActionListener(new java.awt.event.ActionListener() {

@@ -69,7 +69,7 @@ public class VistaIngreso extends javax.swing.JInternalFrame {
         botonbuscar.setText("BUSCAR");
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaazul.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
 
         jLabel2.setText("Fecha de recibo:");
 

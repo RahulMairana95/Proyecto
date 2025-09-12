@@ -68,7 +68,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
         txtbuscar.setAutoscrolls(false);
 
         botonlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconlistaazul.png"))); // NOI18N
-        botonlistar.setText("RECARGAR");
+        botonlistar.setText("MOSTRAR TODO");
 
         jLabel2.setText("Fecha:");
 
@@ -167,7 +167,7 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
                         .addComponent(botonbuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonlistar)
-                        .addGap(0, 229, Short.MAX_VALUE))
+                        .addGap(0, 198, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -184,9 +184,8 @@ public class VistaEgreso extends javax.swing.JInternalFrame {
                             .addComponent(boxtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(boxpago, javax.swing.GroupLayout.Alignment.LEADING, 0, 146, Short.MAX_VALUE)
-                                .addComponent(boxmotivo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(boxpago, 0, 196, Short.MAX_VALUE)
+                            .addComponent(boxmotivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtlider))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
