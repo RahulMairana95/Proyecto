@@ -81,7 +81,7 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setText("Miembros:");
+        jLabel2.setText("Número de Carnet:");
 
         jLabel3.setText("Apellido Paterno:");
 
@@ -178,7 +178,7 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
         txtbuscarmiembros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         botonci.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ICONLUPABLUE.png"))); // NOI18N
-        botonci.setText("BUSCAR CI");
+        botonci.setText("BUSCAR");
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setPreferredSize(new java.awt.Dimension(373, 3));
@@ -227,17 +227,17 @@ public class VistaLiderMin extends javax.swing.JInternalFrame {
                                     .addComponent(boxcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtbuscarmiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtbuscarmiembros, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonci)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 140, Short.MAX_VALUE)
+                                .addGap(18, 85, Short.MAX_VALUE)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -130,19 +130,21 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         if(vistaMembrecia.botonagregar==ae.getSource()){
             try {
-                agreagarNuevo();
-                limpiartabla(vistaMembrecia.tablademiembros);
-                listar();
-                limpiarventanas();
+                if(agreagarNuevo()){
+                    limpiartabla(vistaMembrecia.tablademiembros);
+                    listar();
+                    limpiarventanas();
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR");
             }
         }else if(vistaMembrecia.botonmodificar==ae.getSource()){
             try {
-                modificar();
-                limpiartabla(vistaMembrecia.tablademiembros);
-                listar();
-                limpiarventanas();
+                if(modificar()){
+                    limpiartabla(vistaMembrecia.tablademiembros);
+                    listar();
+                    limpiarventanas();
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR AL MODIFICAR");
             }
@@ -354,7 +356,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         }
         vistaMembrecia.tablademiembros.setModel(tablaModel);
     }
-    public void agreagarNuevo(){
+    public boolean agreagarNuevo(){
         if(vistaMembrecia.txtnombre.getText().trim().isEmpty()||
                 vistaMembrecia.txtpaterno.getText().trim().isEmpty()||
                 vistaMembrecia.txtmaterno.getText().trim().isEmpty()||
@@ -372,13 +374,14 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
+            return false;
         }else{
             Membrecia membrecia = new Membrecia();
             // Validar duplicado por número de documento
             String documento = vistaMembrecia.txtdocumento.getText().trim();
             if (membreciaDAO.existeDocumento(documento)) {
                 JOptionPane.showMessageDialog(null, "Este miembro ya está registrado con el mismo número de documento.");
-                return;
+                return false;
             }
             System.out.println("probando insert");
             
@@ -424,7 +427,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 membrecia.setTelefono(0); // Valor por defecto si no se ingresa teléfono
             } else if(!telTexto.matches("\\d{8}")){
                 JOptionPane.showMessageDialog(null, "El número de teléfono debe tener exactamente 8 dígitos numéricos.");
-                return;
+                return false;
             } else {
                 
                     membrecia.setTelefono(Integer.parseInt(telTexto));
@@ -434,16 +437,29 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String nomref = vistaMembrecia.txtnomfererencia.getText().trim();
             membrecia.setNomreferencia(capitalizarNombre(nomref));
             
-            membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
+            //membrecia.setNumreferencia(Integer.parseInt(vistaMembrecia.txtnumreferencia.getText()));
+            String telRef = vistaMembrecia.txtnumreferencia.getText().trim();
+            if (telRef.isEmpty()) {
+                membrecia.setNumreferencia(0); // Valor por defecto si no se ingresa teléfono
+            } else if(!telRef.matches("\\d{8}")){
+                JOptionPane.showMessageDialog(null, "El número de teléfono de Referencia debe tener exactamente 8 dígitos numéricos.");
+                return false;
+            } else {
+                
+                    membrecia.setNumreferencia(Integer.parseInt(telRef));
+                
+            }
             
             boolean agregar = membreciaDAO.agregar(membrecia);
             
             if (agregar){
                 JOptionPane.showMessageDialog(null, "¡Nuevo Miembro Registrado!");
+                return true;
             }
+            return false;
         }
     }
-    public void modificar(){
+    public boolean modificar(){
         int fila=vistaMembrecia.tablademiembros.getSelectedRow();
         System.out.println("modificar miembros");
         if(fila==-1){
@@ -466,6 +482,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
                 vistaMembrecia.txtnumreferencia.getText().trim().isEmpty()){
             
             JOptionPane.showMessageDialog(null,"DEBE LLENAR TODOS LOS CAMPOS");
+            return false;
         }else{
             id=lista.get(fila).getIdmembrecia();
             
@@ -500,7 +517,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             String dones=(String) vistaMembrecia.boxdones.getSelectedItem();
             String acti=(String) vistaMembrecia.boxactivo.getSelectedItem();
             String dire=vistaMembrecia.txtdireccion.getText();
-            String tel=vistaMembrecia.txttelefono.getText().trim();
+            //String tel=vistaMembrecia.txttelefono.getText().trim();
             
             String nomref=vistaMembrecia.txtnomfererencia.getText();
             String numref=vistaMembrecia.txtnumreferencia.getText();
@@ -523,23 +540,49 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             membrecia.setActivo(acti);
             membrecia.setDireccion(capitalizarNombre(dire));
             
-             int telefono = 0;
-             if (!tel.isEmpty()){
-                 try {
-                    telefono = Integer.parseInt(tel);  
-                 } catch (NumberFormatException e) {
-                     JOptionPane.showMessageDialog(null, "El número de teléfono no es válido.");
-                        return;
-                 }
-                
-             }
+            String tel = vistaMembrecia.txttelefono.getText().trim();
+                //int telefono = 0;
+
+                // SI EL TELÉFONO ESTÁ VACÍO O ES "--", REGISTRAR NORMAL
+                if (tel.isEmpty() || tel.equals("--")) {
+                    membrecia.setTelefono(0);
+                    //return false;
+                }else {
+
+                    // SI ESCRIBIÓ ALGO, VALIDAR QUE SEA NUMÉRICO
+                    if (!tel.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(null, "El número de teléfono solo debe contener números.");
+                        return false;
+                    }
+
+                    // VALIDAR QUE TENGA 8 DÍGITOS
+                    if (tel.length() != 8) {
+                        JOptionPane.showMessageDialog(null, "El número de teléfono debe tener exactamente 8 dígitos.");
+                        return false;
+                    }
+                    membrecia.setTelefono(Integer.parseInt(tel));
+                }
+
+                // ASIGNAR SI TODO ESTÁ BIEN membrecia.setNumreferencia(Integer.parseInt(telRef));
+                //telefono = Integer.parseInt(tel);
              
-            membrecia.setTelefono(telefono);
+            
             
             membrecia.setNomreferencia(capitalizarNombre(nomref));
             
             
-            membrecia.setNumreferencia(Integer.parseInt(numref));
+            //String telRef = vistaMembrecia.txtnumreferencia.getText().trim();
+            if (numref.isEmpty()) {
+                membrecia.setNumreferencia(0); // Valor por defecto si no se ingresa teléfono
+            } else if(!numref.matches("\\d{8}")){
+                JOptionPane.showMessageDialog(null, "El número de teléfono de Referencia debe tener exactamente 8 dígitos numéricos.");
+                return false;
+            } else {
+                
+                    membrecia.setNumreferencia(Integer.parseInt(numref));
+                
+            }
+            
             
                 System.out.println("probando modificar");
             
@@ -547,9 +590,12 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             
             if(modificado){
                 JOptionPane.showMessageDialog(null, "¡Modificación exitosa!");
+                return true;
             }
             }
+            //return false;
         }
+        return false;
     }
     public void limpiartabla(JTable tabla){
         try {

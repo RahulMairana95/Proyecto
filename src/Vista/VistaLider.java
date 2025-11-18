@@ -79,7 +79,7 @@ public class VistaLider extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setText("Miembros:");
+        jLabel2.setText("Número de Carnet:");
 
         jLabel3.setText("Apellido Paterno:");
 
@@ -176,7 +176,7 @@ public class VistaLider extends javax.swing.JInternalFrame {
         });
 
         botonbuscarmiembros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ICONLUPABLUE.png"))); // NOI18N
-        botonbuscarmiembros.setText("BUSCAR CI");
+        botonbuscarmiembros.setText("BUSCAR");
         botonbuscarmiembros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonbuscarmiembrosActionPerformed(evt);
@@ -237,7 +237,7 @@ public class VistaLider extends javax.swing.JInternalFrame {
                                                 .addComponent(fechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(boxcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txtmaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 59, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,7 +283,7 @@ public class VistaLider extends javax.swing.JInternalFrame {
                             .addComponent(botonbuscarmiembros))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGap(18, 31, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
