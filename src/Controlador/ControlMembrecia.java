@@ -584,7 +584,7 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
             }
             
             
-                System.out.println("probando modificar");
+                //System.out.println("probando modificar");
             
             boolean modificado = membreciaDAO.modificar(membrecia);
             

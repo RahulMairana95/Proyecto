@@ -61,6 +61,7 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         inicializarFechasActuales();
         //System.err.println("listar 300");
         this.vistaListaIngresos.botonreporte.addActionListener(this);
+       // this.vistaListaIngresos.botonfiltrar.addActionListener(this);
         this.vistaListaIngresos.botonlistar.addActionListener(this);
         this.vistaListaIngresos.botonexportar.addActionListener(this);
     }
@@ -71,7 +72,8 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         //ACCION DE EVENTOS
         if(vistaListaIngresos.botonreporte==ae.getSource()){
             try {
-                generarReporte();
+                //generarReporte();
+                generarReporteIngresos();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo agregar");
             }
@@ -88,7 +90,14 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo habilitar");
             } 
-        }
+        }/*else if(vistaListaIngresos.botonfiltrar==ae.getSource()){
+            try {
+                //mostrarLista();
+                //buscarIngresosPorCI();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "No se pudo filtrar");
+            } 
+        }*/
     
     }
     
@@ -182,6 +191,91 @@ public class ControlListaIngresos extends MouseAdapter implements ActionListener
         List<Ingreso> lista = idao.buscarIngresosPorFechaYTipo(fechaDesde, fechaHasta, tipo);
         llenarTablaReporte(lista);
     }
+    
+    public void buscarIngresosPorCI() {
+        // Obtener C.I. del miembro
+        String ci = vistaListaIngresos.txtbuscarci.getText().trim();
+
+        if (ci.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el número de C.I. del miembro.");
+            return;
+        }
+
+        // Obtener fechas desde y hasta de los DateChooser
+        java.sql.Date fechaDesde = null;
+        java.sql.Date fechaHasta = null;
+
+        if (vistaListaIngresos.datedesde.getDate() != null) {
+            fechaDesde = new java.sql.Date(vistaListaIngresos.datedesde.getDate().getTime());
+        }
+
+        if (vistaListaIngresos.datehasta.getDate() != null) {
+            fechaHasta = new java.sql.Date(vistaListaIngresos.datehasta.getDate().getTime());
+        }
+
+        // Llamar al método DAO para buscar ingresos de tipo "diezmo"
+        List<Ingreso> listaIngresos = idao.buscarIngresosPorCIDiezmo(ci, fechaDesde, fechaHasta);
+
+        // Llenar la tabla con los resultados
+        llenarTablaReporte(listaIngresos);
+
+        if (listaIngresos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron ingresos de diezmo para este C.I.");
+        }
+    }
+    public void generarReporteIngresos() {
+        // Obtener C.I. del miembro
+        String ci = vistaListaIngresos.txtbuscarci.getText().trim();
+
+        // Obtener tipo de ingreso seleccionado
+        String tipo = vistaListaIngresos.boxtiposelect.getSelectedItem().toString().trim();
+
+        // Obtener fechas desde y hasta
+        java.sql.Date fechaDesde = null;
+        java.sql.Date fechaHasta = null;
+
+        if (vistaListaIngresos.datedesde.getDate() != null) {
+            fechaDesde = new java.sql.Date(vistaListaIngresos.datedesde.getDate().getTime());
+        }
+
+        if (vistaListaIngresos.datehasta.getDate() != null) {
+            fechaHasta = new java.sql.Date(vistaListaIngresos.datehasta.getDate().getTime());
+        }
+
+        List<Ingreso> listaIngresos;
+
+        if (!ci.isEmpty()) {
+            // Validar que solo se pueda buscar por C.I. si es tipo "Diezmo"
+            if (!tipo.equalsIgnoreCase("Diezmo")) {
+                JOptionPane.showMessageDialog(null, "Solo se puede buscar por C.I. si el tipo de ingreso es Diezmo.");
+                // Limpiar campo de C.I.
+                vistaListaIngresos.txtbuscarci.setText("");
+                return;
+                
+            }
+            
+            // Buscar ingresos tipo diezmo del miembro
+            listaIngresos = idao.buscarIngresosPorCIDiezmo(ci, fechaDesde, fechaHasta);
+        } else {
+            // Buscar por tipo y rango de fechas (todos los miembros)
+            listaIngresos = idao.buscarIngresosPorFechaYTipo(fechaDesde, fechaHasta, tipo);
+        }
+
+        // Limpiar y llenar la tabla
+        llenarTablaReporte(listaIngresos);
+
+        if (listaIngresos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron ingresos para los criterios seleccionados.");
+        }
+
+        // Limpiar campo de C.I.
+        vistaListaIngresos.txtbuscarci.setText("");
+    }
+
+
+
+
+
     
     private void llenarTablaReporte(List<Ingreso> lista) {
         //System.err.println("listar Tabla");

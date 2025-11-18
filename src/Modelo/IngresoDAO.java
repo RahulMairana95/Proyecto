@@ -404,6 +404,75 @@ public class IngresoDAO {
 
         return lista;
     }
+    public List<Ingreso> buscarIngresosPorCIDiezmo(String ci, Date desde, Date hasta) {
+        List<Ingreso> lista = new ArrayList<>();
+        String tipo = "diezmo";  // fijo porque solo nos interesa diezmo
+
+        // Validar si las fechas corresponden a hoy
+        boolean filtrarFechas = (desde != null && hasta != null && !esHoy(desde, hasta));
+
+        String sql = "SELECT i.idingreso, i.fecha, i.tipo_ingreso, i.monto, i.descripcion, " +
+                     "i.idmembrecia, i.idlider, " +
+                     "m1.nombre AS nombre_miembro, m1.apellidop AS apellidop_miembro, m1.apellidom AS apellidom_miembro, " +
+                     "m2.nombre AS nombre_lider, m2.apellidop AS apellidop_lider, m2.apellidom AS apellidom_lider " +
+                     "FROM ingresos i " +
+                     "LEFT JOIN membrecia m1 ON i.idmembrecia = m1.idmembrecia " +
+                     "LEFT JOIN lider l ON i.idlider = l.idlider " +
+                     "LEFT JOIN membrecia m2 ON l.idmembrecia = m2.idmembrecia " +
+                     "WHERE m1.numdocumento = ? AND i.tipo_ingreso = ?";
+
+        if (filtrarFechas) {
+            sql += " AND i.fecha BETWEEN ? AND ?";
+        }
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, ci);
+            ps.setString(2, tipo);
+
+            if (filtrarFechas) {
+                ps.setDate(3, desde);
+                ps.setDate(4, hasta);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Ingreso i = new Ingreso();
+                    i.setIdingreso(rs.getInt("idingreso"));
+                    i.setFecha(rs.getDate("fecha"));
+                    i.setTipo_ingreso(rs.getString("tipo_ingreso"));
+                    i.setMonto(rs.getDouble("monto"));
+                    i.setDescripcion(rs.getString("descripcion"));
+                    i.setIdmembrecia(rs.getInt("idmembrecia"));
+                    i.setIdlider(rs.getInt("idlider"));
+
+                    String nombreMiembro = rs.getString("nombre_miembro") + " " +
+                                           rs.getString("apellidop_miembro") + " " +
+                                           rs.getString("apellidom_miembro");
+                    i.setNombreMiembro(nombreMiembro.trim());
+
+                    String nombreLider = rs.getString("nombre_lider") + " " +
+                                         rs.getString("apellidop_lider") + " " +
+                                         rs.getString("apellidom_lider");
+                    i.setNombreLider(nombreLider.trim());
+
+                    lista.add(i);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    private boolean esHoy(Date desde, Date hasta) {
+        Date hoy = new Date(System.currentTimeMillis());
+        return desde.equals(hoy) && hasta.equals(hoy);
+    }
+
 
 
 }
