@@ -427,6 +427,8 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
 
     /////////MODIFICAR REGISTRO
     public void modificarIngreso() {
+        String tipoIngreso = vistaIngreso.boxingreso.getSelectedItem().toString();
+        String miembroTexto = vistaIngreso.txtmiembro.getText().trim();
         if (id == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila para modificar");
             return;
@@ -438,10 +440,16 @@ public class ControlIngreso extends MouseAdapter implements ActionListener{
             String tipo = vistaIngreso.boxingreso.getSelectedItem().toString();
             double monto = Double.parseDouble(vistaIngreso.txtmonto.getText());
             String descripcion = vistaIngreso.txtdescripcion.getText();
+            
+            // Validación especial para miembro
+        if (tipoIngreso.equalsIgnoreCase("Diezmo") && (miembroTexto.isEmpty() || miembroTexto.equals("--"))) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un miembro para el Diezmo.");
+            return;
+        }
 
             /*Membrecia miembro = (Membrecia) vistaIngreso.boxmiembro.getSelectedItem();
             //Lideriglesia lider = (Lideriglesia) vistaIngreso.boxlider.getSelectedItem();
-
+            
             if (miembro == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un miembro");
                 return;

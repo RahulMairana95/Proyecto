@@ -775,6 +775,10 @@ public class ControlMembrecia extends MouseAdapter implements ActionListener{
         
     }
     public void llenarTablaMembrecia(List<Membrecia> lista) {
+        
+            // Activar scroll horizontal
+        //vistaMembrecia.tablademiembros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
         DefaultTableModel modelo = (DefaultTableModel) vistaMembrecia.tablademiembros.getModel(); // Asegúrate que este nombre sea correcto
         modelo.setRowCount(0); // Limpiar la tabla
 

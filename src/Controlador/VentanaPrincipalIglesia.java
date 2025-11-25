@@ -20,6 +20,7 @@ import javax.swing.JInternalFrame;
  * @author RAHUL
  */
 public class VentanaPrincipalIglesia implements ActionListener{
+    InactividadSistema inactividad;
     VentanaPrincipal ventanaPrincipal;
     JDesktopPane panel;
     ImageIcon imagen;
@@ -107,6 +108,11 @@ public class VentanaPrincipalIglesia implements ActionListener{
             ventanaPrincipal.itemmiembros.setEnabled(true);
             ventanaPrincipal.itemrespaldo.setEnabled(false);
         }
+        
+            // ===============================
+            // INACTIVIDAD: 5 minutos = 300000 ms
+            // ===============================
+            inactividad = new InactividadSistema(60000, () -> cerrarSesion());
     }
 
     @Override
@@ -390,5 +396,17 @@ public class VentanaPrincipalIglesia implements ActionListener{
             e.printStackTrace();
         }
     }
+    private void cerrarSesion() {
+        ventanaPrincipal.dispose(); // cerrar ventana principal
+
+        // Abrir login
+        Usuario login = new Usuario();
+        ControlCuenta controlLogin = new ControlCuenta(login);
+        login.setVisible(true);
+
+        javax.swing.JOptionPane.showMessageDialog(null, 
+            "Sesión cerrada por inactividad.");
+    }
+
 
 }

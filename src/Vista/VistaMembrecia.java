@@ -9,6 +9,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 /**
@@ -22,6 +23,28 @@ public class VistaMembrecia extends javax.swing.JInternalFrame {
      */
     public VistaMembrecia() {
         initComponents();
+        
+        
+        
+        /*// Activar scroll horizontal
+    tablademiembros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    // Ajustar anchos de columnas (15 columnas)
+    tablademiembros.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre
+    tablademiembros.getColumnModel().getColumn(1).setPreferredWidth(150); // Apellido Paterno
+    tablademiembros.getColumnModel().getColumn(2).setPreferredWidth(150); // Apellido Materno
+    tablademiembros.getColumnModel().getColumn(3).setPreferredWidth(120); // CI
+    tablademiembros.getColumnModel().getColumn(4).setPreferredWidth(130); // Fecha Nacimiento
+    tablademiembros.getColumnModel().getColumn(5).setPreferredWidth(120); // Estado Civil
+    tablademiembros.getColumnModel().getColumn(6).setPreferredWidth(130); // Fecha Conversión
+    tablademiembros.getColumnModel().getColumn(7).setPreferredWidth(130); // Fecha Bautizo
+    tablademiembros.getColumnModel().getColumn(8).setPreferredWidth(200); // Talentos
+    tablademiembros.getColumnModel().getColumn(9).setPreferredWidth(200); // Dones
+    tablademiembros.getColumnModel().getColumn(10).setPreferredWidth(80);  // Activo
+    tablademiembros.getColumnModel().getColumn(11).setPreferredWidth(200); // Dirección
+    tablademiembros.getColumnModel().getColumn(12).setPreferredWidth(120); // Teléfono
+    tablademiembros.getColumnModel().getColumn(13).setPreferredWidth(150); // Nombre Referencia
+    tablademiembros.getColumnModel().getColumn(14).setPreferredWidth(150); // Número Referencia*/
     }
 
     /**

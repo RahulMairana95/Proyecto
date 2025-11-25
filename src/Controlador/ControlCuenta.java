@@ -30,6 +30,16 @@ public class ControlCuenta implements ActionListener {
         iniciar.setVisible(true);
         iniciar.botonenter.addActionListener(this);
     }
+    // Constructor agregado (para cerrar sesión)
+    public ControlCuenta(Usuario iniciar) {
+        this.iniciar = iniciar;
+        this.validarAdmin = new ValidarAdmin(); 
+        iniciar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        iniciar.setLocationRelativeTo(null);
+        iniciar.setResizable(false);
+        iniciar.setVisible(true);
+        iniciar.botonenter.addActionListener(this);
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
